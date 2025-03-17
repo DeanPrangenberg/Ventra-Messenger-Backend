@@ -15,7 +15,6 @@ Dieses Dokument beschreibt die **Container-Struktur** des Backends und die **Mod
 
 **Technologie**:
 - Nginx oder Traefik (als Reverse-Proxy).
-- Konfiguration: [Siehe `nginx.conf`](#docker-compose-setup).
 
 ---
 
