@@ -26,10 +26,14 @@ add_executable(CryptGuard
     src/Crypto/ChaCha20.h
     src/Crypto/AES256.cpp
     src/Crypto/AES256.h
-    src/Crypto/CryptoSet.h
-    src/Crypto/CryptoSet.cpp
+    src/Crypto/EncryptionEnv.h
+    src/Crypto/EncryptionEnv.cpp
     src/HelperUtils/HelperUtils.cpp
     src/HelperUtils/HelperUtils.h
+    src/Crypto/Blake2.cpp
+    src/Crypto/Blake2.h
+    src/Crypto/HashingEnv.h
+    src/Crypto/HashingEnv.cpp
 )
 
 # Link libraries

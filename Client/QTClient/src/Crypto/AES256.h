@@ -12,10 +12,10 @@
 #include <cstring>
 
 namespace Crypto {
-  class CryptoSet;
+  class EncryptionEnv;
 
   class AES256 {
-    friend class CryptoSet;
+    friend class EncryptionEnv;
   private:
     static bool encrypt(const uint8_t *plaintext, size_t plaintext_len, const uint8_t *key, const uint8_t *iv,
                         uint8_t *tag, uint8_t *ciphertext);
