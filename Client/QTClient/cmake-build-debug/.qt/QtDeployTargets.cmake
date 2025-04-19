@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_CryptGuard_FILE /home/deanprangenberg/dev/CryptGuard-Messenger/build/QTClient/Debug/CryptGuard)
+set(__QT_DEPLOY_TARGET_CryptGuard_TYPE EXECUTABLE)
