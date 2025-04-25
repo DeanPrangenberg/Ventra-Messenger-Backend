@@ -4,6 +4,6 @@
 -- OpenSSL include dir: /usr/include
 -- OpenSSL SSL lib: /usr/lib64/libssl.so
 -- OpenSSL crypto lib: /usr/lib64/libcrypto.so
--- Configuring done (0.2s)
+-- Configuring done (0.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-debug

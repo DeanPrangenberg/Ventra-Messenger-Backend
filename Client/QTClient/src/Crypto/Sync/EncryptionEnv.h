@@ -8,13 +8,13 @@
 #include <vector>
 #include "ChaCha20.h"
 #include "AES256.h"
+#include "../KeyEnv/KeyEnv.h"
 #include <memory>
 
 namespace Crypto {
   enum class EncAlgorithm {
     AES256,
-    ChaCha20,
-    Blake2
+    ChaCha20
   };
 
   class EncryptionEnv {

@@ -6,8 +6,10 @@ namespace Crypto {
   }
 
   bool HashingEnv::generateParameters() {
-    if (algorithm == HashAlgorithm::Blake2) {
+    if (algorithm == HashAlgorithm::BLAKE2b512) {
       hashValue.resize(64);
+    } else if (algorithm == HashAlgorithm::BLAKE2s256) {
+      hashValue.resize(32);
     } else {
       return false;
     }
@@ -21,9 +23,14 @@ namespace Crypto {
 
     generateParameters();
 
-    if (algorithm == HashAlgorithm::Blake2) {
+    if (algorithm == HashAlgorithm::BLAKE2b512) {
       unsigned int hashSize = 0;
-      if (Blake2::hashData(plainData.data(), plainData.size(), hashValue.data(), &hashSize)) {
+      if (BLAKE2b512::hashData(plainData.data(), plainData.size(), hashValue.data(), &hashSize)) {
+        return true;
+      }
+    } else if (algorithm == HashAlgorithm::BLAKE2s256) {
+      unsigned int hashSize = 0;
+      if (BLAKE2s256::hashData(plainData.data(), plainData.size(), hashValue.data(), &hashSize)) {
         return true;
       }
     }

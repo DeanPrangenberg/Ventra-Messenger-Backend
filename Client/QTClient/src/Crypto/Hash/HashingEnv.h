@@ -6,11 +6,13 @@
 #define HASHINGENV_H
 
 #include <vector>
-#include "Blake2.h"
+#include "BLAKE2b512.h"
+#include "BLAKE2s256.h"
 
 namespace Crypto {
   enum class HashAlgorithm {
-    Blake2
+    BLAKE2b512,
+    BLAKE2s256
   };
 
   class HashingEnv {

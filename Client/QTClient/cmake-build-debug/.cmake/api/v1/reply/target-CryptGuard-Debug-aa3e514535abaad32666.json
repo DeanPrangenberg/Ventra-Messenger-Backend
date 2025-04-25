@@ -44,7 +44,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 40,
+				"line" : 55,
 				"parent" : 0
 			},
 			{
@@ -198,7 +198,14 @@
 				7,
 				8,
 				10,
-				13
+				13,
+				14,
+				16,
+				18,
+				20,
+				23,
+				24,
+				27
 			]
 		}
 	],
@@ -283,7 +290,14 @@
 				7,
 				8,
 				10,
-				13
+				13,
+				14,
+				16,
+				18,
+				20,
+				23,
+				24,
+				27
 			]
 		},
 		{
@@ -295,21 +309,29 @@
 				6,
 				9,
 				11,
-				12
+				12,
+				15,
+				17,
+				19,
+				21,
+				22,
+				26,
+				28
 			]
 		},
 		{
 			"name" : "",
 			"sourceIndexes" : 
 			[
-				14
+				25,
+				29
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				15
+				30
 			]
 		}
 	],
@@ -331,34 +353,34 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/Crypto/ChaCha20.cpp",
+			"path" : "src/Crypto/Sync/ChaCha20.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/Crypto/ChaCha20.h",
+			"path" : "src/Crypto/Sync/ChaCha20.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/Crypto/AES256.cpp",
+			"path" : "src/Crypto/Sync/AES256.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/Crypto/AES256.h",
+			"path" : "src/Crypto/Sync/AES256.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/Crypto/EncryptionEnv.h",
+			"path" : "src/Crypto/Sync/EncryptionEnv.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/Crypto/EncryptionEnv.cpp",
+			"path" : "src/Crypto/Sync/EncryptionEnv.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -375,24 +397,106 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/Crypto/Blake2.cpp",
+			"path" : "src/Crypto/Hash/BLAKE2b512.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/Crypto/Blake2.h",
+			"path" : "src/Crypto/Hash/BLAKE2b512.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/Crypto/HashingEnv.h",
+			"path" : "src/Crypto/Hash/HashingEnv.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/Crypto/HashingEnv.cpp",
+			"path" : "src/Crypto/Hash/HashingEnv.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/Crypto/Hash/BLAKE2s256.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/Crypto/Hash/BLAKE2s256.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/Crypto/KeyEnv/KeyEnv.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/Crypto/KeyEnv/KeyEnv.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/Crypto/KeyEnv/X25519KeyPair.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/Crypto/KeyEnv/X25519KeyPair.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/Crypto/KeyEnv/RandomVec.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/Crypto/KeyEnv/RandomVec.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/Double Ratchet/DoubleRatchet.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/Double Ratchet/DoubleRatchet.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/ThreadPool/ThreadPool.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ThreadPool/ThreadPool.tpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ThreadPool/ThreadPool.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/ThreadPool/ThreadSaveVector.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ThreadPool/ThreadSaveVector.h",
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 0,

@@ -393,39 +393,81 @@
 	"HEADERS" : 
 	[
 		[
-			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/AES256.h",
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Hash/BLAKE2b512.h",
 			"MU",
-			"RXYJK4TAKH/moc_AES256.cpp",
+			"WOZAI3NA6F/moc_BLAKE2b512.cpp",
 			null
 		],
 		[
-			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Blake2.h",
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Hash/BLAKE2s256.h",
 			"MU",
-			"RXYJK4TAKH/moc_Blake2.cpp",
+			"WOZAI3NA6F/moc_BLAKE2s256.cpp",
 			null
 		],
 		[
-			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/ChaCha20.h",
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Hash/HashingEnv.h",
 			"MU",
-			"RXYJK4TAKH/moc_ChaCha20.cpp",
+			"WOZAI3NA6F/moc_HashingEnv.cpp",
 			null
 		],
 		[
-			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/EncryptionEnv.h",
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/KeyEnv/KeyEnv.h",
 			"MU",
-			"RXYJK4TAKH/moc_EncryptionEnv.cpp",
+			"ILRUGZ5LD7/moc_KeyEnv.cpp",
 			null
 		],
 		[
-			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/HashingEnv.h",
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/KeyEnv/RandomVec.h",
 			"MU",
-			"RXYJK4TAKH/moc_HashingEnv.cpp",
+			"ILRUGZ5LD7/moc_RandomVec.cpp",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/KeyEnv/X25519KeyPair.h",
+			"MU",
+			"ILRUGZ5LD7/moc_X25519KeyPair.cpp",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Sync/AES256.h",
+			"MU",
+			"O2OEMXPY5S/moc_AES256.cpp",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Sync/ChaCha20.h",
+			"MU",
+			"O2OEMXPY5S/moc_ChaCha20.cpp",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Sync/EncryptionEnv.h",
+			"MU",
+			"O2OEMXPY5S/moc_EncryptionEnv.cpp",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Double Ratchet/DoubleRatchet.h",
+			"MU",
+			"4TBWC4KBDB/moc_DoubleRatchet.cpp",
 			null
 		],
 		[
 			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/HelperUtils/HelperUtils.h",
 			"MU",
 			"HGTW64DVI5/moc_HelperUtils.cpp",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/ThreadPool/ThreadPool.h",
+			"MU",
+			"SOTWSWKKA7/moc_ThreadPool.cpp",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/ThreadPool/ThreadSaveVector.h",
+			"MU",
+			"SOTWSWKKA7/moc_ThreadSaveVector.cpp",
 			null
 		]
 	],
@@ -488,32 +530,67 @@
 	"SOURCES" : 
 	[
 		[
-			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/AES256.cpp",
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Hash/BLAKE2b512.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Blake2.cpp",
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Hash/BLAKE2s256.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/ChaCha20.cpp",
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Hash/HashingEnv.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/EncryptionEnv.cpp",
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/KeyEnv/KeyEnv.cpp",
 			"MU",
 			null
 		],
 		[
-			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/HashingEnv.cpp",
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/KeyEnv/RandomVec.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/KeyEnv/X25519KeyPair.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Sync/AES256.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Sync/ChaCha20.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Sync/EncryptionEnv.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Double Ratchet/DoubleRatchet.cpp",
 			"MU",
 			null
 		],
 		[
 			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/HelperUtils/HelperUtils.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/ThreadPool/ThreadPool.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/ThreadPool/ThreadSaveVector.cpp",
 			"MU",
 			null
 		],
