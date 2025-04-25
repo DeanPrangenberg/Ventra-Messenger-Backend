@@ -3,6 +3,7 @@
 namespace Crypto {
   EncryptionEnv::EncryptionEnv(EncAlgorithm inAlgorithm) {
     algorithm = inAlgorithm;
+    generateParameters();
   }
 
   bool EncryptionEnv::startEncryption() {
@@ -51,16 +52,8 @@ namespace Crypto {
         return false;
       }
 
-      // Ensure memory is properly aligned
-      std::unique_ptr<unsigned char[]> temp_key(new unsigned char[key.size()]);
-      std::unique_ptr<unsigned char[]> temp_iv(new unsigned char[iv.size()]);
-
-      if (RAND_bytes(temp_key.get(), static_cast<int>(key.size())) != 1) return false;
-      if (RAND_bytes(temp_iv.get(), static_cast<int>(iv.size())) != 1) return false;
-
-      std::copy(temp_key.get(), temp_key.get() + key.size(), key.data());
-      std::copy(temp_iv.get(), temp_iv.get() + iv.size(), iv.data());
-
+      KeyEnv keyEnv(KeyType::KeyIv);
+      keyEnv.startKeyIvGeneration(key, iv);
       return true;
     } catch (const std::exception &) {
       return false;

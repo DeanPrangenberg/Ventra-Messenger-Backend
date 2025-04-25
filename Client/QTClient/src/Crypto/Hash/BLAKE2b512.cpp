@@ -2,10 +2,10 @@
 // Created by deanprangenberg on 19.04.25.
 //
 
-#include "Blake2.h"
+#include "BLAKE2b512.h"
 
 namespace Crypto {
-  bool Blake2::hashData(const uint8_t *data, size_t size, uint8_t *hash, unsigned int *hashSize) {
+  bool BLAKE2b512::hashData(const uint8_t *data, size_t size, uint8_t *hash, unsigned int *hashSize) {
     EVP_MD_CTX *mdctx = EVP_MD_CTX_new();
 
     try {

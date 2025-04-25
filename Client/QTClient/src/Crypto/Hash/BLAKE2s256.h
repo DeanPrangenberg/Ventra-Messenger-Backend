@@ -2,16 +2,16 @@
 // Created by deanprangenberg on 19.04.25.
 //
 
-#ifndef BLAKE2_H
-#define BLAKE2_H
+#ifndef BLAKE2S256_H
+#define BLAKE2S256_H
 
-#include "EncryptionEnv.h"
+#include "../Sync/EncryptionEnv.h"
 #include <openssl/evp.h>
 
 namespace Crypto {
   class EncryptionEnv;
 
-  class Blake2 {
+  class BLAKE2s256 {
     friend class EncryptionEnv;
   public:
 
@@ -20,4 +20,4 @@ namespace Crypto {
 };
 
 
-#endif //BLAKE2_H
+#endif //BLAKE2S256_H

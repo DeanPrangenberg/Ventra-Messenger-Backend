@@ -65,29 +65,29 @@ build CMakeFiles/CryptGuard.dir/src/main.cpp.o: CXX_COMPILER__CryptGuard_unscann
   OBJECT_DIR = CMakeFiles/CryptGuard.dir
   OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src
 
-build CMakeFiles/CryptGuard.dir/src/Crypto/ChaCha20.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/ChaCha20.cpp || cmake_object_order_depends_target_CryptGuard
+build CMakeFiles/CryptGuard.dir/src/Crypto/Sync/ChaCha20.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Sync/ChaCha20.cpp || cmake_object_order_depends_target_CryptGuard
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/ChaCha20.cpp.o.d
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/Sync/ChaCha20.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
   OBJECT_DIR = CMakeFiles/CryptGuard.dir
-  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto/Sync
 
-build CMakeFiles/CryptGuard.dir/src/Crypto/AES256.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/AES256.cpp || cmake_object_order_depends_target_CryptGuard
+build CMakeFiles/CryptGuard.dir/src/Crypto/Sync/AES256.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Sync/AES256.cpp || cmake_object_order_depends_target_CryptGuard
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/AES256.cpp.o.d
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/Sync/AES256.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
   OBJECT_DIR = CMakeFiles/CryptGuard.dir
-  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto/Sync
 
-build CMakeFiles/CryptGuard.dir/src/Crypto/EncryptionEnv.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/EncryptionEnv.cpp || cmake_object_order_depends_target_CryptGuard
+build CMakeFiles/CryptGuard.dir/src/Crypto/Sync/EncryptionEnv.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Sync/EncryptionEnv.cpp || cmake_object_order_depends_target_CryptGuard
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/EncryptionEnv.cpp.o.d
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/Sync/EncryptionEnv.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
   OBJECT_DIR = CMakeFiles/CryptGuard.dir
-  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto/Sync
 
 build CMakeFiles/CryptGuard.dir/src/HelperUtils/HelperUtils.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/HelperUtils/HelperUtils.cpp || cmake_object_order_depends_target_CryptGuard
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
@@ -97,21 +97,77 @@ build CMakeFiles/CryptGuard.dir/src/HelperUtils/HelperUtils.cpp.o: CXX_COMPILER_
   OBJECT_DIR = CMakeFiles/CryptGuard.dir
   OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/HelperUtils
 
-build CMakeFiles/CryptGuard.dir/src/Crypto/Blake2.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Blake2.cpp || cmake_object_order_depends_target_CryptGuard
+build CMakeFiles/CryptGuard.dir/src/Crypto/Hash/BLAKE2b512.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Hash/BLAKE2b512.cpp || cmake_object_order_depends_target_CryptGuard
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/Blake2.cpp.o.d
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/Hash/BLAKE2b512.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
   OBJECT_DIR = CMakeFiles/CryptGuard.dir
-  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto/Hash
 
-build CMakeFiles/CryptGuard.dir/src/Crypto/HashingEnv.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/HashingEnv.cpp || cmake_object_order_depends_target_CryptGuard
+build CMakeFiles/CryptGuard.dir/src/Crypto/Hash/HashingEnv.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Hash/HashingEnv.cpp || cmake_object_order_depends_target_CryptGuard
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/HashingEnv.cpp.o.d
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/Hash/HashingEnv.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
   OBJECT_DIR = CMakeFiles/CryptGuard.dir
-  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto/Hash
+
+build CMakeFiles/CryptGuard.dir/src/Crypto/Hash/BLAKE2s256.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/Hash/BLAKE2s256.cpp || cmake_object_order_depends_target_CryptGuard
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/Hash/BLAKE2s256.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
+  OBJECT_DIR = CMakeFiles/CryptGuard.dir
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto/Hash
+
+build CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/KeyEnv.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/KeyEnv/KeyEnv.cpp || cmake_object_order_depends_target_CryptGuard
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/KeyEnv.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
+  OBJECT_DIR = CMakeFiles/CryptGuard.dir
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv
+
+build CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/X25519KeyPair.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/KeyEnv/X25519KeyPair.cpp || cmake_object_order_depends_target_CryptGuard
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/X25519KeyPair.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
+  OBJECT_DIR = CMakeFiles/CryptGuard.dir
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv
+
+build CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/RandomVec.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Crypto/KeyEnv/RandomVec.cpp || cmake_object_order_depends_target_CryptGuard
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/RandomVec.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
+  OBJECT_DIR = CMakeFiles/CryptGuard.dir
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv
+
+build CMakeFiles/CryptGuard.dir/src/Double_Ratchet/DoubleRatchet.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/Double$ Ratchet/DoubleRatchet.cpp || cmake_object_order_depends_target_CryptGuard
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/Double_Ratchet/DoubleRatchet.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
+  OBJECT_DIR = CMakeFiles/CryptGuard.dir
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/Double_Ratchet
+
+build CMakeFiles/CryptGuard.dir/src/ThreadPool/ThreadPool.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/ThreadPool/ThreadPool.cpp || cmake_object_order_depends_target_CryptGuard
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/ThreadPool/ThreadPool.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
+  OBJECT_DIR = CMakeFiles/CryptGuard.dir
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/ThreadPool
+
+build CMakeFiles/CryptGuard.dir/src/ThreadPool/ThreadSaveVector.cpp.o: CXX_COMPILER__CryptGuard_unscanned_Release /home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/src/ThreadPool/ThreadSaveVector.cpp || cmake_object_order_depends_target_CryptGuard
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/CryptGuard.dir/src/ThreadPool/ThreadSaveVector.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -I/home/deanprangenberg/dev/CryptGuard-Messenger/Client/QTClient/cmake-build-release/CryptGuard_autogen/include -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets
+  OBJECT_DIR = CMakeFiles/CryptGuard.dir
+  OBJECT_FILE_DIR = CMakeFiles/CryptGuard.dir/src/ThreadPool
 
 
 # =============================================================================
@@ -121,7 +177,7 @@ build CMakeFiles/CryptGuard.dir/src/Crypto/HashingEnv.cpp.o: CXX_COMPILER__Crypt
 #############################################
 # Link the executable /home/deanprangenberg/dev/CryptGuard-Messenger/build/QTClient/Release/CryptGuard
 
-build /home/deanprangenberg/dev/CryptGuard-Messenger/build/QTClient/Release/CryptGuard: CXX_EXECUTABLE_LINKER__CryptGuard_Release CMakeFiles/CryptGuard.dir/CryptGuard_autogen/mocs_compilation.cpp.o CMakeFiles/CryptGuard.dir/src/main.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/ChaCha20.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/AES256.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/EncryptionEnv.cpp.o CMakeFiles/CryptGuard.dir/src/HelperUtils/HelperUtils.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/Blake2.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/HashingEnv.cpp.o | /usr/lib64/libQt6Widgets.so.6.8.2 /usr/lib64/libssl.so /usr/lib64/libcrypto.so /usr/lib64/libQt6Gui.so.6.8.2 /usr/lib64/libGLX.so /usr/lib64/libOpenGL.so /usr/lib64/libQt6Core.so.6.8.2 || CryptGuard_autogen CryptGuard_autogen_timestamp_deps
+build /home/deanprangenberg/dev/CryptGuard-Messenger/build/QTClient/Release/CryptGuard: CXX_EXECUTABLE_LINKER__CryptGuard_Release CMakeFiles/CryptGuard.dir/CryptGuard_autogen/mocs_compilation.cpp.o CMakeFiles/CryptGuard.dir/src/main.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/Sync/ChaCha20.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/Sync/AES256.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/Sync/EncryptionEnv.cpp.o CMakeFiles/CryptGuard.dir/src/HelperUtils/HelperUtils.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/Hash/BLAKE2b512.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/Hash/HashingEnv.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/Hash/BLAKE2s256.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/KeyEnv.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/X25519KeyPair.cpp.o CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/RandomVec.cpp.o CMakeFiles/CryptGuard.dir/src/Double_Ratchet/DoubleRatchet.cpp.o CMakeFiles/CryptGuard.dir/src/ThreadPool/ThreadPool.cpp.o CMakeFiles/CryptGuard.dir/src/ThreadPool/ThreadSaveVector.cpp.o | /usr/lib64/libQt6Widgets.so.6.8.2 /usr/lib64/libssl.so /usr/lib64/libcrypto.so /usr/lib64/libQt6Gui.so.6.8.2 /usr/lib64/libGLX.so /usr/lib64/libOpenGL.so /usr/lib64/libQt6Core.so.6.8.2 || CryptGuard_autogen CryptGuard_autogen_timestamp_deps
   DEP_FILE = CMakeFiles/CryptGuard.dir/link.d
   FLAGS = -O3 -DNDEBUG
   LINK_FLAGS = -Wl,--dependency-file=CMakeFiles/CryptGuard.dir/link.d

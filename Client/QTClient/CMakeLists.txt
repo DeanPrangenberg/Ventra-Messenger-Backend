@@ -22,18 +22,33 @@ find_package(OpenSSL REQUIRED)
 # Add executable
 add_executable(CryptGuard
     src/main.cpp
-    src/Crypto/ChaCha20.cpp
-    src/Crypto/ChaCha20.h
-    src/Crypto/AES256.cpp
-    src/Crypto/AES256.h
-    src/Crypto/EncryptionEnv.h
-    src/Crypto/EncryptionEnv.cpp
+    src/Crypto/Sync/ChaCha20.cpp
+    src/Crypto/Sync/ChaCha20.h
+    src/Crypto/Sync/AES256.cpp
+    src/Crypto/Sync/AES256.h
+    src/Crypto/Sync/EncryptionEnv.h
+    src/Crypto/Sync/EncryptionEnv.cpp
     src/HelperUtils/HelperUtils.cpp
     src/HelperUtils/HelperUtils.h
-    src/Crypto/Blake2.cpp
-    src/Crypto/Blake2.h
-    src/Crypto/HashingEnv.h
-    src/Crypto/HashingEnv.cpp
+    src/Crypto/Hash/BLAKE2b512.cpp
+    src/Crypto/Hash/BLAKE2b512.h
+    src/Crypto/Hash/HashingEnv.h
+    src/Crypto/Hash/HashingEnv.cpp
+    src/Crypto/Hash/BLAKE2s256.cpp
+    src/Crypto/Hash/BLAKE2s256.h
+    src/Crypto/KeyEnv/KeyEnv.cpp
+    src/Crypto/KeyEnv/KeyEnv.h
+    src/Crypto/KeyEnv/X25519KeyPair.cpp
+    src/Crypto/KeyEnv/X25519KeyPair.h
+    src/Crypto/KeyEnv/RandomVec.cpp
+    src/Crypto/KeyEnv/RandomVec.h
+    "src/Double Ratchet/DoubleRatchet.h"
+    "src/Double Ratchet/DoubleRatchet.cpp"
+    src/ThreadPool/ThreadPool.cpp
+    src/ThreadPool/ThreadPool.tpp
+    src/ThreadPool/ThreadPool.h
+    src/ThreadPool/ThreadSaveVector.cpp
+    src/ThreadPool/ThreadSaveVector.h
 )
 
 # Link libraries
