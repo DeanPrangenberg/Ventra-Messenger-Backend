@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="CryptGuard" targetName="CryptGuard" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9e8715d1-d843-43b7-873c-95e7a5699c8a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/CryptGuard-Messenger.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Hash/HKDF.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Hash/HKDF.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/.idea/QTClient.iml" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/.idea/QTClient.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/.idea/QtSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/.idea/QtSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/.idea/discord.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/query/cache-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/query/codemodel-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/query/toolchains-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/reply/cache-v2-98301d2021572721a1c1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-9efe2dc52159b3788869.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-8acebdd5113e516e56ce.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/reply/index-2025-04-25T15-36-16-0123.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/reply/target-CryptGuard-Debug-aa3e514535abaad32666.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/reply/target-CryptGuard_autogen-Debug-eba96b480ae54c135dba.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/reply/target-CryptGuard_autogen_timestamp_deps-Debug-82d88f31a87995c36b3d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-78bf6c8137bca6641f9b.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.ninja_deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.ninja_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.qt/QtDeploySupport.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/.qt/QtDeployTargets.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/3.31.6/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/3.31.6/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/3.31.6/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/3.31.6/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/3.31.6/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/3.31.6/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/3.31.6/CompilerIdC/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/3.31.6/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/3.31.6/CompilerIdCXX/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/CryptGuard_autogen/mocs_compilation.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/AES256.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/BLAKE2b512.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/BLAKE2s256.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/Blake2.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/ChaCha20.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/CryptoSet.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/EncryptionEnv.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/Hash/BLAKE2b512.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/Hash/BLAKE2s256.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/Hash/HashingEnv.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/HashingEnv.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/KeyEnv.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/RandomVec.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/X25519KeyPair.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/Sync/AES256.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/Sync/ChaCha20.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Crypto/Sync/EncryptionEnv.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/Double_Ratchet/DoubleRatchet.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/HelperUtils/HelperUtils.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/ThreadPool/ThreadPool.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/ThreadPool/ThreadSaveVector.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard.dir/src/main.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard_autogen.dir/AutogenInfo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard_autogen.dir/AutogenUsed.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/CryptGuard_autogen.dir/ParseCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/clean_additional.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CryptGuard_autogen/deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CryptGuard_autogen/moc_predefs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CryptGuard_autogen/mocs_compilation.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/CryptGuard_autogen/timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/build.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-debug/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/query/cache-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/query/cmakeFiles-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/query/codemodel-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/query/toolchains-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/reply/cache-v2-4d38e3045a8306f6f70f.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/reply/cmakeFiles-v1-59cf592f8a15297b75c6.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/reply/codemodel-v2-e2c001c93a6c59a105bd.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/reply/directory-.-Release-f5ebdc15457944623624.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/reply/index-2025-04-25T15-36-16-0120.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/reply/target-CryptGuard-Release-5c8c573da58eb66087e6.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/reply/target-CryptGuard_autogen-Release-4184e1d6559fd37290ec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/reply/target-CryptGuard_autogen_timestamp_deps-Release-82d88f31a87995c36b3d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.cmake/api/v1/reply/toolchains-v1-78bf6c8137bca6641f9b.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.qt/QtDeploySupport.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/.qt/QtDeployTargets.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/3.31.6/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/3.31.6/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/3.31.6/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/3.31.6/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/3.31.6/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/3.31.6/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/3.31.6/CompilerIdC/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/3.31.6/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/3.31.6/CompilerIdCXX/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/CryptGuard_autogen.dir/AutogenInfo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/clean_additional.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/clion-Release-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/CMakeFiles/rules.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/build.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/cmake-build-release/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Hash/BLAKE2b512.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Hash/BLAKE2b512.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Hash/BLAKE2b512.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Hash/BLAKE2b512.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Hash/BLAKE2s256.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Hash/BLAKE2s256.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Hash/BLAKE2s256.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Hash/BLAKE2s256.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Hash/HashingEnv.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Hash/HashingEnv.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Hash/HashingEnv.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Hash/HashingEnv.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/KeyEnv/KeyEnv.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/KeyEnv/KeyEnv.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/KeyEnv/KeyEnv.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/KeyEnv/KeyEnv.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/KeyEnv/RandomVec.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/KeyEnv/RandomVec.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/KeyEnv/RandomVec.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/KeyEnv/RandomVec.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/KeyEnv/X25519KeyPair.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/KeyEnv/X25519KeyPair.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/KeyEnv/X25519KeyPair.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/KeyEnv/X25519KeyPair.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Sync/AES256.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Encryption/AES256.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Sync/AES256.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Encryption/AES256.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Sync/ChaCha20.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Encryption/ChaCha20.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Sync/ChaCha20.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Encryption/ChaCha20.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Sync/EncryptionEnv.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Encryption/EncryptionEnv.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Crypto/Sync/EncryptionEnv.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Crypto/Encryption/EncryptionEnv.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Double Ratchet/DoubleRatchet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Double Ratchet/DoubleRatchet.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/Double Ratchet/DoubleRatchet.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Double Ratchet/DoubleRatchet.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/HelperUtils/HelperUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/HelperUtils/HelperUtils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/HelperUtils/HelperUtils.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/HelperUtils/HelperUtils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/ThreadPool/ThreadPool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/ThreadPool/ThreadPool.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/ThreadPool/ThreadPool.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/ThreadPool/ThreadPool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/ThreadPool/ThreadPool.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/ThreadPool/ThreadPool.tpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/ThreadPool/ThreadSaveVector.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/ThreadPool/ThreadSaveVector.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/ThreadPool/ThreadSaveVector.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/ThreadPool/ThreadSaveVector.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/QTClient/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/.idea/RustClient.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/Cargo.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/src/aes_gcm.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/src/main.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/.rustc_info.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/CACHEDIR.TAG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.cargo-lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-5ad2644110d2ca41/dep-test-bin-RustClient" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-5ad2644110d2ca41/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-5ad2644110d2ca41/output-test-bin-RustClient" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-5ad2644110d2ca41/test-bin-RustClient" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-5ad2644110d2ca41/test-bin-RustClient.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-c358709790a485b9/bin-RustClient" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-c358709790a485b9/bin-RustClient.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-c358709790a485b9/dep-bin-RustClient" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-c358709790a485b9/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-cfa830b66a968e75/bin-RustClient" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-cfa830b66a968e75/bin-RustClient.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-cfa830b66a968e75/dep-bin-RustClient" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-cfa830b66a968e75/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-cfa830b66a968e75/output-bin-RustClient" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-e14eca0e25257efd/dep-test-bin-RustClient" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-e14eca0e25257efd/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-e14eca0e25257efd/test-bin-RustClient" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/RustClient-e14eca0e25257efd/test-bin-RustClient.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aead-a3e7744ec4c25873/dep-lib-aead" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aead-a3e7744ec4c25873/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aead-a3e7744ec4c25873/lib-aead" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aead-a3e7744ec4c25873/lib-aead.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aes-18fd126dd7c1186b/dep-lib-aes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aes-18fd126dd7c1186b/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aes-18fd126dd7c1186b/lib-aes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aes-18fd126dd7c1186b/lib-aes.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aes-gcm-22f22cec5d34b4db/dep-lib-aes_gcm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aes-gcm-22f22cec5d34b4db/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aes-gcm-22f22cec5d34b4db/lib-aes_gcm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/aes-gcm-22f22cec5d34b4db/lib-aes_gcm.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/arrayref-b41df78c292ee216/dep-lib-arrayref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/arrayref-b41df78c292ee216/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/arrayref-b41df78c292ee216/lib-arrayref" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/arrayref-b41df78c292ee216/lib-arrayref.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/arrayvec-b0119e8499e8cf4f/dep-lib-arrayvec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/arrayvec-b0119e8499e8cf4f/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/arrayvec-b0119e8499e8cf4f/lib-arrayvec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/arrayvec-b0119e8499e8cf4f/lib-arrayvec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/blake3-06f1c8ff043324c7/build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/blake3-06f1c8ff043324c7/build-script-build-script-build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/blake3-06f1c8ff043324c7/dep-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/blake3-06f1c8ff043324c7/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/blake3-e4427a8e7ba5dd57/dep-lib-blake3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/blake3-e4427a8e7ba5dd57/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/blake3-e4427a8e7ba5dd57/lib-blake3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/blake3-e4427a8e7ba5dd57/lib-blake3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/blake3-fc30bc9770886dc3/run-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/blake3-fc30bc9770886dc3/run-build-script-build-script-build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cc-e9e511d2444eeb6b/dep-lib-cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cc-e9e511d2444eeb6b/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cc-e9e511d2444eeb6b/lib-cc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cc-e9e511d2444eeb6b/lib-cc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cfg-if-356f476c725e6b9e/dep-lib-cfg_if" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cfg-if-356f476c725e6b9e/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cfg-if-356f476c725e6b9e/lib-cfg_if" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cfg-if-356f476c725e6b9e/lib-cfg_if.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cipher-1fbe5d80dba9e646/dep-lib-cipher" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cipher-1fbe5d80dba9e646/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cipher-1fbe5d80dba9e646/lib-cipher" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cipher-1fbe5d80dba9e646/lib-cipher.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/constant_time_eq-81625984b49371e3/dep-lib-constant_time_eq" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/constant_time_eq-81625984b49371e3/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/constant_time_eq-81625984b49371e3/lib-constant_time_eq" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/constant_time_eq-81625984b49371e3/lib-constant_time_eq.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cpufeatures-1e9487f934a4fc66/dep-lib-cpufeatures" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cpufeatures-1e9487f934a4fc66/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cpufeatures-1e9487f934a4fc66/lib-cpufeatures" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/cpufeatures-1e9487f934a4fc66/lib-cpufeatures.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/crypto-common-2049eec159cfdfa2/dep-lib-crypto_common" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/crypto-common-2049eec159cfdfa2/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/crypto-common-2049eec159cfdfa2/lib-crypto_common" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/crypto-common-2049eec159cfdfa2/lib-crypto_common.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/ctr-29c830abc1a6534f/dep-lib-ctr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/ctr-29c830abc1a6534f/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/ctr-29c830abc1a6534f/lib-ctr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/ctr-29c830abc1a6534f/lib-ctr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/generic-array-28040a99e6262159/build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/generic-array-28040a99e6262159/build-script-build-script-build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/generic-array-28040a99e6262159/dep-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/generic-array-28040a99e6262159/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/generic-array-6103220e17c9cce9/run-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/generic-array-6103220e17c9cce9/run-build-script-build-script-build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/generic-array-ee7e4031f614fbcb/dep-lib-generic_array" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/generic-array-ee7e4031f614fbcb/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/generic-array-ee7e4031f614fbcb/lib-generic_array" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/generic-array-ee7e4031f614fbcb/lib-generic_array.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/getrandom-8928b880635c8310/dep-lib-getrandom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/getrandom-8928b880635c8310/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/getrandom-8928b880635c8310/lib-getrandom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/getrandom-8928b880635c8310/lib-getrandom.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/ghash-473cd73ac409f0b9/dep-lib-ghash" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/ghash-473cd73ac409f0b9/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/ghash-473cd73ac409f0b9/lib-ghash" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/ghash-473cd73ac409f0b9/lib-ghash.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/inout-15ad36de1020df01/dep-lib-inout" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/inout-15ad36de1020df01/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/inout-15ad36de1020df01/lib-inout" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/inout-15ad36de1020df01/lib-inout.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/libc-2a0693b7cd5f2a69/dep-lib-libc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/libc-2a0693b7cd5f2a69/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/libc-2a0693b7cd5f2a69/lib-libc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/libc-2a0693b7cd5f2a69/lib-libc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/libc-94c23860ee813756/run-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/libc-94c23860ee813756/run-build-script-build-script-build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/libc-b7685308cbc0a12a/build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/libc-b7685308cbc0a12a/build-script-build-script-build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/libc-b7685308cbc0a12a/dep-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/libc-b7685308cbc0a12a/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/opaque-debug-4ec0914d414dac87/dep-lib-opaque_debug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/opaque-debug-4ec0914d414dac87/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/opaque-debug-4ec0914d414dac87/lib-opaque_debug" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/opaque-debug-4ec0914d414dac87/lib-opaque_debug.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/polyval-93d1e567ae1ef3bf/dep-lib-polyval" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/polyval-93d1e567ae1ef3bf/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/polyval-93d1e567ae1ef3bf/lib-polyval" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/polyval-93d1e567ae1ef3bf/lib-polyval.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/rand_core-2bcc4249e0b66298/dep-lib-rand_core" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/rand_core-2bcc4249e0b66298/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/rand_core-2bcc4249e0b66298/lib-rand_core" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/rand_core-2bcc4249e0b66298/lib-rand_core.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/shlex-a0e5d10e827cd16a/dep-lib-shlex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/shlex-a0e5d10e827cd16a/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/shlex-a0e5d10e827cd16a/lib-shlex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/shlex-a0e5d10e827cd16a/lib-shlex.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/subtle-d7e728b2f51d7e47/dep-lib-subtle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/subtle-d7e728b2f51d7e47/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/subtle-d7e728b2f51d7e47/lib-subtle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/subtle-d7e728b2f51d7e47/lib-subtle.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/typenum-818ebfe7fcf88d84/build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/typenum-818ebfe7fcf88d84/build-script-build-script-build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/typenum-818ebfe7fcf88d84/dep-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/typenum-818ebfe7fcf88d84/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/typenum-b71db004749aad8a/dep-lib-typenum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/typenum-b71db004749aad8a/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/typenum-b71db004749aad8a/lib-typenum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/typenum-b71db004749aad8a/lib-typenum.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/typenum-fd16e0fdc0485eed/run-build-script-build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/typenum-fd16e0fdc0485eed/run-build-script-build-script-build.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/universal-hash-b0ca421c2514fa40/dep-lib-universal_hash" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/universal-hash-b0ca421c2514fa40/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/universal-hash-b0ca421c2514fa40/lib-universal_hash" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/universal-hash-b0ca421c2514fa40/lib-universal_hash.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/version_check-5b70890f1852869c/dep-lib-version_check" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/version_check-5b70890f1852869c/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/version_check-5b70890f1852869c/lib-version_check" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/.fingerprint/version_check-5b70890f1852869c/lib-version_check.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-06f1c8ff043324c7/build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-06f1c8ff043324c7/build_script_build-06f1c8ff043324c7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-06f1c8ff043324c7/build_script_build-06f1c8ff043324c7.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/out/b8423798394d5395-blake3_avx2_x86-64_unix.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/out/b8423798394d5395-blake3_avx512_x86-64_unix.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/out/b8423798394d5395-blake3_sse2_x86-64_unix.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/out/b8423798394d5395-blake3_sse41_x86-64_unix.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/out/flag_check" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/out/flag_check.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/out/libblake3_avx512_assembly.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/out/libblake3_sse2_sse41_avx2_assembly.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/root-output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/blake3-fc30bc9770886dc3/stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/generic-array-28040a99e6262159/build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/generic-array-28040a99e6262159/build_script_build-28040a99e6262159" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/generic-array-28040a99e6262159/build_script_build-28040a99e6262159.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/generic-array-6103220e17c9cce9/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/generic-array-6103220e17c9cce9/output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/generic-array-6103220e17c9cce9/root-output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/generic-array-6103220e17c9cce9/stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/libc-94c23860ee813756/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/libc-94c23860ee813756/output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/libc-94c23860ee813756/root-output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/libc-94c23860ee813756/stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/libc-b7685308cbc0a12a/build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/libc-b7685308cbc0a12a/build_script_build-b7685308cbc0a12a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/libc-b7685308cbc0a12a/build_script_build-b7685308cbc0a12a.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/typenum-818ebfe7fcf88d84/build-script-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/typenum-818ebfe7fcf88d84/build_script_build-818ebfe7fcf88d84" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/typenum-818ebfe7fcf88d84/build_script_build-818ebfe7fcf88d84.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/typenum-fd16e0fdc0485eed/invoked.timestamp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/typenum-fd16e0fdc0485eed/out/tests.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/typenum-fd16e0fdc0485eed/output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/typenum-fd16e0fdc0485eed/root-output" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/build/typenum-fd16e0fdc0485eed/stderr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/RustClient-5ad2644110d2ca41.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/RustClient-c358709790a485b9.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/RustClient-cfa830b66a968e75.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/RustClient-e14eca0e25257efd.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/aead-a3e7744ec4c25873.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/aes-18fd126dd7c1186b.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/aes_gcm-22f22cec5d34b4db.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/arrayref-b41df78c292ee216.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/arrayvec-b0119e8499e8cf4f.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/blake3-e4427a8e7ba5dd57.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/cc-e9e511d2444eeb6b.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/cfg_if-356f476c725e6b9e.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/cipher-1fbe5d80dba9e646.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/constant_time_eq-81625984b49371e3.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/cpufeatures-1e9487f934a4fc66.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/crypto_common-2049eec159cfdfa2.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/ctr-29c830abc1a6534f.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/generic_array-ee7e4031f614fbcb.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/getrandom-8928b880635c8310.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/ghash-473cd73ac409f0b9.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/inout-15ad36de1020df01.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libRustClient-5ad2644110d2ca41.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libRustClient-c358709790a485b9.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libRustClient-cfa830b66a968e75.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libRustClient-e14eca0e25257efd.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libaead-a3e7744ec4c25873.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libaes-18fd126dd7c1186b.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libaes_gcm-22f22cec5d34b4db.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libarrayref-b41df78c292ee216.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libarrayvec-b0119e8499e8cf4f.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libblake3-e4427a8e7ba5dd57.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libc-2a0693b7cd5f2a69.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libcc-e9e511d2444eeb6b.rlib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libcc-e9e511d2444eeb6b.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libcfg_if-356f476c725e6b9e.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libcipher-1fbe5d80dba9e646.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libconstant_time_eq-81625984b49371e3.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libcpufeatures-1e9487f934a4fc66.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libcrypto_common-2049eec159cfdfa2.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libctr-29c830abc1a6534f.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libgeneric_array-ee7e4031f614fbcb.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libgetrandom-8928b880635c8310.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libghash-473cd73ac409f0b9.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libinout-15ad36de1020df01.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/liblibc-2a0693b7cd5f2a69.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libopaque_debug-4ec0914d414dac87.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libpolyval-93d1e567ae1ef3bf.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/librand_core-2bcc4249e0b66298.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libshlex-a0e5d10e827cd16a.rlib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libshlex-a0e5d10e827cd16a.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libsubtle-d7e728b2f51d7e47.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libtypenum-b71db004749aad8a.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libuniversal_hash-b0ca421c2514fa40.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libversion_check-5b70890f1852869c.rlib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/libversion_check-5b70890f1852869c.rmeta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/opaque_debug-4ec0914d414dac87.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/polyval-93d1e567ae1ef3bf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/rand_core-2bcc4249e0b66298.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/shlex-a0e5d10e827cd16a.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/subtle-d7e728b2f51d7e47.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/typenum-b71db004749aad8a.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/universal_hash-b0ca421c2514fa40.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/deps/version_check-5b70890f1852869c.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-0ju1i8n3r4u4m/s-h6kubg88vl-0s12non-8vc8er6vfeomxdt25x9bojlnf/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-0ju1i8n3r4u4m/s-h6kubg88vl-0s12non-8vc8er6vfeomxdt25x9bojlnf/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-0ju1i8n3r4u4m/s-h6kubg88vl-0s12non-8vc8er6vfeomxdt25x9bojlnf/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-0ju1i8n3r4u4m/s-h6kubg88vl-0s12non.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuptfl5z-1illv8c-65y5px17hm56wmodv233lmaz1/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuptfl5z-1illv8c-65y5px17hm56wmodv233lmaz1/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuptfl5z-1illv8c-65y5px17hm56wmodv233lmaz1/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuptfl5z-1illv8c.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvdv8tj-08l9904-working/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvdv8tj-08l9904-working/dep-graph.part.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvdv8tj-08l9904-working/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvdv8tj-08l9904-working/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvdv8tj-08l9904.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvdxcku-1v7c494-working/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvdxcku-1v7c494-working/dep-graph.part.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvdxcku-1v7c494-working/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvdxcku-1v7c494-working/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvdxcku-1v7c494.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvg2t6o-0c5crls-working/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvg2t6o-0c5crls-working/dep-graph.part.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvg2t6o-0c5crls-working/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvg2t6o-0c5crls-working/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvg2t6o-0c5crls.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvg4zk5-0xrfzhp-working/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvg4zk5-0xrfzhp-working/dep-graph.part.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvg4zk5-0xrfzhp-working/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvg4zk5-0xrfzhp-working/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-1yj0fdp2exjof/s-h6kuvg4zk5-0xrfzhp.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuptfl4c-1f5xk4j-6myr88bgdk4l6g1a9fk8mb92t/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuptfl4c-1f5xk4j-6myr88bgdk4l6g1a9fk8mb92t/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuptfl4c-1f5xk4j-6myr88bgdk4l6g1a9fk8mb92t/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuptfl4c-1f5xk4j.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvdv5sr-0cc9wtp-working/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvdv5sr-0cc9wtp-working/dep-graph.part.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvdv5sr-0cc9wtp-working/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvdv5sr-0cc9wtp-working/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvdv5sr-0cc9wtp.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvdxcuy-0a4ukem-working/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvdxcuy-0a4ukem-working/dep-graph.part.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvdxcuy-0a4ukem-working/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvdxcuy-0a4ukem-working/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvdxcuy-0a4ukem.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvg2t6p-08izyx6-working/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvg2t6p-08izyx6-working/dep-graph.part.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvg2t6p-08izyx6-working/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvg2t6p-08izyx6-working/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvg2t6p-08izyx6.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvg4zth-1gokdo4-working/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvg4zth-1gokdo4-working/dep-graph.part.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvg4zth-1gokdo4-working/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvg4zth-1gokdo4-working/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2hopyg0ax1ooh/s-h6kuvg4zth-1gokdo4.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2lz4zg3i7drrt/s-h6kubg88v5-0kpcyc6-7h34alaqi48gyjt31fq2d7ya5/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2lz4zg3i7drrt/s-h6kubg88v5-0kpcyc6-7h34alaqi48gyjt31fq2d7ya5/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2lz4zg3i7drrt/s-h6kubg88v5-0kpcyc6-7h34alaqi48gyjt31fq2d7ya5/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/RustClient/target/debug/incremental/RustClient-2lz4zg3i7drrt/s-h6kubg88v5-0kpcyc6.lock" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="gMFYSwqb" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2wUmj8KLCHXRZKHyfxfk2VYK4lu" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+    <option name="sortByType" value="true" />
+    <option name="sortKey" value="BY_TYPE" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "RunOnceActivity.west.config.association.type.startup.service": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/deanprangenberg/dev/CryptGuard-Messenger/QTClient",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
+    "org.rust.first.attach.projects": "true",
+    "settings.editor.selected.configurable": "language.rust.build.tool.cargo",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/libs" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+      <option name="command" value="run" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$/libs/libsignal_wrapper" />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="WasmPackCommandRunConfiguration" factoryName="wasm-pack">
+      <option name="command" value="build" />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <method v="2">
+        <option name="WASM_PACK.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9e8715d1-d843-43b7-873c-95e7a5699c8a" name="Changes" comment="" />
+      <created>1746104658190</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746104658190</updated>
+      <workItem from="1746104659251" duration="2244000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
