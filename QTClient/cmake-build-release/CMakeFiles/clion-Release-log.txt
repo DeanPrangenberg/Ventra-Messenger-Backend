@@ -1,0 +1,9 @@
+/var/lib/snapd/snap/clion/338/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/var/lib/snapd/snap/clion/338/bin/ninja/linux/x64/ninja -G Ninja -S /home/deanprangenberg/dev/CryptGuard-Messenger/QTClient -B /home/deanprangenberg/dev/CryptGuard-Messenger/QTClient/cmake-build-release
+-- Build type: Release
+-- OpenSSL version: 3.2.4
+-- OpenSSL include dir: /usr/include
+-- OpenSSL SSL lib: /usr/lib64/libssl.so
+-- OpenSSL crypto lib: /usr/lib64/libcrypto.so
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/deanprangenberg/dev/CryptGuard-Messenger/QTClient/cmake-build-release

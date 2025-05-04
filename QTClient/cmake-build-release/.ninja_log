@@ -1,0 +1,23 @@
+# ninja log v6
+52	77	1746286642812438082	CMakeFiles/CryptGuard.dir/CryptGuard_autogen/mocs_compilation.cpp.o	9a9f88afe27b92cf
+3	11	1746366112115137197	/home/deanprangenberg/dev/CryptGuard-Messenger/QTClient/cmake-build-release/CryptGuard_autogen/mocs_compilation.cpp	a679ac713de7d27b
+3	11	1746366112115137197	/home/deanprangenberg/dev/CryptGuard-Messenger/QTClient/cmake-build-release/CryptGuard_autogen/timestamp	a679ac713de7d27b
+13	773	1746366112125443031	CMakeFiles/CryptGuard.dir/src/Crypto/Hash/HashingEnv.cpp.o	3ff1a478a28733a7
+13	759	1746366112126129678	CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/RandomVec.cpp.o	fda1217ecf04e8ba
+12	725	1746366112125229218	CMakeFiles/CryptGuard.dir/src/Crypto/Hash/BLAKE2b512.cpp.o	44f01af1e3f9b72d
+3	11	1746366112115137197	CryptGuard_autogen/mocs_compilation.cpp	a679ac713de7d27b
+13	828	1746366112125810836	CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/KeyEnv.cpp.o	ee7a14417574bf52
+11	515	1746366112124222787	CMakeFiles/CryptGuard.dir/src/Crypto/Encryption/ChaCha20.cpp.o	bebc9aa35851cfad
+11	591	1746366112124412265	CMakeFiles/CryptGuard.dir/src/Crypto/Encryption/AES256.cpp.o	4fbb8276d7d93bac
+54	987	1746286642814770089	CMakeFiles/CryptGuard.dir/src/HelperUtils/HelperUtils.cpp.o	df9aa69d04f08945
+3	11	1746366112115137197	CryptGuard_autogen/timestamp	a679ac713de7d27b
+10	592	1746356797715278756	CMakeFiles/CryptGuard.dir/src/Crypto/KeyEnv/X25519KeyPair.cpp.o	eedd377c0169a67f
+12	937	1746366112125059938	CMakeFiles/CryptGuard.dir/src/Crypto/Encryption/EncryptionEnv.cpp.o	b0e9dbb632724a32
+13	717	1746366112125637218	CMakeFiles/CryptGuard.dir/src/Crypto/Hash/BLAKE2s256.cpp.o	d2aee0e56c4b4be9
+976	1301	1746286643736157616	CMakeFiles/CryptGuard.dir/src/ThreadPool/ThreadSaveVector.cpp.o	e3776eb7445c8309
+933	1892	1746286643693157009	CMakeFiles/CryptGuard.dir/src/ThreadPool/ThreadPool.cpp.o	73e99ce779bc5dbe
+979	1597	1746286643739157659	CMakeFiles/CryptGuard.dir/src/Crypto/KDF/HKDF.cpp.o	a49017b61de719e4
+14	431	1746286964405685962	CMakeFiles/CryptGuard.dir/src/Crypto/KDF/KDFEnv.cpp.o	29d4bc9f43d6cac3
+11	2552	1746366112123137302	CMakeFiles/CryptGuard.dir/src/main.cpp.o	9a358615040d2a1
+14	2107	1746366112126324216	CMakeFiles/CryptGuard.dir/src/Double_Ratchet/DoubleRatchet.cpp.o	bc6f12bcb0461350
+2552	2829	1746366114664170717	/home/deanprangenberg/dev/CryptGuard-Messenger/build/QTClient/Release/CryptGuard	41603174d5ffcedb
