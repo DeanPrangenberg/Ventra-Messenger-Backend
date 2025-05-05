@@ -135,7 +135,7 @@ bool DoubleRatchet::symmetricRatchetStep() {
 
   // Store the new chain key and message key
   state->sendChainKey = std::move(newChain);
-  state->message_keys[state->send_msg_num] = std::move(msgKey);
+  state->send_message_keys[state->send_msg_num] = std::move(msgKey);
   std::cerr << "[symmetricRatchetStep] msg_num=" << state->send_msg_num << std::endl;
   state->send_msg_num++;
   return true;
@@ -167,7 +167,7 @@ bool DoubleRatchet::receiveSymmetricRatchetStep(uint32_t msg_num) {
 
   // Store the new chain key and message key
   state->sendChainKey = std::move(newChain);
-  state->message_keys[msg_num] = std::move(msgKey);
+  state->recv_message_keys[msg_num] = std::move(msgKey);
 
   return true;
 }
@@ -184,13 +184,13 @@ bool DoubleRatchet::encryptMessage(const std::vector<uint8_t> &msg,
 
   // Get the message key that was just created
   // Check if the key exists before accessing it
-  if (state->message_keys.find(state->send_msg_num - 1) == state->message_keys.end()) {
+  if (state->send_message_keys.find(state->send_msg_num - 1) == state->send_message_keys.end()) {
     std::cerr << "[encryptMessage] Error: Missing message key for send_msg_num=" << (state->send_msg_num - 1) <<
         std::endl;
     return false;
   }
 
-  auto &key = state->message_keys[state->send_msg_num - 1];
+  auto &key = state->send_message_keys[state->send_msg_num - 1];
   printHex("[encryptMessage] msgKey", key);
 
   // Set up encryption environment
@@ -227,7 +227,7 @@ bool DoubleRatchet::decryptMessage(const std::vector<uint8_t> &cipher,
   printHex("[decryptMessage] iv", iv);
 
   // Generate message key if not already present
-  if (state->message_keys.find(num) == state->message_keys.end()) {
+  if (state->recv_message_keys.find(num) == state->recv_message_keys.end()) {
     std::cerr << "[decryptMessage] generating msgKey for num=" << num << std::endl;
     if (!receiveSymmetricRatchetStep(num)) {
       std::cerr << "[decryptMessage] Failed to generate message key" << std::endl;
@@ -235,7 +235,7 @@ bool DoubleRatchet::decryptMessage(const std::vector<uint8_t> &cipher,
     }
   }
 
-  auto &key = state->message_keys[num];
+  auto &key = state->recv_message_keys[num];
   printHex("[decryptMessage] msgKey", key);
 
   // Set up decryption environment
@@ -483,7 +483,7 @@ bool DoubleRatchet::testOneSideDoubleRatchet() {
 
   // Test encryption/decryption
   bool ok = true;
-  for (size_t i = 0; i < 1; ++i) {
+  for (size_t i = 0; i < 100; ++i) {
     std::string msg = "Test Nachricht: " + std::to_string(i);
     std::cerr << "[testDoubleRatchet] encrypting message: " << msg << std::endl;
 
@@ -547,7 +547,7 @@ bool DoubleRatchet::testMixedDoubleRatchet() {
 
   // Test encryption/decryption
   bool ok = true;
-  for (size_t i = 0; i < 2; ++i) {
+  for (size_t i = 0; i < 100; ++i) {
     std::string msg = "Test Nachricht: " + std::to_string(i);
     std::cerr << "[testDoubleRatchet] encrypting message: " << msg << std::endl;
 

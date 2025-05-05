@@ -30,13 +30,16 @@ struct RatchetState {
   SessionType sessionType;
   std::vector<uint8_t> sharedSecret;
   std::vector<uint8_t> rootKey;
-  std::vector<uint8_t> sendChainKey;
-  std::vector<uint8_t> recvChainKey;
-  std::map<uint32_t, std::vector<uint8_t> > message_keys;
   std::vector<uint8_t> ownPrivKey;
   std::vector<uint8_t> ownPubKey;
   std::vector<uint8_t> theirPubKey;
+  
+  std::vector<uint8_t> sendChainKey;
+  std::map<uint32_t, std::vector<uint8_t> > send_message_keys;
   uint32_t send_msg_num = 0;
+
+  std::vector<uint8_t> recvChainKey;
+  std::map<uint32_t, std::vector<uint8_t> > recv_message_keys;
   uint32_t recv_msg_num = 0;
 };
 
