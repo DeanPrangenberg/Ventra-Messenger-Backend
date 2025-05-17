@@ -10,14 +10,43 @@
 #include <QApplication>
 #include <QStackedWidget>
 
+#include "../ContactList/ContactList.h"
+#include "../Sidebar/Sidebar.h"
+#include "../ChatWindow/ChatWindow.h"
+
 namespace Gui {
-  class Sidebar;
-  
+  enum class ScreenType {
+    CHAT_SCREEN,
+    COMMUNITY_SCREEN,
+    SETTINGS_SCREEN,
+    ACCOUNT_SCREEN,
+  };
+
+  enum class ChatStackType {
+    DIREKT = 0,
+    COMMUNITY = 1,
+  };
+
+  enum class ScreenStackType {
+    CHAT = 0,
+    SETTINGS = 1,
+    ACCOUNT = 2,
+  };
+
   class MainWindow : public QMainWindow {
     Q_OBJECT
 
   public:
     explicit MainWindow(QWidget *parent = nullptr);
+
+    void updateStyle(const QString &styleFile);
+
+    void switchScreen(ScreenType screenType);
+
+    ~MainWindow() override;
+
+  private:
+    void initStacks();
 
     void initializeWidgets();
 
@@ -25,15 +54,20 @@ namespace Gui {
 
     void setupStyles();
 
-    void updateStyle(const QString& styleFile);
-    ~MainWindow() override;
-
-  private:
     QHBoxLayout *layout;
     Sidebar *sidebar;
+
     QStackedWidget *screenStack;
     QStackedWidget *chatStack;
+
     QWidget *chatWidget;
+    ContactList *contactList;
+    ChatWindow *chatWindow;
+    QWidget *directChatWidget;
+    QWidget *communityChatWidget;
+
+    QWidget *settingsWidget;
+    QWidget *accountWidget;
   };
 } // Gui
 
