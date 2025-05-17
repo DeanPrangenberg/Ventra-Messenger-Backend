@@ -55,3 +55,15 @@ void HelperUtils::printBytesErr(const std::vector<uint8_t>& bytes) {
   }
   std::cerr << std::endl;
 }
+
+void HelperUtils::printBytesAsHexErr(const std::string &label, const std::vector<uint8_t> &data) {
+  std::cerr << label << " [" << data.size() << "] = ";
+  for (const auto b: data) std::cerr << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(b);
+  std::cerr << std::dec << std::endl;
+}
+
+void HelperUtils::printBytesAsHex(const std::string &label, const std::vector<uint8_t> &data) {
+  std::cout << label << " [" << data.size() << "] = ";
+  for (const auto b: data) std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(b);
+  std::cout << std::dec << std::endl;
+}

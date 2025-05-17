@@ -19,9 +19,14 @@ set(OPENSSL_USE_STATIC_LIBS OFF)
 set(OPENSSL_USE_SHARED_LIBS ON)
 find_package(OpenSSL REQUIRED)
 
+# SQLCipher über pkg-config
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(SQLCIPHER REQUIRED sqlcipher)
+
 # Add executable
 add_executable(CryptGuard
     src/main.cpp
+    res.qrc
     src/Crypto/Encryption/ChaCha20.cpp
     src/Crypto/Encryption/ChaCha20.h
     src/Crypto/Encryption/AES256.cpp
@@ -42,8 +47,8 @@ add_executable(CryptGuard
     src/Crypto/KeyEnv/X25519KeyPair.h
     src/Crypto/KeyEnv/RandomVec.cpp
     src/Crypto/KeyEnv/RandomVec.h
-    "src/Double Ratchet/DoubleRatchet.h"
-    "src/Double Ratchet/DoubleRatchet.cpp"
+    src/Crypto/DoubleRatchet/DoubleRatchet.h
+    src/Crypto/DoubleRatchet/DoubleRatchet.cpp
     src/ThreadPool/ThreadPool.cpp
     src/ThreadPool/ThreadPool.tpp
     src/ThreadPool/ThreadPool.h
@@ -53,7 +58,18 @@ add_executable(CryptGuard
     src/Crypto/KDF/HKDF.h
     src/Crypto/KDF/KDFEnv.cpp
     src/Crypto/KDF/KDFEnv.h
+    src/Database/LocalDatabase.cpp
+    src/Database/LocalDatabase.h
+    src/GUI/Sidebar/Sidebar.cpp
+    src/GUI/Sidebar/Sidebar.h
+    src/GUI/MainWindow/MainWindow.cpp
+    src/GUI/MainWindow/MainWindow.h
+    src/GUI/GUIHelper/GUIHelper.cpp
+    src/GUI/GUIHelper/GUIHelper.h
 )
+
+# Include dirs for SQLCipher
+target_link_directories(CryptGuard PRIVATE ${SQLCIPHER_LIBRARY_DIRS})
 
 # Link libraries
 target_link_libraries(CryptGuard
@@ -63,11 +79,13 @@ target_link_libraries(CryptGuard
     Qt6::Widgets
     OpenSSL::SSL
     OpenSSL::Crypto
+    sqlcipher
 )
+
+target_compile_definitions(CryptGuard PRIVATE SQLITE_HAS_CODEC=1)
 
 # Debug output
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "OpenSSL version: ${OPENSSL_VERSION}")
-message(STATUS "OpenSSL include dir: ${OPENSSL_INCLUDE_DIR}")
-message(STATUS "OpenSSL SSL lib: ${OPENSSL_SSL_LIBRARY}")
-message(STATUS "OpenSSL crypto lib: ${OPENSSL_CRYPTO_LIBRARY}")
+message(STATUS "SQLCipher include dirs: ${SQLCIPHER_INCLUDE_DIRS}")
+message(STATUS "SQLCipher libraries: ${SQLCIPHER_LIBRARIES}")

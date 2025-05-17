@@ -24,9 +24,7 @@ namespace Crypto {
                                     std::vector<uint8_t> &iv) {
     if (keyType_ != KeyType::KeyIv || !keyIvSizeSet_)
       return false;
-    std::cout << "[KeyEnv] Generating Key/IV" << std::endl;
     RandomVec::generateKeyIv(key, keyLen_, iv, ivLen_);
-    std::cout << "[KeyEnv] Generated Key/IV" << std::endl;
     return true;
   }
 

@@ -28,7 +28,7 @@ namespace Crypto {
     }
   }
 
-  bool KDFEnv::startKDF(std::vector<uint8_t> &ikm, std::vector<uint8_t> &salt, const std::string &info,
+  bool KDFEnv::startKDF(const std::vector<uint8_t> &ikm, const std::vector<uint8_t> &salt, const std::string &info,
                         std::vector<uint8_t> &out,
                         size_t output_length) {
     if (algo == nullptr) {
