@@ -1,0 +1,14 @@
+QPushButton#favSideBarButton {
+    background-color: #0000FF;
+    color: #000000;
+    qproperty-icon: url(:/icons/res/icons/ChatDark.png);
+    qproperty-iconSize: 20px 20px;
+}
+
+QWidget#chatWidget {
+    background-color: #CC00CC;
+}
+
+QStackedWidget#chatStack {
+    background-color: #CCFF33;
+}

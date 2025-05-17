@@ -25,6 +25,10 @@ public:
   static void printBytes(const std::vector<uint8_t> &bytes);
 
   static void printBytesErr(const std::vector<uint8_t> &bytes);
+
+  static void printBytesAsHex(const std::string &label, const std::vector<uint8_t> &data);
+
+  static void printBytesAsHexErr(const std::string &label, const std::vector<uint8_t> &data);
 };
 
 

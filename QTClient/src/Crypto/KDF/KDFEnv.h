@@ -23,9 +23,9 @@ namespace Crypto {
     explicit KDFEnv(KDFType inAlgorithm);
     void changeAlgorithm(KDFType inAlgorithm);
 
-    bool startKDF(std::vector<uint8_t> &ikm, std::vector<uint8_t> &salt, const std::string &info,
-                  std::vector<uint8_t> &out,
-                  size_t output_length);
+    bool startKDF(const std::vector<uint8_t> &ikm, const std::vector<uint8_t> &salt, const std::string &info,
+                        std::vector<uint8_t> &out,
+                        size_t output_length);
 
   private:
     const EVP_MD *algo = nullptr;

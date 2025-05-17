@@ -1,5 +1,0 @@
-/home/deanprangenberg/dev/CryptGuard-Messenger/QTClient/cmake-build-release/CMakeFiles/CryptGuard.dir
-/home/deanprangenberg/dev/CryptGuard-Messenger/QTClient/cmake-build-release/CMakeFiles/edit_cache.dir
-/home/deanprangenberg/dev/CryptGuard-Messenger/QTClient/cmake-build-release/CMakeFiles/rebuild_cache.dir
-/home/deanprangenberg/dev/CryptGuard-Messenger/QTClient/cmake-build-release/CMakeFiles/CryptGuard_autogen_timestamp_deps.dir
-/home/deanprangenberg/dev/CryptGuard-Messenger/QTClient/cmake-build-release/CMakeFiles/CryptGuard_autogen.dir

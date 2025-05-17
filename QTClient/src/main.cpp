@@ -5,7 +5,51 @@
 #include "Crypto/Hash/HashingEnv.h"
 #include "ThreadPool/ThreadPool.h"
 #include "Crypto/KeyEnv/KeyEnv.h"
-#include "Double Ratchet/DoubleRatchet.h"
+#include "Crypto/DoubleRatchet/DoubleRatchet.h"
+#include "HelperUtils/HelperUtils.h"
+#include "GUI/MainWindow/MainWindow.h"
+#include <QFile>
+
+std::vector<std::vector<uint8_t>>
+deriveSharedGroupSecret(const std::vector<Crypto::KeyEnv>& keys,
+                          const std::vector<uint8_t>& salt,
+                          const std::string& info,
+                          size_t outSize = 32)
+{
+  int const n = static_cast<int>(keys.size());
+  std::vector<std::vector<uint8_t>> pubs(n);
+  // Alle öffentlichen Keys einmal extrahieren
+  for (int i = 0; i < n; ++i) {
+    pubs[i] = keys[i].getPublicRaw();
+  }
+
+  std::vector<std::vector<uint8_t>> groupKeys(n);
+  // Für jeden Teilnehmer i:
+  for (int i = 0; i < n; ++i) {
+    // 1) Starte mit Deinem eigenen Public:
+    std::vector<uint8_t> acc = pubs[i];
+
+    // 2) Führe n-1 DH-Operationen entlang der zyklischen Liste
+    //    Teilnehmer (i+1)%n, (i+2)%n, ..., (i+n-1)%n
+    for (int step = 1; step < n; ++step) {
+      int partner = (i + step) % n;
+      acc = keys[partner].deriveSharedSecret(acc);
+    }
+    // Nun ist acc = g^{x_i x_{i+1} ... x_{i-1}} = g^{x_0 x_1 ... x_{n-1}}
+
+    // 3) Zieh mit HKDF Deinen symmetrischen Schlüssel
+    std::vector<uint8_t> finalKey(outSize);
+    Crypto::KDFEnv kdf(Crypto::KDFType::SHA3_512);
+    kdf.startKDF(acc, salt, info, finalKey, outSize);
+
+    groupKeys[i] = std::move(finalKey);
+
+    // Optional: Debug-Ausgabe
+    HelperUtils::printBytesAsHex("GroupKey[" + std::to_string(i) + "]", groupKeys[i]);
+  }
+
+  return groupKeys;
+}
 
 void test_encryption_hash() {
   Crypto::EncryptionEnv crypto(Crypto::EncAlgorithm::AES256);
@@ -37,58 +81,33 @@ void test_encryption_hash() {
   hasher.startHashing();
 
   std::cout << "Plain Hash Result: ";
-  for (const auto c : hasher.hashValue ) {
+  for (const auto c: hasher.hashValue) {
     std::cout << std::hex << static_cast<int>(c);
   }
   std::cout << std::endl;
   std::cout << std::dec;
 }
 
-int main(int argc, char *argv[]) {
-  QApplication a(argc, argv);
-  QPushButton button("Hello world!", nullptr);
-  button.resize(200, 100);
-  button.show();
-
+void test_double_ratchet() {
   if (DoubleRatchet::testOneSideDoubleRatchet() == false) {
     std::cout << "Double Ratchet On Side test failed!" << std::endl;
-    return -1;
   } else {
     std::cout << "Double Ratchet On Side test succeeded!" << std::endl;
   }
 
   if (DoubleRatchet::testMixedDoubleRatchet() == false) {
     std::cout << "Double Ratchet mixed test failed!" << std::endl;
-    return -1;
   } else {
     std::cout << "Double Ratchet mixed test succeeded!" << std::endl;
   }
+}
 
-  Crypto::KeyEnv keyEnv(Crypto::KeyType::X25519Keypair);
-  keyEnv.startKeyPairGeneration();
+int main(int argc, char *argv[]) {
+  QApplication a(argc, argv);
+  Gui::MainWindow mainWindow;
+  mainWindow.show();
 
-  for (const auto c: keyEnv.getPublicRaw()) {
-    std::cout << std::hex << static_cast<int>(c);
-  }
-  std::cout << std::dec << std::endl;
-
-  for (const auto c: keyEnv.getPrivateRaw()) {
-    std::cout << std::hex << static_cast<int>(c);
-  }
-  std::cout << std::dec << std::endl;
-
-  Crypto::KeyEnv keyEnv2(Crypto::KeyType::X25519Keypair);
-  keyEnv2.startKeyPairGeneration(false, Crypto::KeyPairFormat::Raw, keyEnv2.getPublicRaw(), Crypto::KeyPairFormat::Raw, keyEnv2.getPrivateRaw());
-
-  for (const auto c: keyEnv2.getPublicRaw()) {
-    std::cout << std::hex << static_cast<int>(c);
-  }
-  std::cout << std::dec << std::endl;
-
-  for (const auto c: keyEnv2.getPrivateRaw()) {
-    std::cout << std::hex << static_cast<int>(c);
-  }
-  std::cout << std::dec << std::endl;
+  mainWindow.updateStyle(":/themes/themes/style.qss");
 
   return QApplication::exec();
 }

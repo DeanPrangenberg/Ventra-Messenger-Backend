@@ -4,13 +4,6 @@
 
 namespace Crypto {
 
-  static void printHex(const std::string &label, const std::vector<uint8_t> &data) {
-    std::cerr << label << " [" << data.size() << "] = ";
-    for (const auto b : data)
-      std::cerr << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(b);
-    std::cerr << std::dec << std::endl;
-  }
-
   EncryptionEnv::EncryptionEnv(EncAlgorithm inAlgorithm) {
     algorithm = inAlgorithm;
     generateParameters();
@@ -22,10 +15,6 @@ namespace Crypto {
     }
 
     ciphertext.resize(plaintext.size() + 16); // AES-GCM needs space for tag
-
-    printHex("PLAINTEXT", plaintext);
-    printHex("KEY", key);
-    printHex("IV", iv);
 
     bool result = false;
     int ciphertext_len = 0;
@@ -42,9 +31,8 @@ namespace Crypto {
 
     if (result) {
       ciphertext.resize(ciphertext_len);
-      printHex("ENCRYPTED TEXT", ciphertext);
     } else {
-      std::cerr << "[ERROR] ENcryption failed: authentication tag mismatch or data corrupt." << std::endl;
+      std::cerr << "[ERROR] Encryption failed: authentication tag mismatch or data corrupt." << std::endl;
     }
     return result;
   }
@@ -55,11 +43,6 @@ namespace Crypto {
     }
 
     plaintext.resize(ciphertext.size()); // Max size of decrypted data
-
-    printHex("CIPHERTEXT (BEFORE DECRYPT)", ciphertext);
-    printHex("KEY", key);
-    printHex("IV", iv);
-    printHex("AUTH TAG", authTag);
 
     bool result = false;
     int plaintext_len = 0;
@@ -73,7 +56,6 @@ namespace Crypto {
 
     if (result) {
       plaintext.resize(plaintext_len);
-      printHex("DECRYPTED TEXT", plaintext);
     } else {
       std::cerr << "[ERROR] Decryption failed: authentication tag mismatch or data corrupt." << std::endl;
     }
