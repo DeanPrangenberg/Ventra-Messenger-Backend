@@ -1,3 +1,29 @@
+QWidget#chatWidget {
+    background-color: #FFFFFF;
+}
+
+QStackedWidget#chatStack {
+    background-color: #CC0F80;
+}
+
+/*/////////////
+//  Sidebar  //
+/////////////*/
+
+QPushButton#chatButtonSidebar {
+    background-color: #FF0000;
+    color: #000000;
+    qproperty-icon: url(:/icons/res/icons/ChatDark.png);
+    qproperty-iconSize: 20px 20px;
+}
+
+QPushButton#communityButtonSidebar {
+    background-color: #00FF00;
+    color: #000000;
+    qproperty-icon: url(:/icons/res/icons/GroupDark.png);
+    qproperty-iconSize: 20px 20px;
+}
+
 QPushButton#favSideBarButton {
     background-color: #0000FF;
     color: #000000;
@@ -5,10 +31,31 @@ QPushButton#favSideBarButton {
     qproperty-iconSize: 20px 20px;
 }
 
-QWidget#chatWidget {
-    background-color: #CC00CC;
+QPushButton#settingsButtonSidebar {
+    background-color: #0000FF;
+    color: #000000;
+    qproperty-icon: url(:/icons/res/icons/SettingsGear.png);
+    qproperty-iconSize: 20px 20px;
 }
 
-QStackedWidget#chatStack {
-    background-color: #CCFF33;
+QPushButton#accountButtonSidebar {
+    background-color: #0000FF;
+    color: #000000;
+    qproperty-icon: url(:/icons/res/icons/EmptyAccount.png);
+    qproperty-iconSize: 20px 20px;
+}
+
+/*////////////
+//   Chat   //
+////////////*/
+ContactButton {
+    background-color: #3333FF;
+    text-align: left;
+    padding-left: 12px;
+    padding-right: 10px;
+    qproperty-iconTextGap: 12;
+}
+
+Message {
+    background-color: #D5806F;
 }

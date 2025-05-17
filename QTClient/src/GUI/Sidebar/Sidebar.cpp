@@ -10,10 +10,19 @@ namespace Gui {
   Sidebar::Sidebar(QWidget *parent) : QWidget(parent) {
     layout = new QVBoxLayout();
     logoLabel = new QLabel();
+    logoLabel->setObjectName("logoLabelSidebar");
+
     chatButton = new QPushButton();
+    chatButton->setObjectName("chatButtonSidebar");
+
     communityButton = new QPushButton();
+    communityButton->setObjectName("communityButtonSidebar");
+
     settingsButton = new QPushButton();
+    settingsButton->setObjectName("settingsButtonSidebar");
+
     accountButton = new QPushButton();
+    accountButton->setObjectName("accountButtonSidebar");
 
     setLayout(layout);
 
@@ -66,8 +75,6 @@ namespace Gui {
     logoLabel->setAlignment(Qt::AlignTop);
 
     // BUTTONS
-    chatButton->setText("Chat");
-    communityButton->setText("Community");
     settingsButton->setText("Settings");
     accountButton->setText("Account");
   }

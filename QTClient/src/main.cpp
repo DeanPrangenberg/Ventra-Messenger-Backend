@@ -105,9 +105,15 @@ void test_double_ratchet() {
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
   Gui::MainWindow mainWindow;
+
+  // Add debug output
+  std::cout << "Window created" << std::endl;
+
   mainWindow.show();
+  std::cout << "Window shown" << std::endl;
 
   mainWindow.updateStyle(":/themes/themes/style.qss");
+  std::cout << "Style updated" << std::endl;
 
   return QApplication::exec();
 }

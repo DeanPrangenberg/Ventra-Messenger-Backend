@@ -8,10 +8,13 @@
 #include <QPushButton>
 #include <QIcon>
 
+#include "../ContactList/ContactButton.h"
+
 namespace Gui {
   class GUIHelper {
   public:
     static void updateButtonIcon(QPushButton *button);
+    static void updateContactIcon(ContactButton *contactButton);
 
   private:
   };
