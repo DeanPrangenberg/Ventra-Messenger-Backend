@@ -76,6 +76,10 @@ add_executable(CryptGuard
     src/GUI/ChatWindow/ChatInputBar.h
     src/GUI/ChatWindow/Message.cpp
     src/GUI/ChatWindow/Message.h
+    src/GUI/ChatWindow/MessageTextWidget.cpp
+    src/GUI/ChatWindow/MessageTextWidget.h
+    src/GUI/DirektChatScreen/DirektChatScreen.cpp
+    src/GUI/DirektChatScreen/DirektChatScreen.h
 )
 
 # Include dirs for SQLCipher

@@ -16,13 +16,14 @@ namespace Gui {
     Q_OBJECT
 
   public:
-    ContactButton(const QString &name, const QPixmap &avatar, QWidget *parent = nullptr);
+    ContactButton(const QString &name, const QString& chatUuid, const QPixmap &avatar, QWidget *parent = nullptr);
     ~ContactButton() override;
 
     void resizeEvent(QResizeEvent *event) override;
 
     QLabel *avatarLabel;
     QLabel *nameLabel;
+    QString chatUUID;
 
   private:
     QPixmap originalAvatar;

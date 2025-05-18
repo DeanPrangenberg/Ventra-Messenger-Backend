@@ -1,39 +1,39 @@
-//
-// Created by deanprangenberg on 17.05.25.
-//
-
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QWidget>
+#include "MessageTextWidget.h"
 
 namespace Gui {
-
-struct MessageContainer {
+  struct MessageContainer {
+    QString senderUUID;
     QString message;
     QString time;
     QString senderName;
     QPixmap avatar;
-};
+    bool isFollowUp;
+  };
 
-class Message : public QWidget {
-Q_OBJECT
+  class Message : public QWidget {
+    Q_OBJECT
 
-public:
-    explicit Message(const MessageContainer& messageContent, QWidget *parent = nullptr);
+  public:
+    explicit Message(const MessageContainer &messageContent, QWidget *parent = nullptr);
     ~Message() override;
+    QList<MessageContainer> getAllMessages();
+    void addNewMessage(MessageContainer messageContainer);
 
-private:
+  private:
     QHBoxLayout *messageHSplit;
-    QHBoxLayout *messageInfoHSplit;
+    QHBoxLayout *messageInfoHSplit = nullptr;
     QVBoxLayout *messageInfoVSplit;
-    QLabel *message;
-    QLabel *time;
+    MessageTextWidget *message;
+    QLabel *time = nullptr;
     QLabel *Avatar;
-    QLabel *senderName;
-};
+    QLabel *senderName = nullptr;
+  };
 } // Gui
 
 #endif //MESSAGE_H

@@ -1,43 +1,63 @@
-//
-// Created by deanprangenberg on 17.05.25.
-//
-
-// You may need to build the project (run Qt uic code generator) to get "ui_Message.h" resolved
-
 #include "Message.h"
 
 namespace Gui {
-  Message::Message(const MessageContainer& messageContent, QWidget *parent) : QWidget(parent) {
+  Message::Message(const MessageContainer &messageContent, QWidget *parent) : QWidget(parent) {
     messageHSplit = new QHBoxLayout(this);
+    messageHSplit->setContentsMargins(0, 0, 0, 0);
+    messageHSplit->setSpacing(8);
+
+    // Avatar oder Platzhalter
     Avatar = new QLabel();
-    Avatar->setPixmap(messageContent.avatar.scaled(40, 40, Qt::KeepAspectRatio));
+    Avatar->setFixedSize(40, 40);
 
-    messageInfoVSplit = new QVBoxLayout();
-    messageInfoHSplit = new QHBoxLayout();
+    // Hauptbereich rechts vom Avatar
+    QWidget *rightWidget = new QWidget(this);
 
-    senderName = new QLabel(messageContent.senderName);
-    time = new QLabel(messageContent.time);
-    messageInfoHSplit->addWidget(senderName);
-    messageInfoHSplit->addWidget(time);
+    messageInfoVSplit = new QVBoxLayout(rightWidget);
+    messageInfoVSplit->setSpacing(0);
+    messageInfoVSplit->setContentsMargins(0, 0, 0, 0);
 
-    message = new QLabel(messageContent.message);
-    message->setWordWrap(true); // aktiviert automatischen Zeilenumbruch
-    message->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    if (messageContent.isFollowUp) {
+      Avatar->setStyleSheet("background-color: transparent;");
+    } else {
+      Avatar->setPixmap(messageContent.avatar.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    messageInfoVSplit->addLayout(messageInfoHSplit);
+      QWidget *topRowWidget = new QWidget(rightWidget);
+      topRowWidget->setFixedHeight(16);
+
+      messageInfoHSplit = new QHBoxLayout(topRowWidget);
+      messageInfoHSplit->setContentsMargins(0, 0, 0, 0);
+      messageInfoHSplit->setSpacing(0);
+
+      senderName = new QLabel(messageContent.senderName, topRowWidget);
+      senderName->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+      time = new QLabel(messageContent.time, topRowWidget);
+      time->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+      messageInfoHSplit->addWidget(senderName);
+      messageInfoHSplit->addStretch();
+      messageInfoHSplit->addWidget(time);
+
+      messageInfoVSplit->addWidget(topRowWidget);
+    }
+
+    message = new MessageTextWidget(messageContent.message, rightWidget);
     messageInfoVSplit->addWidget(message);
 
-    messageHSplit->addWidget(Avatar);
-    messageHSplit->addLayout(messageInfoVSplit);
+    messageHSplit->addWidget(Avatar, 0, Qt::AlignTop);
+    messageHSplit->addWidget(rightWidget);
+
+    setContentsMargins(0, 0, 0, 0);
   }
 
-Message::~Message() {
-  delete messageHSplit;
-  delete messageInfoHSplit;
-  delete messageInfoVSplit;
-  delete message;
-  delete time;
-  delete Avatar;
-  delete senderName;
-}
+  Message::~Message() {
+    delete messageHSplit;
+    if (messageInfoHSplit) delete messageInfoHSplit;
+    delete messageInfoVSplit;
+    delete message;
+    if (time) delete time;
+    delete Avatar;
+    if (senderName) delete senderName;
+  }
 } // Gui

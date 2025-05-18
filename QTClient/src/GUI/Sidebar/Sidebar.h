@@ -27,7 +27,7 @@ private:
     QPushButton *chatButton;
     QPushButton *communityButton;
     QPushButton *accountButton;
-    QVector<QPushButton*> favList;
+    QList<QPushButton*> favList;
 
     void setupUI();
 };

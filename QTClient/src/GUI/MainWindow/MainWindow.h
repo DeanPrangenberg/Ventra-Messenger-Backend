@@ -10,11 +10,11 @@
 #include <QApplication>
 #include <QStackedWidget>
 
-#include "../ContactList/ContactList.h"
+#include "../DirektChatScreen/DirektChatScreen.h"
 #include "../Sidebar/Sidebar.h"
-#include "../ChatWindow/ChatWindow.h"
 
 namespace Gui {
+
   enum class ScreenType {
     CHAT_SCREEN,
     COMMUNITY_SCREEN,
@@ -61,9 +61,7 @@ namespace Gui {
     QStackedWidget *chatStack;
 
     QWidget *chatWidget;
-    ContactList *contactList;
-    ChatWindow *chatWindow;
-    QWidget *directChatWidget;
+    DirektChatScreen *directChatWidget;
     QWidget *communityChatWidget;
 
     QWidget *settingsWidget;
