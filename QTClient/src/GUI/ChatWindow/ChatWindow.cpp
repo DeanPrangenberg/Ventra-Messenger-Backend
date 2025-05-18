@@ -5,7 +5,7 @@
 #include "ChatWindow.h"
 
 namespace Gui {
-  ChatWindow::ChatWindow(QWidget *parent) : QWidget(parent) {
+  ChatWindow::ChatWindow(const QString chatUUIDIn, QWidget *parent) : QWidget(parent) {
     messageContainer = new QWidget(this);
     messageContainerLayout = new QVBoxLayout(messageContainer);
 
@@ -21,26 +21,7 @@ namespace Gui {
     chatArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     chatArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    // Add messages to messageContainerLayout
-    for (int i = 0; i < 12; ++i) {
-      MessageContainer messageContent;
-      messageContent.message =
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-      messageContent.time = "18.05.2025, 12:00";
-      messageContent.senderName = "John Doe";
-      messageContent.avatar = QPixmap(":/icons/res/icons/EmptyAccount.png");
-      Message *msg;
-      if (i % 2 == 1) {
-        messageContent.isFollowUp = true;
-        msg = new Message(messageContent, messageContainer);
-      } else {
-        messageContent.isFollowUp = false;
-        msg = new Message(messageContent, messageContainer);
-      }
-      messageContainerLayout->addWidget(msg);
-      messageList.push_back(messageContent);
-    }
-    messageContainerLayout->addStretch(1);
+    chatUUID = chatUUIDIn;
 
     // Add chatArea to WindowLayout first, then chatInputBar
     WindowLayout->addWidget(chatArea);
@@ -59,8 +40,9 @@ namespace Gui {
     delete chatInputBar;
   }
 
-  void ChatWindow::setChatHistory(QList<MessageContainer> &messageListIn) {
-    messageList = messageListIn;
+  void ChatWindow::setChatHistory(const QList<MessageContainer> &messageListIn) {
+    messageList = messageListIn;  // Now copying the list
+    updateDisplayedMessage();     // Update the display after setting
   }
 
   QList<MessageContainer> &ChatWindow::getChatHistory() {

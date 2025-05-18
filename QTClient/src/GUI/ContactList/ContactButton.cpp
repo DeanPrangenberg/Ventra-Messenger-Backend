@@ -7,6 +7,7 @@
 namespace Gui {
   ContactButton::ContactButton(const QString &name, const QString& chatUuid, const QPixmap &avatar, QWidget *parent)
     : QPushButton(parent), originalAvatar(avatar) {
+    setCheckable(true);
     auto *layout = new QHBoxLayout(this);
     layout->setContentsMargins(8, 8, 8, 8);
     layout->setSpacing(8);

@@ -5,37 +5,53 @@
 #ifndef DIREKTCHATSCREEN_H
 #define DIREKTCHATSCREEN_H
 
+#include <QStackedWidget>
 #include <QWidget>
 #include "../ChatWindow/ChatWindow.h"
 #include "../ContactList/ContactList.h"
 
 namespace Gui {
-    struct chatData {
-        QList<MessageContainer> messageContainerList;
-        QString name;
-        QString chatUUID;
-        QPixmap avatar;
-    };
+  struct chatData {
+    QList<MessageContainer> messageContainerList;
+    QString name;
+    QString chatUUID;
+    QPixmap avatar;
+  };
 
-class DirektChatScreen : public QWidget {
-Q_OBJECT
+  class DirektChatScreen : public QWidget {
+    Q_OBJECT
 
-public:
+  public:
     explicit DirektChatScreen(QWidget *parent = nullptr);
-    ~DirektChatScreen() override;
-    void loadChats(QList<chatData> &chatDataList);
-    void addChat(const chatData &chatData);
-    void removeChat(const QString &chatUUID);
-    void addMessagesToChat(const QString &chatUUID, const QList<MessageContainer> &messageContainers);
-    QList<chatData> & getAllChatData();
-    QList<chatData> & getChatData(const QString &chatUUID);
 
-private:
+    ~DirektChatScreen() override;
+
+    void loadChats(QList<chatData> &chatDataList);
+
+    void removeChat(const QString &chatUUID);
+
+    void addMessagesToChat(const QString &chatUUID, const QList<MessageContainer> &messageContainers);
+
+    void generateAndLoadTestChats(int numChats, int numMessagesPerChat);
+
+    QList<chatData> &getAllChatData();
+
+    QList<chatData> &getChatData(const QString &chatUUID);
+
+  private:
+    void addChat(const chatData &chatData);
+
+    void initializeLayout();
+
+    void showChatbyID(const QString &chatUUID);
+
+    QMap<QString, ContactButton *> ButtonMap;
+    QMap<QString, ChatWindow *> ChatWindowMap;
     QHBoxLayout *chatScreenLayout;
     ContactList *contactList;
-    ChatWindow *chatWindow;
+    QStackedWidget *chatWindowStack;
     QWidget *directChatWidget;
-};
+  };
 } // Gui
 
 #endif //DIREKTCHATSCREEN_H
