@@ -19,7 +19,7 @@ namespace Gui {
     explicit ContactList(QWidget *parent = nullptr);
 
     ~ContactList() override;
-
+    ContactButton* getContactButtonPointer(const QString& uuid);
     void addContact(const QString &name, const QString &chatUUID, const QPixmap &avatar);
 
   private:

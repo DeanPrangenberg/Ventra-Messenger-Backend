@@ -31,8 +31,17 @@ namespace Gui {
 
   ContactList::~ContactList() = default;
 
+  ContactButton * ContactList::getContactButtonPointer(const QString &uuid) {
+    for (auto *contact: contactButtonList) {
+      if (contact->chatUUID == uuid) {
+        return contact;
+      }
+    }
+    return nullptr;
+  }
+
   void ContactList::addContact(const QString &name, const QString &chatUUID, const QPixmap &avatar) {
-    auto *newContact = new ContactButton(name, avatar, containerWidget);
+    auto *newContact = new ContactButton(name, chatUUID, avatar, containerWidget);
     contactButtonList.push_back(newContact);
 
     // Clear layout

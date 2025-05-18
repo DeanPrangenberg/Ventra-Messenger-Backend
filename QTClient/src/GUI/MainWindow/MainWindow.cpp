@@ -109,6 +109,7 @@ namespace Gui {
   void MainWindow::initStacks() {
     // Direkt-Chat-Seite
     directChatWidget = new DirektChatScreen(this);
+    directChatWidget->generateAndLoadTestChats(20, 1000);
     chatStack->addWidget(directChatWidget);
 
     // Community-Chat-Seite (Platzhalter)

@@ -20,12 +20,13 @@ namespace Gui {
     Q_OBJECT
 
   public:
-    explicit ChatWindow(QWidget *parent = nullptr);
+    explicit ChatWindow(const QString chatUUIDIn, QWidget *parent = nullptr);
     ~ChatWindow() override;
-    void setChatHistory(QList<MessageContainer> &messageListIn);
+    void setChatHistory(const QList<MessageContainer> &messageListIn);
     QList<MessageContainer>& getChatHistory();
     void addNewMessages(QList<MessageContainer> messageContainers);
     void addOldMessages(QList<MessageContainer> messageContainers);
+    QString chatUUID;
 
   private:
     void updateDisplayedMessage();
