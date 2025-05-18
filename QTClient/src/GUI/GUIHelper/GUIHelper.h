@@ -15,6 +15,7 @@ namespace Gui {
   public:
     static void updateButtonIcon(QPushButton *button);
     static void updateContactIcon(ContactButton *contactButton);
+    static void clearLayout(QLayout* layout);
 
   private:
   };

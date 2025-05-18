@@ -7,6 +7,7 @@
 namespace Gui {
   ChatInputBar::ChatInputBar(QWidget *parent) : QWidget(parent) {
     layout = new QHBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     chatLineEdit = new QLineEdit(this);
 

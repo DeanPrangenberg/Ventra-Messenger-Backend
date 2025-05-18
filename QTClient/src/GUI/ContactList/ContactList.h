@@ -20,13 +20,12 @@ namespace Gui {
 
     ~ContactList() override;
 
-    // Beispiel: Kontakt hinzufügen
-    void addContact(const QString &name, const QPixmap &avatar);
+    void addContact(const QString &name, const QString &chatUUID, const QPixmap &avatar);
 
   private:
     void updateButtonsIcons();
 
-    QVector<ContactButton *> contactButtonList;
+    QList<ContactButton *> contactButtonList;
     QVBoxLayout *contactsLayout;
     QWidget *containerWidget;
     QScrollArea *scrollArea;

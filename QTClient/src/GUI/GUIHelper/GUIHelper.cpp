@@ -34,4 +34,20 @@ namespace Gui {
     contactButton->avatarLabel->move((btnSize.width() - scaledPixmap.width()) / 2,
                                      (btnSize.height() - scaledPixmap.height()) / 2);
   }
+
+  void GUIHelper::clearLayout(QLayout* layout) {
+    if (!layout) return;
+
+    QLayoutItem* item;
+    while ((item = layout->takeAt(0)) != nullptr) {
+      if (QWidget* widget = item->widget()) {
+        widget->setParent(nullptr);
+        widget->deleteLater();
+      } else if (QLayout* childLayout = item->layout()) {
+        clearLayout(childLayout);
+        delete childLayout;
+      }
+      delete item;
+    }
+  }
 } // namespace Gui

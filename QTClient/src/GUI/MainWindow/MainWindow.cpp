@@ -108,23 +108,7 @@ namespace Gui {
 
   void MainWindow::initStacks() {
     // Direkt-Chat-Seite
-    directChatWidget = new QWidget(this);
-    directChatWidget->setObjectName("directChatWidget");
-    QHBoxLayout *directChatLayout = new QHBoxLayout(directChatWidget);
-    directChatLayout->setObjectName("directChatLayout");
-
-    contactList = new ContactList();
-    contactList->setObjectName("contactList");
-    for (int i = 0; i < 200; ++i) {
-      contactList->addContact(
-        QString("John Doe %1").arg(i),
-        QPixmap(":/icons/res/icons/EmptyAccount.png")
-      );
-    }
-
-    chatWindow = new ChatWindow();
-    directChatLayout->addWidget(contactList);
-    directChatLayout->addWidget(chatWindow);
+    directChatWidget = new DirektChatScreen(this);
     chatStack->addWidget(directChatWidget);
 
     // Community-Chat-Seite (Platzhalter)
