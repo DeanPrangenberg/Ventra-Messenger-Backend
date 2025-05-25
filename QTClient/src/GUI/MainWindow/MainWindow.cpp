@@ -12,17 +12,13 @@ namespace Gui {
   class ChatWindow;
 
   MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-    // Fenster-Titel und Mindestgröße
     setWindowTitle("Ventra Chat");
-    setMinimumSize(800, 600);
-    resize(1024, 768);
 
     initializeWidgets();
     initStacks();
     setupLayout();
     setupStyles();
-
-    // Standard-Screen setzen
+    
     switchScreen(ScreenType::CHAT_SCREEN);
   }
 
@@ -31,7 +27,6 @@ namespace Gui {
     delete sidebar;
     delete chatStack;
     delete screenStack;
-    // contactList wird von directChatWidget gelöscht
   }
 
   void MainWindow::updateStyle(const QString &styleFile) {
@@ -86,7 +81,6 @@ namespace Gui {
   }
 
   void MainWindow::setupLayout() {
-    // Haupt-Widget für Chat-Bereich
     chatWidget = new QWidget(this);
     chatWidget->setObjectName("chatWidget");
     chatWidget->setAutoFillBackground(true);
@@ -97,7 +91,6 @@ namespace Gui {
 
     screenStack->addWidget(chatWidget);
 
-    // Seiten bereits in initStacks erstellt
     screenStack->addWidget(settingsWidget);
     screenStack->addWidget(accountWidget);
   }
@@ -107,25 +100,27 @@ namespace Gui {
   }
 
   void MainWindow::initStacks() {
-    // Direkt-Chat-Seite
+    // Direkt-Chat-screen
     directChatWidget = new DirektChatScreen(this);
-    directChatWidget->generateAndLoadTestChats(20, 1000);
+    directChatWidget->setObjectName("directChatWidget");
+    //directChatWidget->generateAndLoadTestChats(10, 100);
+    directChatWidget->loadChatsFromDB();
     chatStack->addWidget(directChatWidget);
 
-    // Community-Chat-Seite (Platzhalter)
+    // Community-Chat-Screen
     communityChatWidget = new QWidget(this);
     communityChatWidget->setObjectName("communityChatWidget");
     QHBoxLayout *communityLayout = new QHBoxLayout(communityChatWidget);
     // TODO: Community-Chat-Inhalte hinzufügen
     chatStack->addWidget(communityChatWidget);
 
-    // Einstellungen-Seite (Platzhalter)
+    // Einstellungen-screen
     settingsWidget = new QWidget(this);
     settingsWidget->setObjectName("settingsWidget");
     QVBoxLayout *settingsLayout = new QVBoxLayout(settingsWidget);
     // TODO: Settings-Inhalte hinzufügen
 
-    // Account-Seite (Platzhalter)
+    // Account-screen
     accountWidget = new QWidget(this);
     accountWidget->setObjectName("accountWidget");
     QVBoxLayout *accountLayout = new QVBoxLayout(accountWidget);

@@ -7,15 +7,18 @@
 namespace Gui {
   ChatWindow::ChatWindow(const QString chatUUIDIn, QWidget *parent) : QWidget(parent) {
     messageContainer = new QWidget(this);
+    messageContainer->setObjectName("ChatWindowContainer");
     messageContainerLayout = new QVBoxLayout(messageContainer);
 
     WindowLayout = new QVBoxLayout(this);
     WindowLayout->setContentsMargins(0, 0, 0, 0);
 
     chatInputBar = new ChatInputBar(this);
+    chatInputBar->setObjectName("ChatWindowChatInputBar");
     chatInputBar->setMaximumHeight(50);
 
     chatArea = new QScrollArea(this);
+    chatArea->setObjectName("ChatWindowScrollChatArea");
     chatArea->setWidget(messageContainer);
     chatArea->setWidgetResizable(true);
     chatArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -63,6 +66,7 @@ namespace Gui {
     GUIHelper::clearLayout(messageContainerLayout);
     for (const auto &messageContent: messageList) {
       Message *msg = new Message(messageContent, messageContainer);
+      msg->setObjectName("ChatWindowMessage");
       messageContainerLayout->addWidget(msg);
     }
     messageContainerLayout->addStretch(1);

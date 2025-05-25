@@ -32,14 +32,14 @@ QPushButton#favSideBarButton {
 }
 
 QPushButton#settingsButtonSidebar {
-    background-color: #0000FF;
+    background-color: #CC00CC;
     color: #000000;
     qproperty-icon: url(:/icons/res/icons/SettingsGear.png);
     qproperty-iconSize: 20px 20px;
 }
 
 QPushButton#accountButtonSidebar {
-    background-color: #0000FF;
+    background-color: #CC00CC;
     color: #000000;
     qproperty-icon: url(:/icons/res/icons/EmptyAccount.png);
     qproperty-iconSize: 20px 20px;

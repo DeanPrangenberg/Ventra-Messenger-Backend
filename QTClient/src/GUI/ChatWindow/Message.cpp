@@ -8,10 +8,12 @@ namespace Gui {
 
     // Avatar oder Platzhalter
     Avatar = new QLabel();
+    Avatar->setObjectName("MessageAvatar");
     Avatar->setFixedSize(40, 40);
 
     // Hauptbereich rechts vom Avatar
     QWidget *rightWidget = new QWidget(this);
+    rightWidget->setObjectName("MessageRightWidget");
 
     messageInfoVSplit = new QVBoxLayout(rightWidget);
     messageInfoVSplit->setSpacing(0);
@@ -23,6 +25,7 @@ namespace Gui {
       Avatar->setPixmap(messageContent.avatar.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
       QWidget *topRowWidget = new QWidget(rightWidget);
+      topRowWidget->setObjectName("MessageTopRow");
       topRowWidget->setFixedHeight(16);
 
       messageInfoHSplit = new QHBoxLayout(topRowWidget);
@@ -30,9 +33,11 @@ namespace Gui {
       messageInfoHSplit->setSpacing(0);
 
       senderName = new QLabel(messageContent.senderName, topRowWidget);
+      senderName->setObjectName("MessageSenderName");
       senderName->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
       time = new QLabel(messageContent.time, topRowWidget);
+      time->setObjectName("MessageTime");
       time->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
       messageInfoHSplit->addWidget(senderName);
@@ -43,6 +48,7 @@ namespace Gui {
     }
 
     message = new MessageTextWidget(messageContent.message, rightWidget);
+    message->setObjectName("MessageText");
     messageInfoVSplit->addWidget(message);
 
     messageHSplit->addWidget(Avatar, 0, Qt::AlignTop);

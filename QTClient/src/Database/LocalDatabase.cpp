@@ -4,12 +4,14 @@
 
 #include "LocalDatabase.h"
 
-LocalDatabase::LocalDatabase(const fs::path &dbPath, const std::string &password)
-  : dbPath(dbPath), password(password) {
-  if (dbPath.empty() || password.empty()) {
-    throw std::runtime_error("DB path or password empty");
+LocalDatabase::LocalDatabase(const fs::path &dbPath, const std::string &password, bool debugMode)
+    : dbPath(dbPath), password(password), debugMode(debugMode) {
+  if (dbPath.empty() || (!debugMode && password.empty())) {
+    throw std::runtime_error("DB path or password empty in encrypted mode");
   }
-  loadOrCreateSalt();
+  if (!debugMode) {
+    loadOrCreateSalt();
+  }
 }
 
 void LocalDatabase::loadOrCreateSalt() {
@@ -52,15 +54,26 @@ std::vector<uint8_t> LocalDatabase::deriveKey() const {
 }
 
 bool LocalDatabase::openConnection(sqlite3 *&handle) const {
-  int rc = sqlite3_open_v2(dbPath.c_str(), &handle,
-                           SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
-                           nullptr);
-  if (rc != SQLITE_OK) return false;
+  int rc;
 
-  auto key = deriveKey();
-  rc = sqlite3_key(handle, key.data(), static_cast<int>(key.size()));
-  // Key im RAM löschen
-  std::fill(key.begin(), key.end(), 0);
+  if (debugMode) {
+    // Open database in debug mode (unencrypted)
+    rc = sqlite3_open_v2(dbPath.c_str(), &handle,
+                        SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
+                        nullptr);
+    std::cout << "Opening database in DEBUG mode (unencrypted)" << std::endl;
+  } else {
+    // Open database in encrypted mode
+    rc = sqlite3_open_v2(dbPath.c_str(), &handle,
+                        SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
+                        nullptr);
+    if (rc != SQLITE_OK) return false;
+
+    auto key = deriveKey();
+    rc = sqlite3_key(handle, key.data(), static_cast<int>(key.size()));
+    std::fill(key.begin(), key.end(), 0);
+  }
+
   return rc == SQLITE_OK;
 }
 
