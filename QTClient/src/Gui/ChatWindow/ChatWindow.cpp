@@ -63,7 +63,7 @@ namespace Gui {
   }
 
   void ChatWindow::updateDisplayedMessage() {
-    GUIHelper::clearLayout(messageContainerLayout);
+    GuiHelper::clearLayout(messageContainerLayout);
     for (const auto &messageContent: messageList) {
       Message *msg = new Message(messageContent, messageContainer);
       msg->setObjectName("ChatWindowMessage");

@@ -6,7 +6,7 @@
 #include <iostream>
 
 #include "../Sidebar/Sidebar.h"
-#include "../GUIHelper/GUIHelper.h"
+#include "../GuiHelper/GuiHelper.h"
 
 namespace Gui {
   class ChatWindow;
@@ -40,7 +40,7 @@ namespace Gui {
 
     // Icons für Buttons aktualisieren
     for (QPushButton *button: findChildren<QPushButton *>()) {
-      Gui::GUIHelper::updateButtonIcon(button);
+      Gui::GuiHelper::updateButtonIcon(button);
     }
   }
 
@@ -104,7 +104,7 @@ namespace Gui {
     directChatWidget = new DirektChatScreen(this);
     directChatWidget->setObjectName("directChatWidget");
     //directChatWidget->generateAndLoadTestChats(10, 100);
-    directChatWidget->loadChatsFromDB();
+    dmChatManager = new Logic::DMChatManager(directChatWidget, true);
     chatStack->addWidget(directChatWidget);
 
     // Community-Chat-Screen

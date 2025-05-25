@@ -7,7 +7,7 @@
 #include "Crypto/KeyEnv/KeyEnv.h"
 #include "Crypto/DoubleRatchet/DoubleRatchet.h"
 #include "HelperUtils/HelperUtils.h"
-#include "GUI/MainWindow/MainWindow.h"
+#include "Gui/MainWindow/MainWindow.h"
 #include <QFile>
 
 std::vector<std::vector<uint8_t>>

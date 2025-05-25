@@ -21,11 +21,11 @@ namespace Gui {
     ~ContactList() override;
     ContactButton* getContactButtonPointer(const QString& uuid);
     void addContact(const QString &name, const QString &chatUUID, const QPixmap &avatar);
+    void removeContact(const QString &chatUUID);
+    QList<ContactButton *> contactButtonList;
 
   private:
     void updateButtonsIcons();
-
-    QList<ContactButton *> contactButtonList;
     QVBoxLayout *contactsLayout;
     QWidget *containerWidget;
     QScrollArea *scrollArea;

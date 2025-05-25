@@ -1,7 +1,7 @@
-#include "GUIHelper.h"
+#include "GuiHelper.h"
 
 namespace Gui {
-  void GUIHelper::updateButtonIcon(QPushButton *button) {
+  void GuiHelper::updateButtonIcon(QPushButton *button) {
     if (!button) return;
 
     QIcon icon = button->icon();
@@ -15,7 +15,7 @@ namespace Gui {
     button->setIconSize(scaledSize);
   }
 
-  void GUIHelper::updateContactIcon(ContactButton *contactButton) {
+  void GuiHelper::updateContactIcon(ContactButton *contactButton) {
     if (!contactButton) return;
 
     // Button-Größe
@@ -35,7 +35,7 @@ namespace Gui {
                                      (btnSize.height() - scaledPixmap.height()) / 2);
   }
 
-  void GUIHelper::clearLayout(QLayout* layout) {
+  void GuiHelper::clearLayout(QLayout* layout) {
     if (!layout) return;
 
     QLayoutItem* item;

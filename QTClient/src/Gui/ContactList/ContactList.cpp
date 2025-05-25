@@ -4,7 +4,7 @@
 
 #include "ContactList.h"
 
-#include "../GUIHelper/GUIHelper.h"
+#include "../GuiHelper/GuiHelper.h"
 
 namespace Gui {
   ContactList::ContactList(QWidget *parent) : QWidget(parent) {
@@ -80,9 +80,22 @@ namespace Gui {
     updateButtonsIcons();
   }
 
+  void ContactList::removeContact(const QString &chatUUID) {
+    auto it = std::remove_if(contactButtonList.begin(), contactButtonList.end(),
+                             [&chatUUID](ContactButton *contact) {
+                               return contact->chatUUID == chatUUID;
+                             });
+
+    if (it != contactButtonList.end()) {
+      delete *it;
+      contactButtonList.erase(it);
+      updateButtonsIcons();
+    }
+  }
+
   void ContactList::updateButtonsIcons() {
     for (auto contact: contactButtonList) {
-      GUIHelper::updateContactIcon(contact);
+      GuiHelper::updateContactIcon(contact);
     }
   }
 } // Gui

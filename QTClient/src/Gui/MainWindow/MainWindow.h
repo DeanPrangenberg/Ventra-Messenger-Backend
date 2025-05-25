@@ -11,6 +11,7 @@
 #include <QStackedWidget>
 
 #include "../DirektChatScreen/DirektChatScreen.h"
+#include "../../Logic/ScreenManager/DMChatManager.h"
 #include "../Sidebar/Sidebar.h"
 
 namespace Gui {
@@ -62,6 +63,7 @@ namespace Gui {
 
     QWidget *chatWidget;
     DirektChatScreen *directChatWidget;
+    Logic::DMChatManager *dmChatManager;
     QWidget *communityChatWidget;
 
     QWidget *settingsWidget;

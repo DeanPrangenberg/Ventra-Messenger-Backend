@@ -11,7 +11,7 @@
 #include "../ContactList/ContactButton.h"
 
 namespace Gui {
-  class GUIHelper {
+  class GuiHelper {
   public:
     static void updateButtonIcon(QPushButton *button);
     static void updateContactIcon(ContactButton *contactButton);
