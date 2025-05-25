@@ -9,12 +9,16 @@
 namespace Gui {
   ContactList::ContactList(QWidget *parent) : QWidget(parent) {
     containerWidget = new QWidget(this);
+    containerWidget->setObjectName("ContactListWidget");
+    containerWidget->setContentsMargins(0, 0, 0, 0);
+
     contactsLayout = new QVBoxLayout(containerWidget);
     contactsLayout->setAlignment(Qt::AlignTop);
     contactsLayout->setContentsMargins(0, 0, 0, 0);
     containerWidget->setLayout(contactsLayout);
 
     scrollArea = new QScrollArea(this);
+    scrollArea->setObjectName("ContactListScrollArea");
     scrollArea->setWidget(containerWidget);
     scrollArea->setWidgetResizable(true);
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -42,6 +46,7 @@ namespace Gui {
 
   void ContactList::addContact(const QString &name, const QString &chatUUID, const QPixmap &avatar) {
     auto *newContact = new ContactButton(name, chatUUID, avatar, containerWidget);
+    newContact->setObjectName("ContactListContactButton");
     contactButtonList.push_back(newContact);
 
     // Clear layout

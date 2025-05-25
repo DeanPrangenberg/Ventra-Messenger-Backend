@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(CryptGuard)
+project(Ventra-Messenger)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_AUTOMOC ON)
@@ -10,6 +10,11 @@ set(CMAKE_AUTOUIC ON)
 set(OUTPUT_DIR ${CMAKE_SOURCE_DIR}/../build/QTClient)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR}/Debug)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}/Release)
+
+# Create directory if it doesn't exist
+file(MAKE_DIRECTORY ${OUTPUT_DIR})
+file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG})
+file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE})
 
 # Find Qt6
 find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
@@ -24,7 +29,7 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(SQLCIPHER REQUIRED sqlcipher)
 
 # Add executable
-add_executable(CryptGuard
+add_executable(Ventra-Messenger
     src/main.cpp
     res.qrc
     src/Crypto/Encryption/ChaCha20.cpp
@@ -80,13 +85,17 @@ add_executable(CryptGuard
     src/GUI/ChatWindow/MessageTextWidget.h
     src/GUI/DirektChatScreen/DirektChatScreen.cpp
     src/GUI/DirektChatScreen/DirektChatScreen.h
+    src/Database/DmChatDB.cpp
+    src/Database/DmChatDB.h
+    src/Crypto/IDs/GenerateID.cpp
+    src/Crypto/IDs/GenerateID.h
 )
 
 # Include dirs for SQLCipher
-target_link_directories(CryptGuard PRIVATE ${SQLCIPHER_LIBRARY_DIRS})
+target_link_directories(Ventra-Messenger PRIVATE ${SQLCIPHER_LIBRARY_DIRS})
 
 # Link libraries
-target_link_libraries(CryptGuard
+target_link_libraries(Ventra-Messenger
     PRIVATE
     Qt6::Core
     Qt6::Gui
@@ -96,7 +105,7 @@ target_link_libraries(CryptGuard
     sqlcipher
 )
 
-target_compile_definitions(CryptGuard PRIVATE SQLITE_HAS_CODEC=1)
+target_compile_definitions(Ventra-Messenger PRIVATE SQLITE_HAS_CODEC=1)
 
 # Debug output
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
