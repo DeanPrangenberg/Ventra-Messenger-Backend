@@ -65,30 +65,35 @@ add_executable(Ventra-Messenger
     src/Crypto/KDF/KDFEnv.h
     src/Database/LocalDatabase.cpp
     src/Database/LocalDatabase.h
-    src/GUI/Sidebar/Sidebar.cpp
-    src/GUI/Sidebar/Sidebar.h
-    src/GUI/MainWindow/MainWindow.cpp
-    src/GUI/MainWindow/MainWindow.h
-    src/GUI/GUIHelper/GUIHelper.cpp
-    src/GUI/GUIHelper/GUIHelper.h
-    src/GUI/ContactList/ContactList.cpp
-    src/GUI/ContactList/ContactList.h
-    src/GUI/ContactList/ContactButton.cpp
-    src/GUI/ContactList/ContactButton.h
-    src/GUI/ChatWindow/ChatWindow.cpp
-    src/GUI/ChatWindow/ChatWindow.h
-    src/GUI/ChatWindow/ChatInputBar.cpp
-    src/GUI/ChatWindow/ChatInputBar.h
-    src/GUI/ChatWindow/Message.cpp
-    src/GUI/ChatWindow/Message.h
-    src/GUI/ChatWindow/MessageTextWidget.cpp
-    src/GUI/ChatWindow/MessageTextWidget.h
-    src/GUI/DirektChatScreen/DirektChatScreen.cpp
-    src/GUI/DirektChatScreen/DirektChatScreen.h
-    src/Database/DmChatDB.cpp
-    src/Database/DmChatDB.h
+    src/Gui/Sidebar/Sidebar.cpp
+    src/Gui/Sidebar/Sidebar.h
+    src/Gui/MainWindow/MainWindow.cpp
+    src/Gui/MainWindow/MainWindow.h
+    src/Gui/GuiHelper/GuiHelper.cpp
+    src/Gui/GuiHelper/GuiHelper.h
+    src/Gui/ContactList/ContactList.cpp
+    src/Gui/ContactList/ContactList.h
+    src/Gui/ContactList/ContactButton.cpp
+    src/Gui/ContactList/ContactButton.h
+    src/Gui/ChatWindow/ChatWindow.cpp
+    src/Gui/ChatWindow/ChatWindow.h
+    src/Gui/ChatWindow/ChatInputBar.cpp
+    src/Gui/ChatWindow/ChatInputBar.h
+    src/Gui/ChatWindow/Message.cpp
+    src/Gui/ChatWindow/Message.h
+    src/Gui/ChatWindow/MessageTextWidget.cpp
+    src/Gui/ChatWindow/MessageTextWidget.h
+    src/Gui/DirektChatScreen/DirektChatScreen.cpp
+    src/Gui/DirektChatScreen/DirektChatScreen.h
     src/Crypto/IDs/GenerateID.cpp
     src/Crypto/IDs/GenerateID.h
+    src/Logic/GuiUpdates/DMChatGuiManager.cpp
+    src/Logic/GuiUpdates/DMChatGuiManager.h
+    src/Logic/DataBaseOperations/DMChatDBManager.cpp
+    src/Logic/DataBaseOperations/DMChatDBManager.h
+    src/Logic/ScreenManager/DMChatManager.cpp
+    src/Logic/ScreenManager/DMChatManager.h
+    src/Gui/Gui_Structs_Enums.h
 )
 
 # Include dirs for SQLCipher

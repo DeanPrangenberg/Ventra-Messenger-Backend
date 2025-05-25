@@ -13,7 +13,7 @@
 
 #include "ChatInputBar.h"
 #include "Message.h"
-#include "../GUIHelper/GUIHelper.h"
+#include "../GuiHelper/GuiHelper.h"
 
 namespace Gui {
   class ChatWindow : public QWidget {
@@ -27,10 +27,10 @@ namespace Gui {
     void addNewMessages(QList<MessageContainer> messageContainers);
     void addOldMessages(QList<MessageContainer> messageContainers);
     QString chatUUID;
+    QList<MessageContainer> messageList;
 
   private:
     void updateDisplayedMessage();
-    QList<MessageContainer> messageList;
     QWidget* messageContainer;
     QVBoxLayout *messageContainerLayout;
     QVBoxLayout *WindowLayout;
