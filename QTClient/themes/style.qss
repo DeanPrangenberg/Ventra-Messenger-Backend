@@ -12,14 +12,12 @@ QStackedWidget#chatStack {
 
 QPushButton#chatButtonSidebar {
     background-color: #FF0000;
-    color: #000000;
     qproperty-icon: url(:/icons/res/icons/ChatDark.png);
     qproperty-iconSize: 20px 20px;
 }
 
 QPushButton#communityButtonSidebar {
     background-color: #00FF00;
-    color: #000000;
     qproperty-icon: url(:/icons/res/icons/GroupDark.png);
     qproperty-iconSize: 20px 20px;
 }
@@ -33,14 +31,12 @@ QPushButton#favSideBarButton {
 
 QPushButton#settingsButtonSidebar {
     background-color: #CC00CC;
-    color: #000000;
     qproperty-icon: url(:/icons/res/icons/SettingsGear.png);
     qproperty-iconSize: 20px 20px;
 }
 
 QPushButton#accountButtonSidebar {
     background-color: #CC00CC;
-    color: #000000;
     qproperty-icon: url(:/icons/res/icons/EmptyAccount.png);
     qproperty-iconSize: 20px 20px;
 }
@@ -58,4 +54,8 @@ ContactButton {
 
 Message {
     background-color: #D5806F;
+}
+
+MessageTextWidget#MessageText {
+    color: #FFF
 }

@@ -16,25 +16,37 @@ namespace Logic {
 
   class DMChatDBManager : public LocalDatabase {
     friend class DMChatManager;
-
-  private:
-    struct ChatInfo {
-      QString uuid;
-      QString name;
-      QByteArray avatar;
-    };
-
+  public:
     DMChatDBManager(const fs::path &dbPath, const std::string &password, bool debugMode);
+  private:
 
-    QList<ChatInfo> getAllChats();
+    QList<Gui::chatData> getAllChats();
 
     QList<Gui::MessageContainer> getChatMessages(const QString &chatUuid);
 
-    bool insertChat(const QString &chatUUID, const QString &name, const QPixmap &avatar);
+    bool insertChat(const Gui::chatData &chat);
 
-    bool insertMessage(const QString &chatUUID, const Gui::MessageContainer &msg);
+    bool insertChats(const QList<Gui::chatData> &chats);
 
-    bool insertMessages(const QString &chatUUID, const QList<Gui::MessageContainer> &messages);
+    bool insertMessage(const Gui::MessageContainer &msg);
+
+    bool insertMessages(const QList<Gui::MessageContainer> &messages);
+
+    bool deleteChat(const QString &chatUUID);
+
+    bool deleteChats(const QList<QString> &chatUUIDs);
+
+    bool deleteMessage(const QString &messageUUID);
+
+    bool deleteMessages(const QList<QString> &messageUUIDs);
+
+    bool updateChat(const Gui::chatData &chat);
+
+    bool updateChats(const QList<Gui::chatData> &chats);
+
+    bool updateMessage(const Gui::MessageContainer &msg);
+
+    bool updateMessages(const QList<Gui::MessageContainer> &messages);
 
 
     bool createChatTables();
