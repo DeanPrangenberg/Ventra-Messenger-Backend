@@ -103,8 +103,8 @@ namespace Gui {
     // Direkt-Chat-screen
     directChatWidget = new DirektChatScreen(this);
     directChatWidget->setObjectName("directChatWidget");
-    //directChatWidget->generateAndLoadTestChats(10, 100);
     dmChatManager = new Logic::DMChatManager(directChatWidget, true);
+    dmChatManager->updateGuiFromDB();
     chatStack->addWidget(directChatWidget);
 
     // Community-Chat-Screen

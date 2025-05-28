@@ -5,6 +5,8 @@
 #ifndef DMCHATMANAGER_H
 #define DMCHATMANAGER_H
 
+#include <QDateTime>
+
 #include "../../Gui/DirektChatScreen/DirektChatScreen.h"
 #include "../DataBaseOperations/DMChatDBManager.h"
 #include "../GuiUpdates/DMChatGuiManager.h"
@@ -13,7 +15,6 @@ namespace Logic {
   class DMChatManager {
   public:
     DMChatManager(Gui::DirektChatScreen *chatScreen, bool testMode);
-
 
     void updateDBfromGui();
     void updateGuiFromDB();
@@ -27,7 +28,7 @@ namespace Logic {
     void deleteMessage(const QString &chatUUID, const QString &messageID);
     void updateMessage(const QString &chatUUID, const Gui::MessageContainer &newContent);
 
-    void generateTestDBAndLoadToGui(int numChats, int numMessagesPerChat);
+    bool generateTestDBAndLoadToGui(int numChats, int numMessagesPerChat);
 
   private:
     std::unique_ptr<DMChatDBManager> dbManager;

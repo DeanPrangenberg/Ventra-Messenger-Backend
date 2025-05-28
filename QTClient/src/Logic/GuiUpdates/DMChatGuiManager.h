@@ -20,15 +20,17 @@ namespace Logic {
 
 class DMChatGuiManager {
 friend class DMChatManager;
-private:
+public:
   DMChatGuiManager(Gui::DirektChatScreen *chatScreen);
 
+private:
   QList<Gui::chatData> getAllChatData() const;
   Gui::chatData getSingleChatData(const QString &chatUUID);
 
   void addNewChat(const Gui::chatData &data);
   void addNewChats(const QList<Gui::chatData> &datas);
   void deleteChat(const QString &chatUUID);
+  void removeAllChats();
   void updateChat(const QString &chatUUID, const QString &newName, const QPixmap &newAvatar);
 
   void addNewMessages(QList<Gui::MessageContainer> message);

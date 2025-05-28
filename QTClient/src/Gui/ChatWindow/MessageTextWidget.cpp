@@ -48,7 +48,6 @@ namespace Gui {
     // Zeichnet den Hintergrund gemäß dem Stylesheet (inkl. background-color)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 
-    painter.setPen(Qt::black); // Setze die Stiftfarbe für den Text
     // Zeichnet den Text mit Word-Wrap und ohne Ränder
     painter.drawText(rect(), Qt::TextWordWrap | Qt::AlignLeft | Qt::AlignTop, m_text);
   }

@@ -94,6 +94,17 @@ namespace Logic {
     }
   }
 
+  void DMChatGuiManager::removeAllChats() {
+    for (const auto &chatUUID: chatScreen->chatWindowMap.keys()) {
+      deleteChat(chatUUID);
+    }
+    chatScreen->chatWindowMap.clear();
+    for (auto *button: chatScreen->ButtonMap.values()) {
+      delete button;
+    }
+    chatScreen->ButtonMap.clear();
+  }
+
   void DMChatGuiManager::updateChat(const QString &chatUUID, const QString &newName, const QPixmap &newAvatar) {
     auto contactButton = chatScreen->ButtonMap.value(chatUUID);
     contactButton->setText(newName);
