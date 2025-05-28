@@ -26,6 +26,12 @@ namespace Gui {
     QString chatUUID;
     QPixmap avatar;
   };
+
+  struct UserData {
+    QString userUUID;
+    QString username;
+    QPixmap avatar;
+  };
 }
 
 #endif //STRUCTS_ENUMS_H
