@@ -96,6 +96,8 @@ add_executable(Ventra-Messenger
     src/Gui/Gui_Structs_Enums.h
     src/Gui/ContactList/ContactListSearch.cpp
     src/Gui/ContactList/ContactListSearch.h
+    src/Logic/DataBaseOperations/UserDataDB.cpp
+    src/Logic/DataBaseOperations/UserDataDB.h
 )
 
 # Include dirs for SQLCipher

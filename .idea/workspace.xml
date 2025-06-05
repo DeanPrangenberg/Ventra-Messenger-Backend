@@ -6,6 +6,7 @@
   <component name="BackendCodeEditorMiscSettings">
     <option name="/Default/Environment/UserInterface/HierarchyView/ViewStyle/@EntryValue" value="SuperTypes" type="string" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
   </component>
   <component name="CMakePresetLoader">{
   &quot;useNewFormat&quot;: true
@@ -40,6 +41,10 @@
       <change beforePath="$PROJECT_DIR$/QTClient/src/Logic/ScreenManager/DMChatManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Logic/ScreenManager/DMChatManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/QTClient/src/Logic/ScreenManager/DMChatManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Logic/ScreenManager/DMChatManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/QTClient/themes/style.qss" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/themes/style.qss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/UserDataDB.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/UserDataDB.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QTClient/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QTClient/src/Gui/Gui_Structs_Enums.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Gui/Gui_Structs_Enums.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,13 +58,20 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/QTClient/src/Gui/MainWindow/MainWindow.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/QTClient/src/Gui/MainWindow/MainWindow.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/QTClient/src/Logic/ScreenManager/DMChatManager.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/QTClient/src/Logic/ScreenManager/DMChatManager.h" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="gMFYSwqb" />
   </component>
   <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2wUmj8KLCHXRZKHyfxfk2VYK4lu" />
+  <component name="ProjectId" id="2xjto8S6tZYJeoDW71zWOGLTlVl" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
