@@ -5,13 +5,16 @@
 #ifndef USERDATADB_H
 #define USERDATADB_H
 
+#include <QList>
+
 #include "../../Database/LocalDatabase.h"
+#include "../../Gui/Gui_Structs_Enums.h"
 
 namespace logic {
   class UserDataDB : LocalDatabase {
 public:
   UserDataDB(const fs::path &dbPath, const std::string &password, bool debugMode);
-   getUserData();
+  QList<Gui::UserData> getUserData();
 private:
   bool createUserTables();
   };

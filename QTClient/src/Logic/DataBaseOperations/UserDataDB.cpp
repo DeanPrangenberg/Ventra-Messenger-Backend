@@ -17,11 +17,14 @@ namespace logic {
     }
   }
 
+  QList<Gui::UserData> UserDataDB::getUserData() {
+  }
+
   bool UserDataDB::createUserTables() {
     std::string createUsersTable =
         "CREATE TABLE IF NOT EXISTS users ("
         "user_uuid TEXT PRIMARY KEY,"
-        "username TEXT NOT NULL,"w
+        "username TEXT NOT NULL,"
         "avatar BLOB"
         ");";
 

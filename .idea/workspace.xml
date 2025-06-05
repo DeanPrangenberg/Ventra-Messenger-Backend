@@ -32,19 +32,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9e8715d1-d843-43b7-873c-95e7a5699c8a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/src/Gui/ChatWindow/MessageTextWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Gui/ChatWindow/MessageTextWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/src/Gui/MainWindow/MainWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Gui/MainWindow/MainWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/DMChatDBManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/DMChatDBManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/DMChatDBManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/DMChatDBManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/src/Logic/GuiUpdates/DMChatGuiManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Logic/GuiUpdates/DMChatGuiManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/src/Logic/GuiUpdates/DMChatGuiManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Logic/GuiUpdates/DMChatGuiManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/src/Logic/ScreenManager/DMChatManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Logic/ScreenManager/DMChatManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/src/Logic/ScreenManager/DMChatManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Logic/ScreenManager/DMChatManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/themes/style.qss" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/themes/style.qss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/UserDataDB.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/UserDataDB.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QTClient/src/Gui/Gui_Structs_Enums.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Gui/Gui_Structs_Enums.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/UserDataDB.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/UserDataDB.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/UserDataDB.h" beforeDir="false" afterPath="$PROJECT_DIR$/QTClient/src/Logic/DataBaseOperations/UserDataDB.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +109,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Ventra-Messenger" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Ventra-Messenger" TARGET_NAME="Ventra-Messenger" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Ventra-Messenger" RUN_TARGET_NAME="Ventra-Messenger">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
