@@ -10,6 +10,7 @@
 #include <QScrollArea>
 
 #include "ContactButton.h"
+#include "ContactListSearch.h"
 
 namespace Gui {
   class ContactList : public QWidget {
@@ -29,6 +30,7 @@ namespace Gui {
     QVBoxLayout *contactsLayout;
     QWidget *containerWidget;
     QScrollArea *scrollArea;
+    ContactListSearch *contactListSearch;
   };
 } // namespace Gui
 

@@ -17,6 +17,10 @@ namespace Gui {
     contactsLayout->setContentsMargins(0, 0, 0, 0);
     containerWidget->setLayout(contactsLayout);
 
+    contactListSearch = new ContactListSearch();
+    contactListSearch->connectSearchAndSortToList(&contactButtonList);
+    contactsLayout->addWidget(contactListSearch);
+
     scrollArea = new QScrollArea(this);
     scrollArea->setObjectName("ContactListScrollArea");
     scrollArea->setWidget(containerWidget);
@@ -35,7 +39,7 @@ namespace Gui {
 
   ContactList::~ContactList() = default;
 
-  ContactButton * ContactList::getContactButtonPointer(const QString &uuid) {
+  ContactButton *ContactList::getContactButtonPointer(const QString &uuid) {
     for (auto *contact: contactButtonList) {
       if (contact->chatUUID == uuid) {
         return contact;
@@ -51,7 +55,7 @@ namespace Gui {
 
     // Clear layout
     QLayoutItem *item;
-    while ((item = contactsLayout->takeAt(0)) != nullptr) {
+    while ((item = contactsLayout->takeAt(1)) != nullptr) {
       if (auto *widget = item->widget()) {
         widget->setParent(nullptr);
       }
