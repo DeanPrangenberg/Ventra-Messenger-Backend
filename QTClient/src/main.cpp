@@ -8,6 +8,7 @@
 #include "Crypto/DoubleRatchet/DoubleRatchet.h"
 #include "HelperUtils/HelperUtils.h"
 #include "Gui/MainWindow/MainWindow.h"
+#include "Logic/OnlineConnection/WebSocketClient.h"
 #include <QFile>
 
 std::vector<std::vector<uint8_t>>
@@ -114,6 +115,9 @@ int main(int argc, char *argv[]) {
 
   mainWindow.updateStyle(":/themes/themes/style.qss");
   std::cout << "Style updated" << std::endl;
+
+  Network::WebSocketClient webSocket(QUrl("ws://localhost:8080"));
+  std::cout << "WebSocket client created" << std::endl;
 
   return QApplication::exec();
 }

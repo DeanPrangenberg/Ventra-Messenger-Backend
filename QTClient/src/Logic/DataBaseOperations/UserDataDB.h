@@ -14,7 +14,7 @@ namespace logic {
   class UserDataDB : LocalDatabase {
 public:
   UserDataDB(const fs::path &dbPath, const std::string &password, bool debugMode);
-  QList<Gui::UserData> getUserData();
+  QList<Gui::UserData> getUserData(QString &userUUID);
 private:
   bool createUserTables();
   };

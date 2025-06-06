@@ -1,0 +1,59 @@
+services:
+  vm-api:
+    image: backend-vm-api
+    build:
+      context: ../build/Backend/VM-API
+      dockerfile: ../../../Backend/VM-API/Dockerfile
+    ports:
+      - "127.0.0.1:8881:8881"
+    networks:
+      - ventra-net
+    depends_on:
+      - vm-redis
+      - vm-main-db
+      - vm-auth
+      - vm-logic
+
+  vm-auth:
+    image: backend-vm-auth
+    build:
+      context: ../build/Backend/VM-AUTH
+      dockerfile: ../../../Backend/VM-AUTH/Dockerfile
+    expose:
+      - "8882"
+    networks:
+      - ventra-net
+
+  vm-logic:
+    image: backend-vm-logic
+    build:
+      context: ../build/Backend/VM-LOGIC
+      dockerfile: ../../../Backend/VM-LOGIC/Dockerfile
+    expose:
+      - "8883"
+    networks:
+      - ventra-net
+
+  vm-main-db:
+    image: backend-vm-main-db
+    build:
+      context: ../build/Backend/VM-MAIN-DB
+      dockerfile: ../../../Backend/VM-MAIN-DB/Dockerfile
+    expose:
+      - "8884"
+    networks:
+      - ventra-net
+
+  vm-redis:
+    image: backend-vm-redis
+    build:
+      context: ../build/Backend/VM-REDIS
+      dockerfile: ../../../Backend/VM-REDIS/Dockerfile
+    expose:
+      - "8885"
+    networks:
+      - ventra-net
+
+networks:
+  ventra-net:
+    driver: bridge

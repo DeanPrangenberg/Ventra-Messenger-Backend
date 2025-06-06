@@ -13,10 +13,14 @@ namespace Gui {
 
     setLayout(SearchLayout);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    setContentsMargins(0, 0, 0, 0);
+    SearchLayout->setContentsMargins(0, 0, 0, 0);
+    SearchLayout->setSpacing(0);
 
-    SearchLayout->addWidget(SearchInField);
-    SearchLayout->addStretch();
-    SearchLayout->addWidget(sortInBox);
+    SearchLayout->addWidget(SearchInField, 4);
+    SearchLayout->addWidget(sortInBox, 1);
+
+    SearchInField->setPlaceholderText("Search...");
 
     sortInBox->addItem("Normal");
     sortInBox->addItem("A -> Z");

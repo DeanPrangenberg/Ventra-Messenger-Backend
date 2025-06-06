@@ -114,6 +114,11 @@ namespace Logic {
   }
 
   bool DMChatManager::generateTestDBAndLoadToGui(int numChats, int numMessagesPerChat) {
+    if (dbManager->getAllChats().size() > 0) {
+      std::cout << "DMChat Database already has data, skipping test data generation." << std::endl;
+      return true; // Database already has data, no need to generate test data
+    }
+
     QList<Gui::chatData> chats;
 
     for (int i = 0; i < numChats; i++) {
