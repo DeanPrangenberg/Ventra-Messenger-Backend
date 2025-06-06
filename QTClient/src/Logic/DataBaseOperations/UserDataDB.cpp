@@ -17,7 +17,8 @@ namespace logic {
     }
   }
 
-  QList<Gui::UserData> UserDataDB::getUserData() {
+  QList<Gui::UserData> UserDataDB::getUserData(QString &userUUID) {
+
   }
 
   bool UserDataDB::createUserTables() {

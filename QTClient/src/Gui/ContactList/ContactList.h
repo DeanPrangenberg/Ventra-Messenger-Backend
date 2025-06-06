@@ -19,7 +19,6 @@ namespace Gui {
   public:
     explicit ContactList(QWidget *parent = nullptr);
 
-    ~ContactList() override;
     ContactButton* getContactButtonPointer(const QString& uuid);
     void addContact(const QString &name, const QString &chatUUID, const QPixmap &avatar);
     void removeContact(const QString &chatUUID);
@@ -28,6 +27,7 @@ namespace Gui {
   private:
     void updateButtonsIcons();
     QVBoxLayout *contactsLayout;
+    QVBoxLayout *contactListWidgetLayout;
     QWidget *containerWidget;
     QScrollArea *scrollArea;
     ContactListSearch *contactListSearch;

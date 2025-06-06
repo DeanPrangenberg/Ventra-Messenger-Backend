@@ -17,9 +17,8 @@ namespace Gui {
     contactsLayout->setContentsMargins(0, 0, 0, 0);
     containerWidget->setLayout(contactsLayout);
 
-    contactListSearch = new ContactListSearch();
+    contactListSearch = new ContactListSearch(this);
     contactListSearch->connectSearchAndSortToList(&contactButtonList);
-    contactsLayout->addWidget(contactListSearch);
 
     scrollArea = new QScrollArea(this);
     scrollArea->setObjectName("ContactListScrollArea");
@@ -28,16 +27,17 @@ namespace Gui {
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    auto *mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(0, 0, 0, 0);
-    mainLayout->addWidget(scrollArea);
-    setLayout(mainLayout);
+    contactListWidgetLayout = new QVBoxLayout(this);
+    contactListWidgetLayout->setContentsMargins(0, 0, 0, 0);
+    contactListWidgetLayout->setSpacing(0);
+    contactListWidgetLayout->addWidget(contactListSearch);
+    contactListWidgetLayout->addWidget(scrollArea);
+    setLayout(contactListWidgetLayout);
+    setContentsMargins(0, 0, 0, 0);
 
     // Use Minimum for horizontal to allow proper sizing
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
   }
-
-  ContactList::~ContactList() = default;
 
   ContactButton *ContactList::getContactButtonPointer(const QString &uuid) {
     for (auto *contact: contactButtonList) {

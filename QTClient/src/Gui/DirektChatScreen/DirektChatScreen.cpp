@@ -27,7 +27,6 @@ namespace Gui {
     // Initialize contact list
     contactList = new ContactList(this);
     contactList->setObjectName("DMScreenContactList");
-    contactList->setObjectName("contactList");
     contactList->setMinimumWidth(250);
     contactList->setMaximumWidth(350);
     contactList->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
@@ -39,6 +38,7 @@ namespace Gui {
     // Add widgets to layout
     chatScreenLayout->addWidget(contactList);
     chatScreenLayout->addWidget(chatWindowStack, 1);
+    chatScreenLayout->setSpacing(0);
 
     setLayout(chatScreenLayout);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

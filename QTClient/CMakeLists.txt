@@ -6,18 +6,16 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-# Set base output directory
-set(OUTPUT_DIR ${CMAKE_SOURCE_DIR}/../build/QTClient)
+set(OUTPUT_DIR ${CMAKE_SOURCE_DIR}/build/QTClient)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${OUTPUT_DIR}/Debug)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${OUTPUT_DIR}/Release)
 
-# Create directory if it doesn't exist
 file(MAKE_DIRECTORY ${OUTPUT_DIR})
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG})
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE})
 
 # Find Qt6
-find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Widgets WebSockets REQUIRED)
 
 # OpenSSL configuration
 set(OPENSSL_USE_STATIC_LIBS OFF)
@@ -98,6 +96,8 @@ add_executable(Ventra-Messenger
     src/Gui/ContactList/ContactListSearch.h
     src/Logic/DataBaseOperations/UserDataDB.cpp
     src/Logic/DataBaseOperations/UserDataDB.h
+    src/Logic/OnlineConnection/WebSocketClient.cpp
+    src/Logic/OnlineConnection/WebSocketClient.h
 )
 
 # Include dirs for SQLCipher
@@ -109,6 +109,7 @@ target_link_libraries(Ventra-Messenger
     Qt6::Core
     Qt6::Gui
     Qt6::Widgets
+    Qt6::WebSockets
     OpenSSL::SSL
     OpenSSL::Crypto
     sqlcipher
