@@ -1,10 +1,17 @@
+cmake_minimum_required(VERSION 3.16)
 project(VM_API LANGUAGES CXX)
 
-add_executable(VM-API src/main.cpp)
+set(CMAKE_AUTOMOC ON)
 
-set(OUTPUT_DIR ${CMAKE_SOURCE_DIR}/build/backend/VM-API)
+add_executable(VM-API
+    src/main.cpp
+    ../../Shared/Network/WebSocketClient.cpp
+    ../../Shared/Network/WebSocketClient.h
+    ../../Shared/Network/WebSocketServer.cpp
+    ../../Shared/Network/WebSocketServer.h
+)
 
-target_link_options(VM-API PRIVATE -static-libstdc++ -static-libgcc)
+set(OUTPUT_DIR ${CMAKE_SOURCE_DIR}/build/backend)
 
 find_package(Qt6 REQUIRED COMPONENTS Core WebSockets)
 target_link_libraries(VM-API Qt6::Core Qt6::WebSockets)

@@ -1,9 +1,9 @@
 //
-// Created by deanprangenberg on 06.06.25.
+// Created by deanprangenberg on 07.06.25.
 //
 
-#ifndef WEBSOCKET_H
-#define WEBSOCKET_H
+#ifndef WEBSOCKETCLIENT_H
+#define WEBSOCKETCLIENT_H
 
 #include <QWebSocket>
 #include <QObject>
@@ -13,13 +13,13 @@ namespace Network {
   class WebSocketClient : public QObject {
   public:
     WebSocketClient(const QUrl &url, QObject *parent = nullptr);
+    void testPacket();
 
   private:
     void onConnected();
-    void testPacket();
     QWebSocket socket;
     QUrl serverUrl;
   };
 } // Network
 
-#endif //WEBSOCKET_H
+#endif //WEBSOCKETCLIENT_H

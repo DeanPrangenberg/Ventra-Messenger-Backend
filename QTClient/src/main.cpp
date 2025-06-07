@@ -1,14 +1,14 @@
 #include <QApplication>
 #include <QPushButton>
 #include <iostream>
-#include "Crypto/Encryption/EncryptionEnv.h"
-#include "Crypto/Hash/HashingEnv.h"
+#include "../../Shared/Crypto/Encryption/EncryptionEnv.h"
+#include "../../Shared/Crypto/Hash/HashingEnv.h"
 #include "ThreadPool/ThreadPool.h"
-#include "Crypto/KeyEnv/KeyEnv.h"
-#include "Crypto/DoubleRatchet/DoubleRatchet.h"
+#include "../../Shared/Crypto/KeyEnv/KeyEnv.h"
+#include "../../Shared/Crypto/DoubleRatchet/DoubleRatchet.h"
 #include "HelperUtils/HelperUtils.h"
 #include "Gui/MainWindow/MainWindow.h"
-#include "Logic/OnlineConnection/WebSocketClient.h"
+#include "../../Shared/Network/WebSocketClient.h"
 #include <QFile>
 
 std::vector<std::vector<uint8_t>>
@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
   mainWindow.updateStyle(":/themes/themes/style.qss");
   std::cout << "Style updated" << std::endl;
 
-  Network::WebSocketClient webSocket(QUrl("ws://localhost:8080"));
+  Network::WebSocketClient webSocket(QUrl("ws://127.0.0.1:8881"));
   std::cout << "WebSocket client created" << std::endl;
 
   return QApplication::exec();

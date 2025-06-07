@@ -10,7 +10,7 @@
 #include <QMutexLocker>
 #include "../ChatWindow/ChatWindow.h"
 #include "../ContactList/ContactList.h"
-#include "../../Crypto/IDs/GenerateID.h"
+#include "../../../../Shared/Crypto/IDs/GenerateID.h"
 #include "../../ThreadPool/ThreadPool.h"
 #include "../Gui_Structs_Enums.h"
 #include "../../Logic/GuiUpdates/DMChatGuiManager.h"
