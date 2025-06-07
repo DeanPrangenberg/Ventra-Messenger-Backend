@@ -6,7 +6,7 @@
 #include <string>
 #include <memory>
 #include <iomanip>
-#include "../../HelperUtils/HelperUtils.h"
+#include "../../Converter/HexConverter.h"
 #include "../KeyEnv/KeyEnv.h"
 #include "../Encryption/EncryptionEnv.h"
 #include "../KDF/KDFEnv.h"

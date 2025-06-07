@@ -4,6 +4,8 @@
 
 #include "LocalDatabase.h"
 
+#include "../../../Shared/Crypto/KDF/KDFEnv.h"
+
 LocalDatabase::LocalDatabase(const fs::path &dbPath, const std::string &password, bool debugMode)
     : dbPath(dbPath), password(password), debugMode(debugMode) {
   if (dbPath.empty() || (!debugMode && password.empty())) {

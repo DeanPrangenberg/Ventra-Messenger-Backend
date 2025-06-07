@@ -60,8 +60,8 @@ bool DoubleRatchet::generateKeypair() {
   ownKeyEnv->startKeyPairGeneration(true);
   state->ownPrivKey = ownKeyEnv->getPrivateRaw();
   state->ownPubKey = ownKeyEnv->getPublicRaw();
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[generateKeypair] PrivKey", state->ownPrivKey);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[generateKeypair] PubKey", state->ownPubKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[generateKeypair] PrivKey", state->ownPrivKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[generateKeypair] PubKey", state->ownPubKey);
   return true;
 }
 
@@ -73,8 +73,8 @@ bool DoubleRatchet::deriveSharedSecret(const std::vector<uint8_t> &theirPub) {
   state->theirPubKey = theirPub;
   // Set the private key before deriving the shared secret
   state->sharedSecret = ownKeyEnv->deriveSharedSecret(theirPub);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[deriveSharedSecret] theirPub", theirPub);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[deriveSharedSecret] sharedSecret", state->sharedSecret);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[deriveSharedSecret] theirPub", theirPub);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[deriveSharedSecret] sharedSecret", state->sharedSecret);
   return true;
 }
 
@@ -92,9 +92,9 @@ bool DoubleRatchet::initRootChain() {
   state->sendChainKey = state->rootKey;
   state->recvChainKey = state->rootKey; // Initialize receive chain key as well
 
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[initRootChain] rootKey", state->rootKey);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[initRootChain] sendChainKey", state->sendChainKey);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[initRootChain] recvChainKey", state->recvChainKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[initRootChain] rootKey", state->rootKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[initRootChain] sendChainKey", state->sendChainKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[initRootChain] recvChainKey", state->recvChainKey);
   return true;
 }
 
@@ -127,9 +127,9 @@ bool DoubleRatchet::symmetricRatchetStep() {
 
   std::vector<uint8_t> newChain(out.begin(), out.begin() + 32);
   std::vector<uint8_t> msgKey(out.begin() + 32, out.end());
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[symmetricRatchetStep] out", out);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[symmetricRatchetStep] newChain", newChain);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[symmetricRatchetStep] msgKey", msgKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[symmetricRatchetStep] out", out);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[symmetricRatchetStep] newChain", newChain);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[symmetricRatchetStep] msgKey", msgKey);
 
   // Store the new chain key and message key
   state->sendChainKey = std::move(newChain);
@@ -175,7 +175,7 @@ bool DoubleRatchet::encryptMessage(const std::vector<uint8_t> &msg,
                                    std::vector<uint8_t> &tag,
                                    std::vector<uint8_t> &iv) {
   if constexpr (printNormDebug) std::cerr << "[encryptMessage] plaintext size=" << msg.size() << std::endl;
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[encryptMessage] plaintext", msg);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[encryptMessage] plaintext", msg);
 
   // Perform symmetric ratchet step to generate the message key
   if (!symmetricRatchetStep()) return false;
@@ -189,7 +189,7 @@ bool DoubleRatchet::encryptMessage(const std::vector<uint8_t> &msg,
   }
 
   auto &key = state->send_message_keys[state->send_msg_num - 1];
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[encryptMessage] msgKey", key);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[encryptMessage] msgKey", key);
 
   // Set up encryption environment
   encryptionEnv->key = key;
@@ -207,9 +207,9 @@ bool DoubleRatchet::encryptMessage(const std::vector<uint8_t> &msg,
     tag = encryptionEnv->authTag;
   }
 
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[encryptMessage] iv", encryptionEnv->iv);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[encryptMessage] cipher", cipher);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[encryptMessage] authTag", tag);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[encryptMessage] iv", encryptionEnv->iv);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[encryptMessage] cipher", cipher);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[encryptMessage] authTag", tag);
   return true;
 }
 
@@ -220,9 +220,9 @@ bool DoubleRatchet::decryptMessage(const std::vector<uint8_t> &cipher,
                                    uint32_t num) {
   if constexpr (printNormDebug) std::cerr << "[decryptMessage] cipher size=" << cipher.size() << " iv size=" << iv.size() << " tag size=" << tag.
       size() << " msgNum=" << num << std::endl;
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[decryptMessage] cipher", cipher);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[decryptMessage] authTag", tag);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[decryptMessage] iv", iv);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[decryptMessage] cipher", cipher);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[decryptMessage] authTag", tag);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[decryptMessage] iv", iv);
 
   // Generate message key if not already present
   if (state->recv_message_keys.find(num) == state->recv_message_keys.end()) {
@@ -234,7 +234,7 @@ bool DoubleRatchet::decryptMessage(const std::vector<uint8_t> &cipher,
   }
 
   auto &key = state->recv_message_keys[num];
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[decryptMessage] msgKey", key);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[decryptMessage] msgKey", key);
 
   // Set up decryption environment
   decryptionEnv->key = key;
@@ -251,7 +251,7 @@ bool DoubleRatchet::decryptMessage(const std::vector<uint8_t> &cipher,
     msg = decryptionEnv->plaintext;
   }
 
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[decryptMessage] plaintext", msg);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[decryptMessage] plaintext", msg);
   return true;
 }
 
@@ -268,7 +268,7 @@ std::string DoubleRatchet::packEncMessage(const std::string &plaintext) {
     return "";
   }
 
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[packEncMessage] generated iv", iv);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[packEncMessage] generated iv", iv);
 
   if (!encryptMessage(msg, cipher, tag, iv)) {
     if constexpr (printNormDebug) std::cerr << "[packEncMessage] encryption failed" << std::endl;
@@ -293,10 +293,10 @@ std::string DoubleRatchet::packEncMessage(const std::string &plaintext) {
     static_cast<uint32_t>(msg.size())
   };
 
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[packEncMessage] hdr.iv", hdr.iv);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[packEncMessage] hdr.authTag", hdr.authTag);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[packEncMessage] hdr.SenderPubKey", hdr.SenderPubKey);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[packEncMessage] hdr.ReceiverPubKey", hdr.ReceiverPubKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[packEncMessage] hdr.iv", hdr.iv);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[packEncMessage] hdr.authTag", hdr.authTag);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[packEncMessage] hdr.SenderPubKey", hdr.SenderPubKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[packEncMessage] hdr.ReceiverPubKey", hdr.ReceiverPubKey);
   if constexpr (printNormDebug) std::cerr << "[packEncMessage] hdr.sendMessageNum=" << hdr.sendMessageNum << std::endl;
   if constexpr (printNormDebug) std::cerr << "[packEncMessage] hdr.messageLength=" << hdr.messageLength << std::endl;
 
@@ -364,9 +364,9 @@ std::string DoubleRatchet::unpackDecMessage(const std::string &pkg) {
 
   std::vector<uint8_t> cipher(pkg.begin() + pos, pkg.end());
   if constexpr (printNormDebug) std::cerr << "[unpackDecMessage] num=" << num << " len=" << len << std::endl;
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[unpackDecMessage] iv", iv);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[unpackDecMessage] tag", tag);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[unpackDecMessage] spk", spk);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[unpackDecMessage] iv", iv);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[unpackDecMessage] tag", tag);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[unpackDecMessage] spk", spk);
 
   // Check if we need to do an asymmetric ratchet step
   if (spk != state->theirPubKey) {
@@ -385,7 +385,7 @@ std::string DoubleRatchet::unpackDecMessage(const std::string &pkg) {
 
 bool DoubleRatchet::updateRootKey(const std::vector<uint8_t> &newPubKey) {
   if constexpr (printNormDebug) std::cerr << "[updateRootKey] newPubKey" << std::endl;
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[updateRootKey] newPubKey", newPubKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[updateRootKey] newPubKey", newPubKey);
 
   // Ensure the new public key is set before the asymmetric ratchet step
   state->theirPubKey = newPubKey;
@@ -400,7 +400,7 @@ RatchetState *DoubleRatchet::getState() const {
 }
 
 std::vector<uint8_t> DoubleRatchet::ownPubKey() const {
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[ownPubKey] ownPubKey", state->ownPubKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[ownPubKey] ownPubKey", state->ownPubKey);
   return state->ownPubKey;
 }
 
@@ -424,7 +424,7 @@ bool DoubleRatchet::asymmetricRatchetStep(const std::vector<uint8_t> &theirPub) 
 
   // Derive the shared secret using our new private key and their public key
   state->sharedSecret = ownKeyEnv->deriveSharedSecret(theirPub);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[asymmetricRatchetStep] sharedSecret", state->sharedSecret);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[asymmetricRatchetStep] sharedSecret", state->sharedSecret);
 
   // Derive new root key
   std::vector<uint8_t> newRoot(32);
@@ -432,7 +432,7 @@ bool DoubleRatchet::asymmetricRatchetStep(const std::vector<uint8_t> &theirPub) 
     if constexpr (printNormDebug) std::cerr << "[asymmetricRatchetStep] KDF failed" << std::endl;
     return false;
   }
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[asymmetricRatchetStep] newRoot", newRoot);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[asymmetricRatchetStep] newRoot", newRoot);
 
   // Update state
   state->rootKey = std::move(newRoot);
@@ -443,8 +443,8 @@ bool DoubleRatchet::asymmetricRatchetStep(const std::vector<uint8_t> &theirPub) 
   state->send_msg_num = 0;
   state->recv_msg_num = 0;
 
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[asymmetricRatchetStep] sendChainKey", state->sendChainKey);
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[asymmetricRatchetStep] recvChainKey", state->recvChainKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[asymmetricRatchetStep] sendChainKey", state->sendChainKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[asymmetricRatchetStep] recvChainKey", state->recvChainKey);
   return true;
 }
 
@@ -456,14 +456,14 @@ bool DoubleRatchet::testOneSideDoubleRatchet() {
   auto bobPubKey = bobKeyEnv->getPublicRaw();
 
   if constexpr (printNormDebug) std::cout << "[testDoubleRatchet] created Bob's KeyEnv and got public key" << std::endl;
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[testDoubleRatchet] bobPubKey", bobPubKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[testDoubleRatchet] bobPubKey", bobPubKey);
 
   DoubleRatchet alice(SessionType::DUO, ConstructType::INIT, nullptr, nullptr, bobPubKey);
   if constexpr (printNormDebug) std::cout << "[testDoubleRatchet] created test alice" << std::endl;
 
   // Get Alice's public key
   auto alicePubKey = alice.ownPubKey();
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[testDoubleRatchet] alicePubKey", alicePubKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[testDoubleRatchet] alicePubKey", alicePubKey);
 
   // Create Bob with Alice's pubkey
   DoubleRatchet bob(SessionType::DUO, ConstructType::FOLLOWINIT, nullptr, std::move(bobKeyEnv), alicePubKey);
@@ -475,10 +475,10 @@ bool DoubleRatchet::testOneSideDoubleRatchet() {
   } else {
     if constexpr (printNormDebug) std::cerr << "[testDoubleRatchet] shared secrets do not match" << std::endl;
     if constexpr (printHexDebug)
-      HelperUtils::printBytesAsHex("[testDoubleRatchet] alice sharedSecret",
+      Converter::HexConverter::printBytesAsHex("[testDoubleRatchet] alice sharedSecret",
                                    alice.getState()->sharedSecret);
     if constexpr (printHexDebug)
-      HelperUtils::printBytesAsHex("[testDoubleRatchet] bob sharedSecret",
+      Converter::HexConverter::printBytesAsHex("[testDoubleRatchet] bob sharedSecret",
                                    bob.getState()->sharedSecret);
     return false;
   }
@@ -524,14 +524,14 @@ bool DoubleRatchet::testMixedDoubleRatchet() {
   auto bobPubKey = bobKeyEnv->getPublicRaw();
 
   if constexpr (printNormDebug) std::cout << "[testDoubleRatchet] created Bob's KeyEnv and got public key" << std::endl;
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[testDoubleRatchet] bobPubKey", bobPubKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[testDoubleRatchet] bobPubKey", bobPubKey);
 
   DoubleRatchet alice(SessionType::DUO, ConstructType::INIT, nullptr, nullptr, bobPubKey);
   if constexpr (printNormDebug) std::cout << "[testDoubleRatchet] created test alice" << std::endl;
 
   // Get Alice's public key
   auto alicePubKey = alice.ownPubKey();
-  if constexpr (printHexDebug) HelperUtils::printBytesAsHex("[testDoubleRatchet] alicePubKey", alicePubKey);
+  if constexpr (printHexDebug) Converter::HexConverter::printBytesAsHex("[testDoubleRatchet] alicePubKey", alicePubKey);
 
   // Create Bob with Alice's pubkey
   DoubleRatchet bob(SessionType::DUO, ConstructType::FOLLOWINIT, nullptr, std::move(bobKeyEnv), alicePubKey);
@@ -543,10 +543,10 @@ bool DoubleRatchet::testMixedDoubleRatchet() {
   } else {
     if constexpr (printNormDebug) std::cerr << "[testDoubleRatchet] shared secrets do not match" << std::endl;
     if constexpr (printHexDebug)
-      HelperUtils::printBytesAsHex("[testDoubleRatchet] alice sharedSecret",
+      Converter::HexConverter::printBytesAsHex("[testDoubleRatchet] alice sharedSecret",
                                    alice.getState()->sharedSecret);
     if constexpr (printHexDebug)
-      HelperUtils::printBytesAsHex("[testDoubleRatchet] bob sharedSecret",
+      Converter::HexConverter::printBytesAsHex("[testDoubleRatchet] bob sharedSecret",
                                    bob.getState()->sharedSecret);
     return false;
   }

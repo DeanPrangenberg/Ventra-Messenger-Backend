@@ -3,13 +3,14 @@
 //
 
 #include <iostream>
+#include <QCoreApplication>
 #include <thread>
+#include "../../../Shared/Network/WebSocketServer.h"
 
 int main(int argc, char *argv[]) {
-  while (true) {
-    std::cout << "This is a placeholder for the VM-API main function." << std::endl;
-    std::cout << "Please implement the necessary functionality here." << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(10));
-  }
-  return 0;
+  QCoreApplication a(argc, argv);
+
+  Network::WebSocketServer server(8881); // Port definieren
+
+  return a.exec();
 }

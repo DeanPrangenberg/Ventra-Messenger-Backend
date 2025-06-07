@@ -12,7 +12,7 @@
 #include <sqlcipher/sqlite3.h>
 #include <openssl/rand.h>
 #include <fstream>
-#include "../Crypto/KDF/KDFEnv.h"
+#include "../../../Shared/Crypto/KeyEnv/KeyEnv.h"
 
 namespace fs = std::filesystem;
 
