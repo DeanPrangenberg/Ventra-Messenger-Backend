@@ -1,18 +1,38 @@
-FROM fedora:40
+# Build-Stage: Abhängigkeiten und Build-Tools
+FROM debian:stable-slim AS builder
 
-RUN dnf install -y \
-    libstdc++ \
-    openssl \
-    qt6-qtbase-devel \
-    qt6-qtwebsockets-devel && \
-    dnf clean all
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    libssl-dev \
+    qt6-base-dev \
+    qt6-websockets-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+COPY Backend/VM-MAIN-DB Backend/VM-MAIN-DB
+COPY Shared Shared
+
+WORKDIR /build/Backend/VM-MAIN-DB
+
+RUN cmake -S . -B build && cmake --build build --target VM-MAIN-DB && strip build/VM-MAIN-DB
+
+# Laufzeit-Stage: Nur Laufzeitabhängigkeiten
+FROM debian:stable-slim
+
+RUN apt-get update && apt-get install -y \
+    libstdc++6 \
+    libssl3 \
+    libqt6core6 \
+    libqt6network6 \
+    libqt6websockets6 \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-COPY VM-MAIN-DB .
+COPY --from=builder /build/Backend/VM-MAIN-DB/build/VM-MAIN-DB .
 
-RUN chmod +x /app/VM-MAIN-DB && ldd /app/VM-MAIN-DB || true
-
-EXPOSE 8001
+EXPOSE 8881
 
 CMD ["./VM-MAIN-DB"]
