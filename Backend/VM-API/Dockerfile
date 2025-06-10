@@ -1,31 +1,33 @@
-FROM fedora:40 AS builder
+# Build-Stage: Abhängigkeiten und Build-Tools
+FROM debian:stable-slim AS builder
 
-RUN dnf install -y \
-    libstdc++ \
-    openssl \
-    qt6-qtbase-devel \
-    qt6-qtwebsockets-devel \
+RUN apt-get update && apt-get install -y \
+    build-essential \
     cmake \
-    gcc-c++ \
-    make && \
-    dnf clean all
+    libssl-dev \
+    qt6-base-dev \
+    qt6-websockets-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
 
-COPY . .
+COPY Backend/VM-API Backend/VM-API
+COPY Shared Shared
 
 WORKDIR /build/Backend/VM-API
 
-RUN cmake -S . -B build && cmake --build build --target VM-API
+RUN cmake -S . -B build && cmake --build build --target VM-API && strip build/VM-API
 
-FROM fedora:40
+# Laufzeit-Stage: Nur Laufzeitabhängigkeiten
+FROM debian:stable-slim
 
-RUN dnf install -y \
-    libstdc++ \
-    openssl \
-    qt6-qtbase \
-    qt6-qtwebsockets && \
-    dnf clean all
+RUN apt-get update && apt-get install -y \
+    libstdc++6 \
+    libssl3 \
+    libqt6core6 \
+    libqt6network6 \
+    libqt6websockets6 \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 

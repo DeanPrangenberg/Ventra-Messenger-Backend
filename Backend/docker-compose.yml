@@ -10,8 +10,8 @@ services:
   vm-auth:
     image: backend-vm-auth
     build:
-      context: ../build/Backend/VM-AUTH
-      dockerfile: ../../../Backend/VM-AUTH/Dockerfile
+      context: ..
+      dockerfile: Backend/VM-AUTH/Dockerfile
     expose:
       - "8882"
     networks:
@@ -20,8 +20,8 @@ services:
   vm-logic:
     image: backend-vm-logic
     build:
-      context: ../build/Backend/VM-LOGIC
-      dockerfile: ../../../Backend/VM-LOGIC/Dockerfile
+      context: ..
+      dockerfile: Backend/VM-LOGIC/Dockerfile
     expose:
       - "8883"
     networks:
@@ -30,8 +30,8 @@ services:
   vm-main-db:
     image: backend-vm-main-db
     build:
-      context: ../build/Backend/VM-MAIN-DB
-      dockerfile: ../../../Backend/VM-MAIN-DB/Dockerfile
+      context: ..
+      dockerfile: Backend/VM-MAIN-DB/Dockerfile
     expose:
       - "8884"
     networks:
@@ -40,8 +40,8 @@ services:
   vm-redis:
     image: backend-vm-redis
     build:
-      context: ../build/Backend/VM-REDIS
-      dockerfile: ../../../Backend/VM-REDIS/Dockerfile
+      context: ..
+      dockerfile: Backend/VM-REDIS/Dockerfile
     expose:
       - "8885"
     networks:
