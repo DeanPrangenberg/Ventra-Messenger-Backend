@@ -51,8 +51,6 @@ jobs:
 
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2025.1
-        with:
-          run-args: --user 0:0
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
