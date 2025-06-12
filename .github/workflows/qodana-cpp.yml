@@ -1,29 +1,23 @@
-name: Qodana C++
+name: Qodana C++ Analysis
+
 on:
-  workflow_dispatch:
-  pull_request:
   push:
-    branches:
-      - main
-      - 'releases/*'
+    paths:
+      - 'QTClient/**'
+      - '.github/workflows/qodana-cpp.yml'
+  pull_request:
+    paths:
+      - 'QTClient/**'
 
 jobs:
   qodana:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      checks: write
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
-      - name: 'Qodana Scan'
+      - name: Qodana C++ Scan
         uses: JetBrains/qodana-action@v2025.1
         with:
-          linter: cpp
-          pr-mode: false
+          results-dir: ${{ runner.temp }}/qodana/results
+          cache-dir: ${{ runner.temp }}/qodana/cache
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-          QODANA_ENDPOINT: 'https://qodana.cloud'
