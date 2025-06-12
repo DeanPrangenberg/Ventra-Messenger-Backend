@@ -1,4 +1,4 @@
-FROM jetbrains/qodana-cpp:2025.1
+FROM jetbrains/qodana-cpp:latest
 
 RUN apt-get update && \
     apt-get install -y \
