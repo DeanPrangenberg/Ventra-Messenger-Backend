@@ -51,12 +51,8 @@ jobs:
 
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2025.1
+        with:
+          run-args: --user 0:0
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
-        with:
-          # Entferne alle 'linter'- oder 'args: --linter'-Angaben hier.
-          # Die qodana.yaml steuert, welcher Linter verwendet wird.
-          pr-mode: true # Behalte diese Option, da sie im Fehlerlog vorhanden war
-          post-pr-comment: true # Behalte diese Option
-          github-token: ${{ secrets.GITHUB_TOKEN }} # Benötigt für PR-Kommentare
