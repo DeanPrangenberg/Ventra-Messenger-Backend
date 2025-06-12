@@ -22,13 +22,10 @@ jobs:
           fetch-depth: 0
 
       - name: Build custom Qodana image
-        run: docker build -t my-qodana-cpp-custom -f Dockerfile .
+        run: docker build -t my-qodana-cpp-custom:2025.1 -f Dockerfile .
 
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2025.1
-        with:
-          linter: my-qodana-cpp-custom
-          pr-mode: false
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1469171812 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
