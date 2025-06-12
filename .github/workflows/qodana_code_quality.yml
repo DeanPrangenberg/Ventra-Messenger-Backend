@@ -7,12 +7,9 @@ on:
     branches:
       - main
       - 'releases/*'
-
 env:
-  IMAGE_NAME: qodana-cpp-vm
-  IMAGE_TAG: 2025.1
-  # Die vollständige Pfadangabe für das Docker-Image
-  FULL_IMAGE_PATH: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+  FULL_IMAGE_PATH: ${{ secrets.FULL_IMAGE_PATH }}
+
 
 jobs:
   build-and-scan:
