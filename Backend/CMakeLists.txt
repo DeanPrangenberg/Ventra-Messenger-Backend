@@ -8,7 +8,6 @@ set(CMAKE_BUILD_TYPE Release)
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # Unterprojekte hinzufügen
-add_subdirectory(VM-API)
 add_subdirectory(VM-LOGIC)
 add_subdirectory(VM-AUTH)
 add_subdirectory(VM-MAIN-DB)
