@@ -9,8 +9,10 @@ on:
       - 'releases/*'
 
 env:
-  IMAGE_NAME: my-qodana-cpp-custom
+  IMAGE_NAME: qodana-cpp-vm
   IMAGE_TAG: 2025.1
+  # Die vollständige Pfadangabe für das Docker-Image
+  FULL_IMAGE_PATH: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
 jobs:
   build-and-scan:
@@ -26,7 +28,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
 
-      - name: Log in to Docker Hub
+      - name: Log in to Docker Hub (für Push und Pull)
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -38,12 +40,26 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          tags: ${{ env.FULL_IMAGE_PATH }} # Image mit dem vollständigen Pfad taggen und pushen
+
+      - name: Configure qodana.yaml for custom linter
+        run: |
+          echo "version: \"1.0\"" > qodana.yaml
+          echo "linter: ${{ env.FULL_IMAGE_PATH }}" >> qodana.yaml # Hier den vollen Pfad eintragen
+          echo "profile:" >> qodana.yaml
+          echo "  name: qodana.recommended" >> qodana.yaml
+          echo "include:" >> qodana.yaml
+          echo "  - name: CheckDependencyLicenses" >> qodana.yaml
+          cat qodana.yaml # Zum Debuggen: Inhalt der qodana.yaml anzeigen lassen
 
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2025.1
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+          QODANA_ENDPOINT: 'https://qodana.cloud'
         with:
-          args: |
-            --linter ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          # Entferne alle 'linter'- oder 'args: --linter'-Angaben hier.
+          # Die qodana.yaml steuert, welcher Linter verwendet wird.
+          pr-mode: true # Behalte diese Option, da sie im Fehlerlog vorhanden war
+          post-pr-comment: true # Behalte diese Option
+          github-token: ${{ secrets.GITHUB_TOKEN }} # Benötigt für PR-Kommentare
