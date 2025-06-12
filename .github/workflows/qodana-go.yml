@@ -1,0 +1,19 @@
+name: Qodana Go Analysis
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  qodana-go:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Qodana Scan (Go)
+        uses: JetBrains/qodana-action@v2024.1
+        with:
+          project-dir: Backend
+          linter: golang
