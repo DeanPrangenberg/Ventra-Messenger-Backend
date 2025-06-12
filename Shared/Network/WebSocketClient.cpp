@@ -20,7 +20,11 @@ namespace Network {
   }
 
   void WebSocketClient::testPacket() {
-    socket.ping("ping_test");
+    for (int i = 0; i < 10; ++i) {
+      std::cout << "Sending test packet " << i + 1 << std::endl;
+      socket.sendTextMessage("Test message " + QString::number(i + 1));
+      sleep(1);
+    }
   }
 
 

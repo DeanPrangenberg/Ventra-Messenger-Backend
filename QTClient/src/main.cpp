@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
   mainWindow.updateStyle(":/themes/themes/style.qss");
   std::cout << "Style updated" << std::endl;
 
-  Network::WebSocketClient webSocket(QUrl("ws://127.0.0.1:8881"));
+  Network::WebSocketClient webSocket(QUrl("ws://127.0.0.1:8881/ws"));
   std::cout << "WebSocket client created" << std::endl;
 
   return QApplication::exec();

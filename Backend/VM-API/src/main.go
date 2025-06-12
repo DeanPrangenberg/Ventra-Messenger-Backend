@@ -1,6 +1,7 @@
 package main
 
 import (
+	"VM-API/src/pkges"
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
@@ -16,6 +17,7 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println("Upgrade error:", err)
 		return
 	}
+	log.Printf("Client connected: %s", r.RemoteAddr)
 	defer conn.Close()
 
 	for {
@@ -35,6 +37,6 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/ws", wsHandler)
-	log.Println("Server started on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Println("Server started on :8881")
+	log.Fatal(http.ListenAndServe(":8881", nil))
 }

@@ -1,37 +1,23 @@
-# Build-Stage: Abhängigkeiten und Build-Tools
-FROM debian:stable-slim AS builder
-
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    cmake \
-    libssl-dev \
-    qt6-base-dev \
-    qt6-websockets-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /build
-
-COPY Backend/VM-API Backend/VM-API
-COPY Shared Shared
-
-WORKDIR /build/Backend/VM-API
-
-RUN cmake -S . -B build && cmake --build build --target VM-API && strip build/VM-API
-
-# Laufzeit-Stage: Nur Laufzeitabhängigkeiten
-FROM debian:stable-slim
-
-RUN apt-get update && apt-get install -y \
-    libstdc++6 \
-    libssl3 \
-    libqt6core6 \
-    libqt6network6 \
-    libqt6websockets6 \
-    && rm -rf /var/lib/apt/lists/*
+# Build stage: Compile Go binary
+FROM golang:1.24.4 AS builder
 
 WORKDIR /app
 
-COPY --from=builder /build/Backend/VM-API/build/VM-API .
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
+
+COPY src/ ./src/
+
+WORKDIR /app/src
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/VM-API
+
+# Runtime stage: Minimal image
+FROM debian:stable-slim
+
+WORKDIR /app
+
+COPY --from=builder /app/VM-API .
 
 EXPOSE 8881
 

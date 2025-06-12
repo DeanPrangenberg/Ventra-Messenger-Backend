@@ -2,8 +2,8 @@ services:
   vm-api:
     image: backend-vm-api
     build:
-      context: ..
-      dockerfile: Backend/VM-API/Dockerfile
+      context: ./VM-API/
+      dockerfile: Dockerfile
     ports:
       - "127.0.0.1:8881:8881"
 
