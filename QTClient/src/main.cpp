@@ -9,6 +9,7 @@
 #include "HelperUtils/HelperUtils.h"
 #include "Gui/MainWindow/MainWindow.h"
 #include "../../Shared/Network/WebSocketClient.h"
+#include "../../Shared/Network/Packages.h"
 #include <QFile>
 
 std::vector<std::vector<uint8_t>>

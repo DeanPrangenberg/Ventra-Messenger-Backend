@@ -100,6 +100,8 @@ add_executable(Ventra-Messenger
     ../Shared/Network/WebSocketClient.h
     ../Shared/Converter/HexConverter.cpp
     ../Shared/Converter/HexConverter.h
+    ../Shared/Network/Packages.cpp
+    ../Shared/Network/Packages.h
 )
 
 # Include dirs for SQLCipher
