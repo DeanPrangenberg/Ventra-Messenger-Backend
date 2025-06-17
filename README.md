@@ -1,90 +1,22 @@
-# Messenger-App Architektur
+## **Allgemein**
 
-## Übersicht
-Dieses Dokument beschreibt die **Container-Struktur** des Backends und die **Module** des Frontends für einen Messenger-Dienst, der mit Docker containerisiert ist.
+**Cryptguard: Messenger** ist eine Kombination aus den Funktionen von Discord und WhatsApp. Nutzer sollen wie bei WhatsApp mit Kontakten und Gruppen kommunizieren können, während gleichzeitig Community-Chatserver nach dem Vorbild von Discord angeboten werden.
 
----
+Die Anwendung soll plattformübergreifend nutzbar sein (Windows, Linux, Android, iOS und Web). Das **Frontend** wird mit C++ und Qt entwickelt, da diese Kombination auf vielen Geräten direkt unterstützt wird. Das **Backend** basiert auf Go sowie Docker und evtl. kubernetes. Docker dient dazu, das Backend in fünf Bereiche zu unterteilen.
 
-## Backend (Server)
+## **Chat-Modelle**
 
-### **Container 1: API-Gateway**
-**Zuständigkeit**:
-- Zentrale Anlaufstelle für alle eingehenden Anfragen vom Frontend.
-- Routet Anfragen an die richtigen Services (Auth, Chat, etc.).
-- Blockiert nicht autorisierte Zugriffe (z. B. ohne gültiges JWT-Token).
+Es werden verschiedene Arten der Backend-Kommunikation angeboten:
+1. Normale Verbindung zum öffentlichen Backend über das Clear Web.
+2. Verbindung zum öffentlichen Backend über das Dark Web mittels TOR, um mehr Sicherheit zu bieten, ohne selbst hosten zu müssen.
+3. Verbindung zu einem selbst gehosteten Backend über das Clear Web.
+4. Verbindung zu einem selbst gehosteten Backend über das Dark Web.
+5. Direkte IP-Kommunikation über das Clear Web ohne Server (nur für Privatchats zwischen zwei Personen).
+6. Direkte IP-Kommunikation über das Dark Web.
+7. Ein spezielles Pool-Modell: Ein einzelner Channel wird gefiltert basierend auf einem vereinbarten Schlüssel und Filter-String. Der Filter-String bestimmt, welche Nachrichten angezeigt werden, während der Schlüssel die Nachrichten im Pool verschlüsselt. Dieses Modell wird ausschließlich im Dark Web gehostet.
 
-**Technologie**:
-- Nginx oder Traefik (als Reverse-Proxy).
+## **Verschlüsselung**
 
----
+Die Verschlüsselung erfolgt (bei unterstützten Chatmodellen) ausschließlich lokal auf den Geräten der Nutzer. Es wird der **Double Ratchet Algorithmus** als Grundlage verwendet, der eine Ende-zu-Ende-Verschlüsselung mit hoher Sicherheit und zusätzlichen Vorteilen bietet. Der Algorithmus kombiniert zwei Mechanismen: eine **Diffie-Hellman-Ratsche**, die regelmäßig neue Schlüssel durch elliptische Kurven-Kryptographie (ECDH) generiert, und eine **Hash-Ratsche**, die für jede Nachricht neue Schlüssel ableitet.
 
-### **Container 2: Datenbank-Speicher**
-**Zuständigkeit**:
-- Speichert **Benutzerdaten** (Passwörter gehasht + gesalzen).
-- Verwaltet **Chat-Metadaten** (Chat-Räume, Nachrichten-Zeitstempel).
-
-**Technologie**:
-- PostgreSQL (für strukturierte Daten).
-- Persistente Speicherung via Docker-Volumes.
-
----
-
-### **Container 3: Auth-Service**
-**Zuständigkeit**:
-- Registrierung, Login und Token-Generierung (JWT).
-- Überprüfung von Benutzerberechtigungen.
-
-**Technologie**:
-- Node.js (Express) oder Python (FastAPI).
-- Kommuniziert mit der PostgreSQL-Datenbank.
-
----
-
-### **Container 4: Chat-Service**
-**Zuständigkeit**:
-- Verarbeitet **Nachrichten in Echtzeit** über WebSockets.
-- Speichert Chat-Verläufe in der Datenbank.
-- Nutzt Redis für temporäre Caching (z. B. aktive Sessions).
-
-**Technologie**:
-- Socket.io (WebSockets) + Node.js.
-- Integration mit Redis für schnelle Zugriffe.
-
----
-
-### **Container 5: Cache**
-**Zuständigkeit**:
-- Speichert **temporäre Daten** (z. B. aktive Benutzer, Chat-Sitzungen).
-- Entlastet die Hauptdatenbank durch schnelle Zwischenspeicherung.
-
-**Technologie**:
-- Redis (In-Memory-Datenbank).
-
----
-
-## Frontend (Client)
-
-### **Module**
-1. **Encryption / Decryption**
-    - Verschlüsselt Nachrichten **clientseitig** (z. B. mit AES).
-    - Schlüsselaustausch via Diffie-Hellman (für E2E-Verschlüsselung).
-
-2. **Lokaler Speicher**
-    - Speichert Chats offline (via `localStorage` oder IndexedDB).
-    - Synchronisiert mit dem Server, sobald online.
-
-3. **GUI**
-    - **Chats**: Liste der Konversationen + Nachrichtenverlauf.
-    - **Settings**: Benutzerprofil, Passwortänderung, Benachrichtigungen.
-    - **Navigation Bar**: Schnellzugriff auf Chats, Kontakte, Einstellungen.
-
-4. **Server-Kommunikation**
-    - Verbindet zum API-Gateway via **HTTP/REST** (für Profildaten).
-    - Nutzt **WebSockets** für Echtzeit-Chats.
-
-5. **Direkte Client-Kommunikation**
-    - Peer-to-Peer-Verbindungen (optional, z. B. mit WebRTC für Dateitransfers).
-
-6. **App Settings**
-    - Theme-Auswahl (Dark/Light Mode).
-    - Benachrichtigungseinstellungen (Push/Desktop).
+Der Double Ratchet Algorithmus sorgt für wichtige Sicherheitsmerkmale wie **Forward Secrecy** (frühere Nachrichten bleiben auch bei einem kompromittierten Schlüssel sicher) und **Post-Compromise Security** (nach einer Kompromittierung wird die Sicherheit automatisch wiederhergestellt). Zudem ermöglicht er asynchrone Kommunikation, sodass Nachrichten auch dann sicher zugestellt werden können, wenn ein Teilnehmer offline ist.
