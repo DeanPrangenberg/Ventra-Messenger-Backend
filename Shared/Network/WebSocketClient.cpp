@@ -15,8 +15,6 @@ namespace Network {
         QByteArray serverKeyBytes = QByteArray::fromBase64(QString::fromStdString(serverKeyStr).toUtf8());
         std::vector<uint8_t> serverKeyVec(serverKeyBytes.begin(), serverKeyBytes.end());
 
-        std::cout << "serverKeyVec Base64: " << serverKeyBytes.toBase64().toStdString() << std::endl;
-
         Converter::HexConverter::printBytesAsHex("serverKeyVec Hex", serverKeyVec);
 
         auto tmpSharedSecret = keyPairEnv->deriveSharedSecret(serverKeyVec);
@@ -29,7 +27,7 @@ namespace Network {
         Converter::HexConverter::printBytesAsHex("SharedSecret", sharedSecret);
 
         handshakeDone = true;
-        testPacket(); // Now safe to send packets
+        testPacket();
       }
     });
 
@@ -45,7 +43,6 @@ namespace Network {
   void WebSocketClient::onConnected() {
     std::cout << "Connected to server: " << serverUrl.toString().toStdString() << std::endl;
     sendHandshakeData();
-    // testPacket() removed from here
   }
 
   void WebSocketClient::sendHandshakeData() {
