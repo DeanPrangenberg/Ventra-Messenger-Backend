@@ -1,6 +1,6 @@
 ## **Allgemein**
 
-**Cryptguard: Messenger** ist eine Kombination aus den Funktionen von Discord und WhatsApp. Nutzer sollen wie bei WhatsApp mit Kontakten und Gruppen kommunizieren können, während gleichzeitig Community-Chatserver nach dem Vorbild von Discord angeboten werden.
+**Ventra-Messenger** ist eine Kombination aus den Funktionen von Discord und WhatsApp. Nutzer sollen wie bei WhatsApp mit Kontakten und Gruppen kommunizieren können, während gleichzeitig Community-Chatserver nach dem Vorbild von Discord angeboten werden.
 
 Die Anwendung soll plattformübergreifend nutzbar sein (Windows, Linux, Android, iOS und Web). Das **Frontend** wird mit C++ und Qt entwickelt, da diese Kombination auf vielen Geräten direkt unterstützt wird. Das **Backend** basiert auf Go sowie Docker und evtl. kubernetes. Docker dient dazu, das Backend in fünf Bereiche zu unterteilen.
 
