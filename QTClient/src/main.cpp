@@ -1,6 +1,8 @@
 #include <QApplication>
 #include <QPushButton>
 #include <iostream>
+#include "../test/WebSocketWorker.h"
+#include <QThread>
 #include "../../Shared/Crypto/Encryption/EncryptionEnv.h"
 #include "../../Shared/Crypto/Hash/HashingEnv.h"
 #include "ThreadPool/ThreadPool.h"
@@ -12,20 +14,19 @@
 #include "../../Shared/Network/Packages.h"
 #include <QFile>
 
-std::vector<std::vector<uint8_t>>
-deriveSharedGroupSecret(const std::vector<Crypto::KeyEnv>& keys,
-                          const std::vector<uint8_t>& salt,
-                          const std::string& info,
-                          size_t outSize = 32)
-{
+std::vector<std::vector<uint8_t> >
+deriveSharedGroupSecret(const std::vector<Crypto::KeyEnv> &keys,
+                        const std::vector<uint8_t> &salt,
+                        const std::string &info,
+                        size_t outSize = 32) {
   int const n = static_cast<int>(keys.size());
-  std::vector<std::vector<uint8_t>> pubs(n);
+  std::vector<std::vector<uint8_t> > pubs(n);
   // Alle öffentlichen Keys einmal extrahieren
   for (int i = 0; i < n; ++i) {
     pubs[i] = keys[i].getPublicRaw();
   }
 
-  std::vector<std::vector<uint8_t>> groupKeys(n);
+  std::vector<std::vector<uint8_t> > groupKeys(n);
   // Für jeden Teilnehmer i:
   for (int i = 0; i < n; ++i) {
     // 1) Starte mit Deinem eigenen Public:
@@ -104,21 +105,25 @@ void test_double_ratchet() {
   }
 }
 
+void test_mulitBackendConnection(int numClients) {
+  QList<QThread *> threads;
+  for (int i = 0; i < numClients; ++i) {
+    QThread *thread = new QThread;
+    WebSocketWorker *worker = new WebSocketWorker(i);
+    worker->moveToThread(thread);
+    QObject::connect(thread, &QThread::started, worker, &WebSocketWorker::process);
+    thread->start();
+    threads.append(thread);
+  }
+}
+
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
   Gui::MainWindow mainWindow;
-
-  // Add debug output
-  std::cout << "Window created" << std::endl;
-
   mainWindow.show();
-  std::cout << "Window shown" << std::endl;
-
   mainWindow.updateStyle(":/themes/themes/style.qss");
-  std::cout << "Style updated" << std::endl;
 
-  Network::WebSocketClient webSocket(QUrl("ws://127.0.0.1:8881/ws"));
-  std::cout << "WebSocket client created" << std::endl;
+  test_mulitBackendConnection(3);
 
   return QApplication::exec();
 }
