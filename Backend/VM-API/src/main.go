@@ -1,8 +1,8 @@
 package main
 
 import (
+	"VM-API/src/NetworkPackets"
 	"VM-API/src/crypto"
-	"VM-API/src/pkges"
 	"crypto/ecdh"
 	"encoding/base64"
 	"encoding/json"
@@ -32,7 +32,7 @@ var upgrader = websocket.Upgrader{
 }
 
 func processPkg(session *Session, data []byte) error {
-	var pkg pkges.Pkg
+	var pkg NetworkPackets.Pkg
 	if err := json.Unmarshal(data, &pkg); err != nil {
 		log.Printf("[ERROR] Failed to unmarshal package: %v", err)
 		return err
@@ -123,7 +123,7 @@ func handleHandshake(session *Session, pkgData json.RawMessage) error {
 	return nil
 }
 
-func handleEncryptedMessage(session *Session, pkg pkges.Pkg) error {
+func handleEncryptedMessage(session *Session, pkg NetworkPackets.Pkg) error {
 	debugLog("Received IV (base64): %s", pkg.IV)
 	debugLog("Session shared secret: %x", session.SharedSecret)
 

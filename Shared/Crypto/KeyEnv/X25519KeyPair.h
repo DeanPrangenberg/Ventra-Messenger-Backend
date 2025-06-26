@@ -11,7 +11,6 @@
 #include <openssl/err.h>
 
 namespace Crypto {
-
   enum class KeyPairFormat {
     None,
     Raw,
@@ -22,7 +21,9 @@ namespace Crypto {
   class OpenSSLError : public std::runtime_error {
   public:
     explicit OpenSSLError(const std::string &msg)
-      : std::runtime_error(msg + ": " + getError()) {}
+      : std::runtime_error(msg + ": " + getError()) {
+    }
+
   private:
     static std::string getError() {
       char buf[256];
@@ -34,7 +35,7 @@ namespace Crypto {
   template<typename T>
   concept AllowedKeyType =
       std::is_same_v<T, std::string> ||
-      std::is_same_v<T, std::vector<uint8_t>>;
+      std::is_same_v<T, std::vector<uint8_t> >;
 
   class X25519KeyPair {
   public:
@@ -42,7 +43,7 @@ namespace Crypto {
     // - generate=true: neues Schlüsselpaar
     // - generate=false: lädt pub/priv gemäß Formaten oder ignoriert None
     template<AllowedKeyType T1 = std::vector<uint8_t>,
-             AllowedKeyType T2 = std::vector<uint8_t>>
+      AllowedKeyType T2 = std::vector<uint8_t> >
     explicit X25519KeyPair(
       bool generate,
       KeyPairFormat pubFormat = KeyPairFormat::None,
@@ -58,7 +59,7 @@ namespace Crypto {
       if (pubFormat != KeyPairFormat::None) {
         switch (pubFormat) {
           case KeyPairFormat::Raw:
-            if constexpr (std::is_same_v<T1, std::vector<uint8_t>>) key_ = loadFromRaw(pubKey, true);
+            if constexpr (std::is_same_v<T1, std::vector<uint8_t> >) key_ = loadFromRaw(pubKey, true);
             else throw std::invalid_argument("Raw public key requires vector<uint8_t>");
             break;
           case KeyPairFormat::Pem:
@@ -76,7 +77,7 @@ namespace Crypto {
       if (privFormat != KeyPairFormat::None) {
         switch (privFormat) {
           case KeyPairFormat::Raw:
-            if constexpr (std::is_same_v<T2, std::vector<uint8_t>>) key_ = loadFromRaw(privKey, false);
+            if constexpr (std::is_same_v<T2, std::vector<uint8_t> >) key_ = loadFromRaw(privKey, false);
             else throw std::invalid_argument("Raw private key requires vector<uint8_t>");
             break;
           case KeyPairFormat::Pem:
@@ -95,40 +96,54 @@ namespace Crypto {
     // Convenience-Overloads für nur einen Schlüssel
     template<AllowedKeyType T>
     explicit X25519KeyPair(KeyPairFormat pubFormat, const T &pubKey)
-      : X25519KeyPair(false, pubFormat, pubKey, KeyPairFormat::None, {}) {}
+      : X25519KeyPair(false, pubFormat, pubKey, KeyPairFormat::None, {}) {
+    }
 
     template<AllowedKeyType T>
     explicit X25519KeyPair(const T &privKey, KeyPairFormat privFormat)
-      : X25519KeyPair(false, KeyPairFormat::None, std::vector<uint8_t>(), privFormat, privKey) {}
+      : X25519KeyPair(false, KeyPairFormat::None, std::vector<uint8_t>(), privFormat, privKey) {
+    }
 
     // Schlüsselzugriff
     std::vector<uint8_t> getPublicRaw() const;
+
     std::vector<uint8_t> getPrivateRaw() const;
+
     std::string getPublicPem() const;
+
     std::string getPrivatePem() const;
+
     std::string getPublicBase64() const;
+
     std::string getPrivateBase64() const;
 
     // Gemeinsames Geheimnis
     std::vector<uint8_t> deriveSharedSecret(const std::vector<uint8_t> &peerPublic) const;
 
   private:
-    struct PKeyDeleter { void operator()(EVP_PKEY *p) const { EVP_PKEY_free(p); } };
+    struct PKeyDeleter {
+      void operator()(EVP_PKEY *p) const { EVP_PKEY_free(p); }
+    };
+
     using PKeyPtr = std::unique_ptr<EVP_PKEY, PKeyDeleter>;
     PKeyPtr key_;
 
     // Intern: Schlüssellader
     static PKeyPtr loadFromRaw(const std::vector<uint8_t> &data, bool pub);
+
     static PKeyPtr loadFromPem(const std::string &pem, bool pub);
+
     static PKeyPtr loadFromBase64(const std::string &b64, bool pub);
+
     static std::string encodeBase64(const std::vector<uint8_t> &data);
+
     static std::vector<uint8_t> decodeBase64(const std::string &b64);
+
     static std::string pemFromBio(BIO *bio);
 
     // Schlüsselgenerierung
     void GenerateNewKeyPair();
   };
-
 } // namespace Crypto
 
 #endif // X25519KEYPAIR_H

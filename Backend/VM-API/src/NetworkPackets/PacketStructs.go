@@ -1,4 +1,4 @@
-package pkges
+package NetworkPackets
 
 import "encoding/json"
 
