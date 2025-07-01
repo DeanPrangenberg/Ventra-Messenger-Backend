@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
   mainWindow.show();
   mainWindow.updateStyle(":/themes/themes/style.qss");
 
-  test_mulitBackendConnection(3);
+  test_mulitBackendConnection(1);
 
   return QApplication::exec();
 }

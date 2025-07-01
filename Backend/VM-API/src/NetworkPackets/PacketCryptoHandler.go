@@ -1,6 +1,7 @@
 package NetworkPackets
 
 import (
+	"VM-API/src/commonTypes"
 	"VM-API/src/crypto"
 	"VM-API/src/logs"
 	"crypto/ecdh"
@@ -10,7 +11,7 @@ import (
 	"log"
 )
 
-func handleHandshake(session *WebSocketSession, pkgData json.RawMessage) error {
+func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMessage) error {
 	var clientPubKeyBase64 string
 	if err := json.Unmarshal(pkgData, &clientPubKeyBase64); err != nil {
 		log.Printf("[ERROR] Failed to parse client public key: %v", err)
@@ -33,20 +34,20 @@ func handleHandshake(session *WebSocketSession, pkgData json.RawMessage) error {
 		return err
 	}
 
-	if session.privKey == nil || session.pubKey == nil {
+	if session.PrivKey == nil || session.PubKey == nil {
 		privKey, pubKey, err := crypto.GenerateX25519KeyPair()
 		if err != nil {
 			log.Printf("[ERROR] Failed to generate server key pair: %v", err)
 			return err
 		}
-		session.privKey = privKey
-		session.pubKey = pubKey
-		logs.DebugLog("Server private key: %x", session.privKey.Bytes())
-		logs.DebugLog("Server public key: %x", session.pubKey.Bytes())
+		session.PrivKey = privKey
+		session.PubKey = pubKey
+		logs.DebugLog("Server private key: %x", session.PrivKey.Bytes())
+		logs.DebugLog("Server public key: %x", session.PubKey.Bytes())
 	}
 
 	// After computing the shared secret:
-	sharedSecret, err := crypto.ComputeSharedSecret(session.privKey, clientPubKey)
+	sharedSecret, err := crypto.ComputeSharedSecret(session.PrivKey, clientPubKey)
 	if err != nil {
 		log.Printf("[ERROR] Failed to compute shared secret: %v", err)
 		return err
@@ -60,7 +61,7 @@ func handleHandshake(session *WebSocketSession, pkgData json.RawMessage) error {
 	session.SharedSecret = hashedSecret
 	session.HandShakeDone = true
 
-	serverPubKeyBase64 := base64.StdEncoding.EncodeToString(session.pubKey.Bytes())
+	serverPubKeyBase64 := base64.StdEncoding.EncodeToString(session.PubKey.Bytes())
 
 	response := map[string]string{
 		"type":         "HandshakeAck",
@@ -78,28 +79,28 @@ func handleHandshake(session *WebSocketSession, pkgData json.RawMessage) error {
 	return nil
 }
 
-func handleEncryptedMessage(sessionInfo *WebSocketSession, pkg Pkg) error {
+func handleEncryptedMessage(sessionInfo *commonTypes.WebSocketSession, pkg commonTypes.Pkg) (error, commonTypes.MessagePkg) {
 	logs.DebugLog("Received IV (base64): %s", pkg.IV)
 	logs.DebugLog("Session shared secret: %x", sessionInfo.SharedSecret)
 
 	iv, err := base64.StdEncoding.DecodeString(pkg.IV)
 	if err != nil {
 		log.Printf("[ERROR] Failed to decode IV: %v", err)
-		return err
+		return err, commonTypes.MessagePkg{}
 	}
 	logs.DebugLog("IV (hex): %x", iv)
 
 	var ciphertextBase64 string
 	if err := json.Unmarshal(pkg.Pkg, &ciphertextBase64); err != nil {
 		log.Printf("[ERROR] Failed to parse ciphertext: %v", err)
-		return err
+		return err, commonTypes.MessagePkg{}
 	}
 	logs.DebugLog("Ciphertext (base64): %s", ciphertextBase64)
 
 	ciphertext, err := base64.StdEncoding.DecodeString(ciphertextBase64)
 	if err != nil {
 		log.Printf("[ERROR] Failed to decode ciphertext: %v", err)
-		return err
+		return err, commonTypes.MessagePkg{}
 	}
 	logs.DebugLog("Ciphertext (hex): %x", ciphertext)
 
@@ -108,11 +109,18 @@ func handleEncryptedMessage(sessionInfo *WebSocketSession, pkg Pkg) error {
 	decryptedBytes, err := crypto.DecryptGCM(sessionInfo.SharedSecret, iv, ciphertext)
 	if err != nil {
 		log.Printf("[ERROR] Decryption failed: %v", err)
-		return err
+		return err, commonTypes.MessagePkg{}
 	}
 
 	log.Println("[INFO] Message decrypted successfully")
-	log.Println("[INFO] Decrypted message content:", string(decryptedBytes))
 
-	return nil
+	var msg commonTypes.MessagePkg
+	if err := json.Unmarshal(decryptedBytes, &msg); err != nil {
+		log.Printf("[ERROR] Failed to unmarshal decrypted message: %v", err)
+		return err, commonTypes.MessagePkg{}
+	}
+
+	logs.DebugLog("Decrypted message: %+v", msg)
+
+	return nil, msg
 }

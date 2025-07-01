@@ -16,6 +16,4 @@ add_custom_target(docker_compose_up
 # Unterprojekte hinzufügen
 add_subdirectory(VM-LOGIC)
 add_subdirectory(VM-AUTH)
-add_subdirectory(VM-MAIN-DB)
-add_subdirectory(VM-REDIS)
 add_subdirectory(VM-API)

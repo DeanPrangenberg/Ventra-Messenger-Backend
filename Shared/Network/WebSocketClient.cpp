@@ -28,6 +28,8 @@ namespace Network {
 
         handshakeDone = true;
         testPacket();
+      } else {
+        std::cout << "Received unknown message type: " << obj["type"].toString().toStdString() << std::endl;
       }
     });
 

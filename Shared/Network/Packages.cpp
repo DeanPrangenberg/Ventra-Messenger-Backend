@@ -5,13 +5,6 @@
 #include "Packages.h"
 #include <QDateTime>
 
-QJsonObject Packages::makePkg(const QString &pkgType, const QJsonObject &data) {
-  QJsonObject pkg;
-  pkg["type"] = pkgType;
-  pkg["pkg"] = data;
-  return pkg;
-}
-
 QJsonObject Packages::makeMessagePkg(const QString &content,
                                      const QString &timestamp, const QString &senderID,
                                      const QString &messageType, const QString &receiverID,
@@ -23,7 +16,7 @@ QJsonObject Packages::makeMessagePkg(const QString &content,
   data["messageType"] = messageType;
   data["receiverID"] = receiverID;
   data["messageID"] = messageID;
-  return makePkg("MessagePkg", data);
+  return data;
 }
 
 QString Packages::convertPkgToJsonStr(const QJsonObject &pkg) {
@@ -36,7 +29,7 @@ QJsonObject Packages::testMessage() {
     "TEST_ Hello, this is a test message! _TEST",
     QDateTime::currentDateTime().toString("dd.MM.yyyy HH:mm:ss:zzz"),
     "TEST_ user123 _TEST",
-    "TEST_ MessageType_DM _TEST",
+    "DM",
     "TEST_ user456 _TEST",
     "TEST_ msg789 _TEST"
   );
