@@ -1,18 +1,16 @@
-# Build stage: Compile Go binary
 FROM golang:1.24.4 AS builder
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
+COPY Backend/VM-API/go.mod Backend/VM-API/go.sum ./
+COPY Backend/shared/redisAPI ../shared/redisAPI
 RUN go mod download
 
-COPY src/ ./src/
+COPY Backend/VM-API/src/ ./src/
 
 WORKDIR /app/src
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/VM-API
 
-# Runtime stage: Minimal image
 FROM debian:stable-slim
 
 WORKDIR /app

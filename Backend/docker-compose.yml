@@ -2,10 +2,12 @@ services:
   vm-api:
     image: backend-vm-api
     build:
-      context: ./VM-API/
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: Backend/VM-API/Dockerfile
     ports:
       - "127.0.0.1:8881:8881"
+    networks:
+      - ventra-net
 
   vm-auth:
     image: backend-vm-auth
@@ -28,20 +30,18 @@ services:
       - ventra-net
 
   vm-main-db:
-    image: backend-vm-main-db
-    build:
-      context: ..
-      dockerfile: Backend/VM-MAIN-DB/Dockerfile
+    image: postgres:15
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: testPassword1234
+      POSTGRES_DB: main_db
     expose:
       - "8884"
     networks:
       - ventra-net
 
   vm-redis:
-    image: backend-vm-redis
-    build:
-      context: ..
-      dockerfile: Backend/VM-REDIS/Dockerfile
+    image: redis:7
     expose:
       - "8885"
     networks:

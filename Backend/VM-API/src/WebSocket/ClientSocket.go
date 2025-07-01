@@ -2,6 +2,7 @@ package WebSocket
 
 import (
 	"VM-API/src/NetworkPackets"
+	"VM-API/src/commonTypes"
 	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
 	"log"
@@ -37,7 +38,7 @@ func handleClient(conn *websocket.Conn, remoteAddr string, uuid string) {
 		delete(connections, uuid)
 		connMutex.Unlock()
 	}()
-	session := &NetworkPackets.WebSocketSession{Conn: conn, ClientUUID: uuid, HandShakeDone: false}
+	session := &commonTypes.WebSocketSession{Conn: conn, ClientUUID: uuid, HandShakeDone: false}
 
 	connMutex.Lock()
 	connections[uuid] = conn

@@ -1,23 +1,14 @@
 package NetworkPackets
 
 import (
-	"crypto/ecdh"
+	"VM-API/src/MessageHandlers"
+	"VM-API/src/commonTypes"
 	"encoding/json"
-	"github.com/gorilla/websocket"
 	"log"
 )
 
-type WebSocketSession struct {
-	Conn          *websocket.Conn
-	ClientUUID    string
-	SharedSecret  []byte
-	HandShakeDone bool
-	privKey       *ecdh.PrivateKey
-	pubKey        *ecdh.PublicKey
-}
-
-func ProcessPkg(sessionInfo *WebSocketSession, data []byte) error {
-	var pkg Pkg
+func ProcessPkg(sessionInfo *commonTypes.WebSocketSession, data []byte) error {
+	var pkg commonTypes.Pkg
 	if err := json.Unmarshal(data, &pkg); err != nil {
 		log.Printf("[ERROR] Failed to unmarshal package: %v", err)
 		return err
@@ -31,7 +22,14 @@ func ProcessPkg(sessionInfo *WebSocketSession, data []byte) error {
 			log.Println("[WARN] Handshake not done, ignoring MessagePkg")
 			return nil
 		}
-		return handleEncryptedMessage(sessionInfo, pkg)
+		err, msg := handleEncryptedMessage(sessionInfo, pkg)
+		if err != nil {
+			log.Printf("[ERROR] Failed to handle encrypted message: %v", err)
+			return err
+		}
+
+		return MessageHandlers.HandleMessage(sessionInfo, msg)
+
 	default:
 		log.Printf("[WARN] Unknown package type: %s", pkg.MsgType)
 		return nil
