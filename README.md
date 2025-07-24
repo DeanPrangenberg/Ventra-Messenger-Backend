@@ -1,22 +1,83 @@
-## **Allgemein**
+# 🔐 SkaleMessenger - Secure & Scalable Self-Hosted Messenger  
 
-**Ventra-Messenger** ist eine Kombination aus den Funktionen von Discord und WhatsApp. Nutzer sollen wie bei WhatsApp mit Kontakten und Gruppen kommunizieren können, während gleichzeitig Community-Chatserver nach dem Vorbild von Discord angeboten werden.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![Docker](https://img.shields.io/badge/docker-ready-success)
+![Go Version](https://img.shields.io/badge/go-1.20%2B-blue)
+![C++](https://img.shields.io/badge/C%2B%2B-17%2B-orange)
 
-Die Anwendung soll plattformübergreifend nutzbar sein (Windows, Linux, Android, iOS und Web). Das **Frontend** wird mit C++ und Qt entwickelt, da diese Kombination auf vielen Geräten direkt unterstützt wird. Das **Backend** basiert auf Go sowie Docker und evtl. kubernetes. Docker dient dazu, das Backend in fünf Bereiche zu unterteilen.
+A high-performance messenger with end-to-end encryption, scalable cloud architecture, and full self-hosting capability.
 
-## **Chat-Modelle**
+```mermaid
+graph TD
+    subgraph Client["Desktop Client (C++/Qt)"]
+        UI[Qt Client UI]
+    end
+    
+    UI <--> |Webscoket|API[API]
+    
+    subgraph Backend["Backend Services"]
+        AUTH <-->|Publish/Subscribe| KAFKA[Kafka]
+        API <-->|Publish/Subscribe| KAFKA
+        CS[CoreService] -->|Process| POSTGRES[(PostgreSQL)]
+        CS -->|Cache| REDIS[(Redis)]
+        CS <-->|Publish/Subscribe| KAFKA
+        KAFKA <-->|Publish/Subscribe| MD[Message Dispatche]
+        MD -->|Cache| REDIS
+        LOGGER[Logger Service] -->|Expose| PROM[Prometheus]
+        API -->|Log| LOGGER
+        CS -->|Log| LOGGER
+        MD -->|Log| LOGGER
+    end
+```
 
-Es werden verschiedene Arten der Backend-Kommunikation angeboten:
-1. Normale Verbindung zum öffentlichen Backend über das Clear Web.
-2. Verbindung zum öffentlichen Backend über das Dark Web mittels TOR, um mehr Sicherheit zu bieten, ohne selbst hosten zu müssen.
-3. Verbindung zu einem selbst gehosteten Backend über das Clear Web.
-4. Verbindung zu einem selbst gehosteten Backend über das Dark Web.
-5. Direkte IP-Kommunikation über das Clear Web ohne Server (nur für Privatchats zwischen zwei Personen).
-6. Direkte IP-Kommunikation über das Dark Web.
-7. Ein spezielles Pool-Modell: Ein einzelner Channel wird gefiltert basierend auf einem vereinbarten Schlüssel und Filter-String. Der Filter-String bestimmt, welche Nachrichten angezeigt werden, während der Schlüssel die Nachrichten im Pool verschlüsselt. Dieses Modell wird ausschließlich im Dark Web gehostet.
+## 🌟 Key Features
+- **Military-Grade Encryption**: Double Ratchet + OpenSSL for E2E encryption with Forward Secrecy
+- **High-Performance Backend**: Parallelized Go services with Kafka
+- **Native Desktop Client**: Resource-efficient Qt/C++ app with local SQLite database
+- **Enterprise Scalability**: Horizontal scaling with Redis and Kafka
 
-## **Verschlüsselung**
+# 🧱 Technology Stack
+### Component	Technologies
+- **Backend**:	Go, Docker
+- **Frontend**:	C++17, Qt 6, SQLite3 + SQLCipher
+- **Realtime**:	WebSockets, Kafka, Redis Pub/Sub
+- **Data Storage**:	PostgreSQL, Redis, SQLite
+- **Security**:	OpenSSL, Double Ratchet (AES-256-GCM + X25519 + HKDF), JWT, Ed25519,
+- **Infrastructure**:	Docker Compose, Kubernetes
 
-Die Verschlüsselung erfolgt (bei unterstützten Chatmodellen) ausschließlich lokal auf den Geräten der Nutzer. Es wird der **Double Ratchet Algorithmus** als Grundlage verwendet, der eine Ende-zu-Ende-Verschlüsselung mit hoher Sicherheit und zusätzlichen Vorteilen bietet. Der Algorithmus kombiniert zwei Mechanismen: eine **Diffie-Hellman-Ratsche**, die regelmäßig neue Schlüssel durch elliptische Kurven-Kryptographie (ECDH) generiert, und eine **Hash-Ratsche**, die für jede Nachricht neue Schlüssel ableitet.
+# 🚀 Local Installation
+### Backend
+```bash
+not ready
+``` 
 
-Der Double Ratchet Algorithmus sorgt für wichtige Sicherheitsmerkmale wie **Forward Secrecy** (frühere Nachrichten bleiben auch bei einem kompromittierten Schlüssel sicher) und **Post-Compromise Security** (nach einer Kompromittierung wird die Sicherheit automatisch wiederhergestellt). Zudem ermöglicht er asynchrone Kommunikation, sodass Nachrichten auch dann sicher zugestellt werden können, wenn ein Teilnehmer offline ist.
+#### Access Points:
+- not ready
+
+### Client:
+```bash
+not ready
+```
+
+# 📄 License
+MIT License - Full control over your data:
+
+Copyright 2025 SkaleMessenger Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
