@@ -3,7 +3,6 @@ package NetworkPackets
 import (
 	"VM-API/src/commonTypes"
 	"VM-API/src/crypto"
-	"VM-API/src/logs"
 	"crypto/ecdh"
 	"encoding/base64"
 	"encoding/json"
@@ -18,15 +17,11 @@ func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMess
 		return err
 	}
 
-	logs.DebugLog("Client public key (base64): %s", clientPubKeyBase64)
-
 	clientPubKeyBytes, err := base64.StdEncoding.DecodeString(clientPubKeyBase64)
 	if err != nil {
 		log.Printf("[ERROR] Failed to decode client public key: %v", err)
 		return err
 	}
-
-	logs.DebugLog("Client public key (hex): %x", clientPubKeyBytes)
 
 	clientPubKey, err := ecdh.X25519().NewPublicKey(clientPubKeyBytes)
 	if err != nil {
@@ -42,8 +37,6 @@ func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMess
 		}
 		session.PrivKey = privKey
 		session.PubKey = pubKey
-		logs.DebugLog("Server private key: %x", session.PrivKey.Bytes())
-		logs.DebugLog("Server public key: %x", session.PubKey.Bytes())
 	}
 
 	// After computing the shared secret:
@@ -52,11 +45,9 @@ func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMess
 		log.Printf("[ERROR] Failed to compute shared secret: %v", err)
 		return err
 	}
-	logs.DebugLog("Shared secret (raw): %x", sharedSecret)
 
 	// Hash the shared secret and store the hash
 	hashedSecret := crypto.Blake2sSum256(sharedSecret)
-	logs.DebugLog("Shared secret (hashed): %x", hashedSecret)
 
 	session.SharedSecret = hashedSecret
 	session.HandShakeDone = true
@@ -75,36 +66,29 @@ func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMess
 		return err
 	}
 
-	log.Println("[INFO] Handshake successful")
+	log.Println("[INFO] Handshake done with client:", session.ClientUUID)
 	return nil
 }
 
 func handleEncryptedMessage(sessionInfo *commonTypes.WebSocketSession, pkg commonTypes.Pkg) (error, commonTypes.MessagePkg) {
-	logs.DebugLog("Received IV (base64): %s", pkg.IV)
-	logs.DebugLog("Session shared secret: %x", sessionInfo.SharedSecret)
 
 	iv, err := base64.StdEncoding.DecodeString(pkg.IV)
 	if err != nil {
 		log.Printf("[ERROR] Failed to decode IV: %v", err)
 		return err, commonTypes.MessagePkg{}
 	}
-	logs.DebugLog("IV (hex): %x", iv)
 
 	var ciphertextBase64 string
 	if err := json.Unmarshal(pkg.Pkg, &ciphertextBase64); err != nil {
 		log.Printf("[ERROR] Failed to parse ciphertext: %v", err)
 		return err, commonTypes.MessagePkg{}
 	}
-	logs.DebugLog("Ciphertext (base64): %s", ciphertextBase64)
 
 	ciphertext, err := base64.StdEncoding.DecodeString(ciphertextBase64)
 	if err != nil {
 		log.Printf("[ERROR] Failed to decode ciphertext: %v", err)
 		return err, commonTypes.MessagePkg{}
 	}
-	logs.DebugLog("Ciphertext (hex): %x", ciphertext)
-
-	logs.DebugLog("Decryption key: %x", sessionInfo.SharedSecret)
 
 	decryptedBytes, err := crypto.DecryptGCM(sessionInfo.SharedSecret, iv, ciphertext)
 	if err != nil {
@@ -112,15 +96,11 @@ func handleEncryptedMessage(sessionInfo *commonTypes.WebSocketSession, pkg commo
 		return err, commonTypes.MessagePkg{}
 	}
 
-	log.Println("[INFO] Message decrypted successfully")
-
 	var msg commonTypes.MessagePkg
 	if err := json.Unmarshal(decryptedBytes, &msg); err != nil {
 		log.Printf("[ERROR] Failed to unmarshal decrypted message: %v", err)
 		return err, commonTypes.MessagePkg{}
 	}
-
-	logs.DebugLog("Decrypted message: %+v", msg)
 
 	return nil, msg
 }

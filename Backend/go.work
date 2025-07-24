@@ -1,6 +1,12 @@
 go 1.24
 
 use (
+	./shared/CryptoLib
+	./shared/KafkaWrapper
+	./shared/Logger
+	./shared/PostgresWrapper
+	./shared/RedisWrapper
+	
+	init-kafka
 	VM-API
-	shared/redisAPI
 )
