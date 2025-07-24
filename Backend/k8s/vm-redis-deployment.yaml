@@ -29,8 +29,8 @@ spec:
         - image: redis:7
           name: vm-redis
           ports:
-            - containerPort: 8885
-              hostPort: 8885
+            - containerPort: 8891
+              hostPort: 8891
               protocol: TCP
           resources: {}
       restartPolicy: Always

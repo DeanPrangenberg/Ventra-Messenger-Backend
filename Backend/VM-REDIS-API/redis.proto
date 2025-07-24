@@ -1,0 +1,96 @@
+syntax = "proto3";
+package redisApi;
+
+option go_package = "redisApi;redisApi";
+
+// The UserStatusService defines all available RPCs for user status, session, and metrics.
+service UserStatusService {
+  // Set the status (online, offline, afk) for a user.
+  rpc SetUserStatus (UserStatusRequest) returns (StatusResponse);
+
+  // Get the current status of a user.
+  rpc GetUserStatus (UserID) returns (UserStatusResponse);
+
+  // Set the API-ID for a user session.
+  rpc SetUserSession (SetUserSessionRequest) returns (StatusResponse);
+
+  // Get the API-ID for a user session.
+  rpc GetUserSession (GetUserSessionRequest) returns (GetUserSessionResponse);
+
+  // Increment a metric by a given value.
+  rpc IncrementMetric (MetricUpdateRequest) returns (StatusResponse);
+
+  // Set a metric to a specific value.
+  rpc UpdateMetric (MetricUpdateRequest) returns (StatusResponse);
+
+  // Reset a metric to zero.
+  rpc ResetMetric (MetricKeyRequest) returns (StatusResponse);
+
+  // Get values for a list of metric keys.
+  rpc GetMetrics (GetMetricsRequest) returns (MetricsResponse);
+
+  // Get all metrics and their values.
+  rpc GetAllMetrics (Empty) returns (MetricsResponse);
+}
+
+// Generic response for status operations.
+message StatusResponse {
+  string message = 1;
+  bool success = 2;
+}
+
+// Used to identify a user.
+message UserID {
+  string user_id = 1;
+}
+
+// Request to set a user's status.
+message UserStatusRequest {
+  string user_id = 1;
+  string status = 2; // online, offline, afk
+}
+
+// Response with the user's current status.
+message UserStatusResponse {
+  string status = 1;
+}
+
+// Request to set the API-ID for a user session.
+message SetUserSessionRequest {
+  string user_id = 1;
+  string api = 2;
+}
+
+// Request to get the API-ID for a user session.
+message GetUserSessionRequest {
+  string user_id = 1;
+}
+
+// Response with the API-ID for a user session.
+message GetUserSessionResponse {
+  string api = 1;
+}
+
+// Request to update or increment a metric.
+message MetricUpdateRequest {
+  string key = 1;
+  int64 value = 2;
+}
+
+// Request to reset a metric.
+message MetricKeyRequest {
+  string key = 1;
+}
+
+// Request to get values for a list of metric keys.
+message GetMetricsRequest {
+  repeated string keys = 1;
+}
+
+// Response with a map of metric keys and their values.
+message MetricsResponse {
+  map<string, int64> metrics = 1;
+}
+
+// Empty message for requests that need no parameters.
+message Empty {}

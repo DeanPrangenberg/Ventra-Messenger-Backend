@@ -11,9 +11,9 @@ metadata:
   namespace: default
 spec:
   ports:
-    - name: "8885"
-      port: 8885
-      targetPort: 8885
+    - name: "8891"
+      port: 8891
+      targetPort: 8891
   selector:
     io.kompose.service: vm-redis
 status:

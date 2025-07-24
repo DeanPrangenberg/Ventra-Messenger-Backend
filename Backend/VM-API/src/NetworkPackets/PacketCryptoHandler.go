@@ -2,7 +2,6 @@ package NetworkPackets
 
 import (
 	"VM-API/src/commonTypes"
-	"VM-API/src/crypto"
 	"crypto/ecdh"
 	"encoding/base64"
 	"encoding/json"

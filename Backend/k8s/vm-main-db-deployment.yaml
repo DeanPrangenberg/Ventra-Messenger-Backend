@@ -36,8 +36,8 @@ spec:
           image: postgres:15
           name: vm-main-db
           ports:
-            - containerPort: 8884
-              hostPort: 8884
+            - containerPort: 8890
+              hostPort: 8890
               protocol: TCP
           resources: {}
       restartPolicy: Always
