@@ -1,10 +1,10 @@
 package MessageHandlers
 
 import (
+	"RedisWrapper"
 	"VM-API/src/commonTypes"
 	"github.com/gorilla/websocket"
 	"log"
-	"redisAPI"
 )
 
 func HandleMessage(session *commonTypes.WebSocketSession, message commonTypes.MessagePkg) error {
