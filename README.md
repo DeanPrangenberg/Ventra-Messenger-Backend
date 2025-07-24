@@ -19,11 +19,13 @@ graph TD
         AUTH <-->|Publish/Subscribe| KAFKA[Kafka]
         API <-->|Publish/Subscribe| KAFKA
         CS[CoreService] -->|Process| POSTGRES[(PostgreSQL)]
-        CS -->|Cache| REDIS[(Redis)]
+        CS -->|Cache| REDISAPI[REDIS-API]
+        REDIS[(Redis)] <-->|Process| REDISAPI
         CS <-->|Publish/Subscribe| KAFKA
-        KAFKA <-->|Publish/Subscribe| MD[Message Dispatche]
-        MD -->|Cache| REDIS
+        KAFKA <-->|Publish/Subscribe| MD[Message Dispatcher]
+        MD -->|Cache| REDISAPI
         LOGGER[Logger Service] -->|Expose| PROM[Prometheus]
+        LOGGER -->|Log| REDISAPI
         API -->|Log| LOGGER
         CS -->|Log| LOGGER
         MD -->|Log| LOGGER
