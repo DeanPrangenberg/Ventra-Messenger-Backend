@@ -1,7 +1,6 @@
 package MessageHandlers
 
 import (
-	"RedisWrapper"
 	"VM-API/src/commonTypes"
 	"github.com/gorilla/websocket"
 	"log"
@@ -11,7 +10,7 @@ func HandleMessage(session *commonTypes.WebSocketSession, message commonTypes.Me
 	switch message.ReceiverType {
 	case "DM":
 		log.Println("[INFO] Received DM message publishing to Redis")
-		err := redisAPI.PubNewDMMessage(
+		err := RedisWrapper.PubNewDMMessage(
 			message.Content,
 			message.Timestamp,
 			message.SenderID,

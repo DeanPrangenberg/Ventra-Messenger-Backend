@@ -1,4 +1,4 @@
-package src
+package CryptoLib
 
 import (
 	"crypto/aes"

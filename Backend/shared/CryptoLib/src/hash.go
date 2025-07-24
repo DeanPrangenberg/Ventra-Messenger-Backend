@@ -1,4 +1,4 @@
-package src
+package CryptoLib
 
 import (
 	"golang.org/x/crypto/blake2s"

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --out k8s
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: vm-md
+  name: vm-md
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: vm-md
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert --out k8s
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/backend-ventra-net: "true"
+        io.kompose.service: vm-md
+    spec:
+      containers:
+        - image: backend-vm-md
+          name: vm-md
+          ports:
+            - containerPort: 8884
+              hostPort: 8884
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}

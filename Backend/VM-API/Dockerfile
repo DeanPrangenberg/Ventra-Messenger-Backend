@@ -2,10 +2,13 @@ FROM golang:1.24.4 AS builder
 
 WORKDIR /app
 
-COPY Backend/VM-API/go.mod Backend/VM-API/go.sum ./
-COPY Backend/shared/redisAPI ../shared/redisAPI
-RUN go mod download
+COPY Backend/VM-API/go.mod ./
+RUN go mod tidy
 
+COPY Backend/shared ../shared
+COPY Backend/VM-API/src/ ./src/
+
+RUN go mod download
 COPY Backend/VM-API/src/ ./src/
 
 WORKDIR /app/src

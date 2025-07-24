@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --out k8s
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: prometheus
+  name: prometheus
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: prometheus
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert --out k8s
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/backend-ventra-net: "true"
+        io.kompose.service: prometheus
+    spec:
+      containers:
+        - args:
+            - /bin/sh
+            - -c
+            - |
+              echo '
+              global:
+                scrape_interval: 15s
+              scrape_configs:
+                - job_name: "prometheus"
+                  static_configs:
+                    - targets: ["localhost:9090"]
+                - job_name: "node-exporter"
+                  static_configs:
+                    - targets: ["node-exporter:9100"]
+                - job_name: "vm-services"
+                  static_configs:
+                    - targets: ["vm-api:8881", "vm-auth:8882", "vm-logic:8883"]
+              ' > /etc/prometheus/prometheus.yml && \
+              /bin/prometheus --config.file=/etc/prometheus/prometheus.yml
+          image: prom/prometheus:latest
+          name: prometheus
+          ports:
+            - containerPort: 9090
+              hostPort: 9090
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}

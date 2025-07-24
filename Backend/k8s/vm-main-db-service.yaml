@@ -11,9 +11,9 @@ metadata:
   namespace: default
 spec:
   ports:
-    - name: "8884"
-      port: 8884
-      targetPort: 8884
+    - name: "8890"
+      port: 8890
+      targetPort: 8890
   selector:
     io.kompose.service: vm-main-db
 status:
