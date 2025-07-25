@@ -1,8 +1,7 @@
 package requests
 
 import (
-	"VM-REDIS-API/gRPC"
-	gRPC2 "VM-REDIS-API/src/gRPC"
+	gRPC "Redis-API-Wrapper/Redis-API-gRPC"
 	"VM-REDIS-API/src/requests"
 	"context"
 	"github.com/alicebob/miniredis/v2"
@@ -26,7 +25,7 @@ func TestSetAndGetUserStatus(t *testing.T) {
 	s := setupTestServer(t)
 	ctx := context.Background()
 
-	_, err := s.SetUserStatus(ctx, &gRPC2.UserStatusRequest{
+	_, err := s.SetUserStatus(ctx, &gRPC.UserStatusRequest{
 		UserId: "user1",
 		Status: "online",
 	})
@@ -34,7 +33,7 @@ func TestSetAndGetUserStatus(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	resp, err := s.GetUserStatus(ctx, &gRPC2.UserID{UserId: "user1"})
+	resp, err := s.GetUserStatus(ctx, &gRPC.UserID{UserId: "user1"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -47,7 +46,7 @@ func TestSetAndGetUserSession(t *testing.T) {
 	s := setupTestServer(t)
 	ctx := context.Background()
 
-	_, err := s.SetUserSession(ctx, &gRPC2.SetUserSessionRequest{
+	_, err := s.SetUserSession(ctx, &gRPC.SetUserSessionRequest{
 		UserId: "user42",
 		Api:    "api-abc",
 	})
@@ -55,7 +54,7 @@ func TestSetAndGetUserSession(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	resp, err := s.GetUserSession(ctx, &gRPC2.GetUserSessionRequest{
+	resp, err := s.GetUserSession(ctx, &gRPC.GetUserSessionRequest{
 		UserId: "user42",
 	})
 	if err != nil {
@@ -71,7 +70,7 @@ func TestMetricOperations(t *testing.T) {
 	ctx := context.Background()
 
 	// Set metric
-	_, err := s.UpdateMetric(ctx, &gRPC2.MetricUpdateRequest{
+	_, err := s.UpdateMetric(ctx, &gRPC.MetricUpdateRequest{
 		Key:   "cpu",
 		Value: 100,
 	})
@@ -80,7 +79,7 @@ func TestMetricOperations(t *testing.T) {
 	}
 
 	// Increment metric
-	_, err = s.IncrementMetric(ctx, &gRPC2.MetricUpdateRequest{
+	_, err = s.IncrementMetric(ctx, &gRPC.MetricUpdateRequest{
 		Key:   "cpu",
 		Value: 10,
 	})
@@ -89,7 +88,7 @@ func TestMetricOperations(t *testing.T) {
 	}
 
 	// Get metric
-	metricsResp, err := s.GetMetrics(ctx, &gRPC2.GetMetricsRequest{
+	metricsResp, err := s.GetMetrics(ctx, &gRPC.GetMetricsRequest{
 		Keys: []string{"cpu"},
 	})
 	if err != nil {
@@ -106,7 +105,7 @@ func TestResetMetric(t *testing.T) {
 	s := setupTestServer(t)
 	ctx := context.Background()
 
-	_, err := s.UpdateMetric(ctx, &gRPC2.MetricUpdateRequest{
+	_, err := s.UpdateMetric(ctx, &gRPC.MetricUpdateRequest{
 		Key:   "ram",
 		Value: 512,
 	})
@@ -114,14 +113,14 @@ func TestResetMetric(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	_, err = s.ResetMetric(ctx, &gRPC2.MetricKeyRequest{
+	_, err = s.ResetMetric(ctx, &gRPC.MetricKeyRequest{
 		Key: "ram",
 	})
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	metricsResp, err := s.GetMetrics(ctx, &gRPC2.GetMetricsRequest{
+	metricsResp, err := s.GetMetrics(ctx, &gRPC.GetMetricsRequest{
 		Keys: []string{"ram"},
 	})
 	if err != nil {
@@ -138,10 +137,10 @@ func TestGetAllMetrics(t *testing.T) {
 	ctx := context.Background()
 
 	// multiple keys
-	s.UpdateMetric(ctx, &gRPC2.MetricUpdateRequest{Key: "net", Value: 200})
-	s.UpdateMetric(ctx, &gRPC2.MetricUpdateRequest{Key: "disk", Value: 300})
+	s.UpdateMetric(ctx, &gRPC.MetricUpdateRequest{Key: "net", Value: 200})
+	s.UpdateMetric(ctx, &gRPC.MetricUpdateRequest{Key: "disk", Value: 300})
 
-	resp, err := s.GetAllMetrics(ctx, &gRPC2.Empty{})
+	resp, err := s.GetAllMetrics(ctx, &gRPC.Empty{})
 	if err != nil {
 		t.Fatal(err)
 	}

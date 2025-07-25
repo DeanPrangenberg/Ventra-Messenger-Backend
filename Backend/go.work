@@ -9,5 +9,9 @@ use (
 	
 	./init-kafka
 	./VM-API
-	VM-REDIS-API
+	./VM-REDIS-API
+	./VM-AUTH
+	./VM-CORE
+	./VM-LOGGER
+	./VM-MD
 )
