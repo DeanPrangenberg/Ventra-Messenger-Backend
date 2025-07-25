@@ -1,50 +1,49 @@
 package requests
 
 import (
-	"VM-REDIS-API/gRPC"
-	gRPC2 "VM-REDIS-API/src/gRPC"
+	gRPC "Redis-API-Wrapper/Redis-API-gRPC"
 	"context"
 	"fmt"
 	"strconv"
 )
 
-func (s *Server) IncrementMetric(ctx context.Context, req *gRPC2.MetricUpdateRequest) (*gRPC2.StatusResponse, error) {
+func (s *Server) IncrementMetric(ctx context.Context, req *gRPC.MetricUpdateRequest) (*gRPC.StatusResponse, error) {
 	err := s.RedisClient.HIncrBy(ctx, "metrics", req.Key, req.Value).Err()
 	if err != nil {
 		return nil, err
 	}
 
-	return &gRPC2.StatusResponse{
+	return &gRPC.StatusResponse{
 		Message: fmt.Sprint("Increment Metric", req.Key, "by", req.Value),
 		Success: true,
 	}, nil
 }
 
-func (s *Server) UpdateMetric(ctx context.Context, req *gRPC2.MetricUpdateRequest) (*gRPC2.StatusResponse, error) {
+func (s *Server) UpdateMetric(ctx context.Context, req *gRPC.MetricUpdateRequest) (*gRPC.StatusResponse, error) {
 	err := s.RedisClient.HSet(ctx, "metrics", req.Key, req.Value).Err()
 	if err != nil {
 		return nil, err
 	}
 
-	return &gRPC2.StatusResponse{
+	return &gRPC.StatusResponse{
 		Message: fmt.Sprint("Update Metric", req.Key, "to", req.Value),
 		Success: true,
 	}, nil
 }
 
-func (s *Server) ResetMetric(ctx context.Context, req *gRPC2.MetricKeyRequest) (*gRPC2.StatusResponse, error) {
+func (s *Server) ResetMetric(ctx context.Context, req *gRPC.MetricKeyRequest) (*gRPC.StatusResponse, error) {
 	err := s.RedisClient.HSet(ctx, "metrics", req.Key, 0).Err()
 	if err != nil {
 		return nil, err
 	}
 
-	return &gRPC2.StatusResponse{
+	return &gRPC.StatusResponse{
 		Message: fmt.Sprint("Rested Metric", req.Key),
 		Success: true,
 	}, nil
 }
 
-func (s *Server) GetMetrics(ctx context.Context, req *gRPC2.GetMetricsRequest) (*gRPC2.MetricsResponse, error) {
+func (s *Server) GetMetrics(ctx context.Context, req *gRPC.GetMetricsRequest) (*gRPC.MetricsResponse, error) {
 	vals, err := s.RedisClient.HMGet(ctx, "metrics", req.Keys...).Result()
 	if err != nil {
 		return nil, err
@@ -66,12 +65,12 @@ func (s *Server) GetMetrics(ctx context.Context, req *gRPC2.GetMetricsRequest) (
 		metrics[req.Keys[i]] = num
 	}
 
-	return &gRPC2.MetricsResponse{
+	return &gRPC.MetricsResponse{
 		Metrics: metrics,
 	}, nil
 }
 
-func (s *Server) GetAllMetrics(ctx context.Context, req *gRPC2.Empty) (*gRPC2.MetricsResponse, error) {
+func (s *Server) GetAllMetrics(ctx context.Context, req *gRPC.Empty) (*gRPC.MetricsResponse, error) {
 	vals, err := s.RedisClient.HGetAll(ctx, "metrics").Result()
 	if err != nil {
 		return nil, err
@@ -86,7 +85,7 @@ func (s *Server) GetAllMetrics(ctx context.Context, req *gRPC2.Empty) (*gRPC2.Me
 		metrics[key] = num
 	}
 
-	return &gRPC2.MetricsResponse{
+	return &gRPC.MetricsResponse{
 		Metrics: metrics,
 	}, nil
 }

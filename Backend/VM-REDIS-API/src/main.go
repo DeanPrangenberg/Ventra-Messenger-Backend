@@ -1,7 +1,7 @@
 package main
 
 import (
-	"VM-REDIS-API/src/gRPC"
+	gRPC "Redis-API-Wrapper/Redis-API-gRPC"
 	"VM-REDIS-API/src/requests"
 	"github.com/redis/go-redis/v9"
 	"log"
@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	lis, err := net.Listen("tcp", ":50051")
+	lis, err := net.Listen("tcp", ":8886")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -25,7 +25,7 @@ func main() {
 			}),
 	})
 
-	log.Println("Server running on :50051")
+	log.Println("Server running on :8891")
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

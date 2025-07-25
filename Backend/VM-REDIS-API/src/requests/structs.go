@@ -1,7 +1,7 @@
 package requests
 
 import (
-	"VM-REDIS-API/src/gRPC"
+	gRPC "Redis-API-Wrapper/Redis-API-gRPC"
 	"github.com/redis/go-redis/v9"
 )
 

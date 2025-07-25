@@ -2,7 +2,7 @@
 
 ## 🔄 Shared Components & Wrappers
 - [ ] 🧪 Add unit tests and documentation (info.md) to Kafka-Wrapper
-- [ ] 📦 Write the REDIS-API-Wrapper
+- [x] (25.07.2025) 📦 Write the REDIS-API-Wrapper
 
 ## 🏗️ Core Services (Self-Made)
 - [ ] 📐 Plan + Rewrite API with unit tests and info.md
