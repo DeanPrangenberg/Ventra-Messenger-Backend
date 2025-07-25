@@ -1,12 +1,14 @@
 #!/bin/bash
 
-if [ -d "src/gRPC" ]; then
+outPath="../shared"
+
+if [ -d $outPath ]; then
     rm -f src/gRPC/*.pb.go
 fi
 
-mkdir -p src/gRPC
+mkdir -p $outPath
 
 protoc \
-    --go_out=src/gRPC \
-    --go-grpc_out=src/gRPC \
-    *.proto
+    --go_out=$outPath \
+    --go-grpc_out=$outPath \
+    redis.proto

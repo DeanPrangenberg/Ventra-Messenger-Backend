@@ -4,7 +4,7 @@
 // 	protoc        v3.19.6
 // source: redis.proto
 
-package gRPC
+package Redis_API_gRPC
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -630,7 +630,7 @@ const file_redis_proto_rawDesc = "" +
 	"\vResetMetric\x12\x1a.redisApi.MetricKeyRequest\x1a\x18.redisApi.StatusResponse\x12D\n" +
 	"\n" +
 	"GetMetrics\x12\x1b.redisApi.GetMetricsRequest\x1a\x19.redisApi.MetricsResponse\x12;\n" +
-	"\rGetAllMetrics\x12\x0f.redisApi.Empty\x1a\x19.redisApi.MetricsResponseB\x13Z\x11../redisApi;protob\x06proto3"
+	"\rGetAllMetrics\x12\x0f.redisApi.Empty\x1a\x19.redisApi.MetricsResponseB\"Z Redis-API-Wrapper/Redis-API-gRPCb\x06proto3"
 
 var (
 	file_redis_proto_rawDescOnce sync.Once

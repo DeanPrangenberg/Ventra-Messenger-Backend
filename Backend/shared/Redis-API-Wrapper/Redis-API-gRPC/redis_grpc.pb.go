@@ -4,7 +4,7 @@
 // - protoc             v3.19.6
 // source: redis.proto
 
-package gRPC
+package Redis_API_gRPC
 
 import (
 	context "context"

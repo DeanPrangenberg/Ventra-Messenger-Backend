@@ -1,7 +1,7 @@
 syntax = "proto3";
 package redisApi;
 
-option go_package = "redisApi;redisApi";
+option go_package = "Redis-API-Wrapper/Redis-API-gRPC";
 
 // The UserStatusService defines all available RPCs for user status, session, and metrics.
 service UserStatusService {
