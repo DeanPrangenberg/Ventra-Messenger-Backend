@@ -80,6 +80,13 @@ services:
     networks:
       - ventra-net
 
+  vm-vault:
+    image: vault:latest
+    expose:
+      - "8892:8892"
+    networks:
+      - ventra-net
+
   kafka-zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     environment:
