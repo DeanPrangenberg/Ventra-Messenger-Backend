@@ -36,6 +36,6 @@
         MD --> |Log send Message| LOGGER
         MD --> |Send Message to User| API
 
-        KAFKA --> |Consume Message in Topic MessageQueue, MessageIn| MD
+        KAFKA --> |Consume Message in Topic MessageQueue, MessageIn| Logger
     end
 ```
