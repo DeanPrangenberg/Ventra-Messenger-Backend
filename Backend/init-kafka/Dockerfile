@@ -1,10 +1,18 @@
-FROM golang:1.21-alpine as builder
+FROM alpine:latest
 
-WORKDIR /app
-COPY . .
-RUN go mod download
-RUN go build -o init-kafka .
+RUN apk add --no-cache curl jq openssl openjdk11-jre \
+    && wget -O /tmp/kafka.tgz https://archive.apache.org/dist/kafka/3.7.0/kafka_2.13-3.7.0.tgz \
+    && tar -xzf /tmp/kafka.tgz -C /opt \
+    && ln -s /opt/kafka_2.13-3.7.0/bin/kafka-topics.sh /usr/local/bin/kafka-topics.sh \
+    && rm /tmp/kafka.tgz
 
-FROM alpine:3.19
-COPY --from=builder /app/init-kafka /init-kafka
-ENTRYPOINT ["/init-kafka"]
+RUN wget -O /tmp/vault.zip https://releases.hashicorp.com/vault/1.15.4/vault_1.15.4_linux_amd64.zip \
+    && unzip /tmp/vault.zip -d /usr/local/bin \
+    && rm /tmp/vault.zip \
+    && chmod +x /usr/local/bin/vault
+
+WORKDIR /scripts
+COPY Backend/init-kafka/kafka-init.sh /scripts/kafka-init.sh
+RUN chmod +x /scripts/kafka-init.sh
+
+CMD ["/scripts/kafka-init.sh"]

@@ -21,11 +21,11 @@ func main() {
 		gRPC.UnimplementedUserStatusServiceServer{},
 		redis.NewClient(
 			&redis.Options{
-				Addr: "localhost:6379",
+				Addr: "localhost:8891",
 			}),
 	})
 
-	log.Println("Server running on :8891")
+	log.Println("Server running on :8886")
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

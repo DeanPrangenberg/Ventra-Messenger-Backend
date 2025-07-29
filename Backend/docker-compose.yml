@@ -10,6 +10,12 @@ services:
       - "127.0.0.1:8881:8881"
     networks:
       - ventra-net
+    volumes:
+      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
+      - ./.secrets/vaultInitCerts/vm-api/client.crt:/tmp/ventra/client.crt:ro
+      - ./.secrets/vaultInitCerts/vm-api/client.key:/tmp/ventra/client.key:ro
+    environment:
+      - SERVICE_NAME=vm-api
 
   vm-auth:
     image: backend-vm-auth
@@ -20,6 +26,12 @@ services:
       - "8882"
     networks:
       - ventra-net
+    volumes:
+      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
+      - ./.secrets/vaultInitCerts/vm-auth/client.crt:/tmp/ventra/client.crt:ro
+      - ./.secrets/vaultInitCerts/vm-auth/client.key:/tmp/ventra/client.key:ro
+    environment:
+      - SERVICE_NAME=vm-auth
 
   vm-core:
     image: backend-vm-core
@@ -30,6 +42,12 @@ services:
       - "8883"
     networks:
       - ventra-net
+    volumes:
+      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
+      - ./.secrets/vaultInitCerts/vm-core/client.crt:/tmp/ventra/client.crt:ro
+      - ./.secrets/vaultInitCerts/vm-core/client.key:/tmp/ventra/client.key:ro
+    environment:
+      - SERVICE_NAME=vm-core
 
   vm-md:
     image: backend-vm-md
@@ -40,6 +58,12 @@ services:
       - "8884"
     networks:
       - ventra-net
+    volumes:
+      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
+      - ./.secrets/vaultInitCerts/vm-md/client.crt:/tmp/ventra/client.crt:ro
+      - ./.secrets/vaultInitCerts/vm-md/client.key:/tmp/ventra/client.key:ro
+    environment:
+      - SERVICE_NAME=vm-md
 
   vm-logger:
     image: backend-vm-logger
@@ -50,6 +74,12 @@ services:
       - "8885"
     networks:
       - ventra-net
+    volumes:
+      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
+      - ./.secrets/vaultInitCerts/vm-logger/client.crt:/tmp/ventra/client.crt:ro
+      - ./.secrets/vaultInitCerts/vm-logger/client.key:/tmp/ventra/client.key:ro
+    environment:
+      - SERVICE_NAME=vm-logger
 
   vm-redis-api:
     image: backend-vm-redis-api
@@ -60,7 +90,12 @@ services:
       - "8886"
     networks:
       - ventra-net
-
+    volumes:
+      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
+      - ./.secrets/vaultInitCerts/vm-redis-api/client.crt:/tmp/ventra/client.crt:ro
+      - ./.secrets/vaultInitCerts/vm-redis-api/client.key:/tmp/ventra/client.key:ro
+    environment:
+      - SERVICE_NAME=vm-redis-api
 
   vm-main-db:
     image: postgres:15
@@ -80,12 +115,41 @@ services:
     networks:
       - ventra-net
 
+  # 🔐 Vault: Production-ähnliche Konfiguration
   vm-vault:
-    image: vault:latest
-    expose:
-      - "8892:8892"
+    image: hashicorp/vault:latest
+    container_name: vm-vault
+    ports:
+      - "8200:8200"  # Standard Vault Port
+    volumes:
+      - ./.vault/config:/.vault/config
+      - ./.vault/data:/.vault/data
+      - ./.vault/tls:/.vault/tls:ro  # TLS-Zertifikate
+    environment:
+      VAULT_ADDR: https://0.0.0.0:8200
+      VAULT_API_ADDR: https://vm-vault:8200
+      VAULT_CLUSTER_ADDR: https://vm-vault:8201
+    cap_add:
+      - IPC_LOCK  # Für sichere Speicherung von Secrets
+    command: "vault server -config=/.vault/config/vault.hcl"
     networks:
       - ventra-net
+
+  vm-vault-init:
+    build:
+      context: ..
+      dockerfile: Backend/init-vault/Dockerfile
+    depends_on:
+      - vm-vault
+    environment:
+      - VAULT_ADDR=https://vm-vault:8200
+    volumes:
+      - ./.vault/tls/ca.crt:/vault-ca/ca.crt:ro
+      - ./.vault/secrets:/vaultSecrets
+      - ./.secrets/vaultInitCerts:/vaultInitCerts:ro
+    networks:
+      - ventra-net
+    restart: "on-failure"
 
   kafka-zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
@@ -102,10 +166,23 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: kafka-zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: SSL://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: SSL://kafka:9093
+      KAFKA_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/kafka.keystore.jks
+      KAFKA_SSL_KEYSTORE_PASSWORD: changeit
+      KAFKA_SSL_KEY_PASSWORD: changeit
+      KAFKA_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_PASSWORD: changeit
+      KAFKA_SSL_CLIENT_AUTH: required
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
     ports:
       - "9092:9092"
+    volumes:
+      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
+      - ./.secrets/vaultInitCerts/vm-kafka/client.crt:/tmp/ventra/client.crt:ro
+      - ./.secrets/vaultInitCerts/vm-kafka/client.key:/tmp/ventra/client.key:ro
+      - ./kafka/secrets:/etc/kafka/secrets:ro
     networks:
       - ventra-net
 
@@ -124,9 +201,13 @@ services:
 
   kafka-init:
     build:
-      context: ./init-kafka
+      context: ..
+      dockerfile: Backend/init-kafka/Dockerfile
     depends_on:
       - kafka
+      - vm-vault
+    environment:
+      - VAULT_ADDR=https://vm-vault:8200
     networks:
       - ventra-net
 
@@ -151,7 +232,7 @@ services:
               - targets: ["node-exporter:9100"]
           - job_name: "vm-services"
             static_configs:
-              - targets: ["vm-api:8881", "vm-auth:8882", "vm-logic:8883"]
+              - targets: ["vm-api:8881", "vm-auth:8882", "vm-core:8883"]
         ' > /etc/prometheus/prometheus.yml && \
         /bin/prometheus --config.file=/etc/prometheus/prometheus.yml
     networks:
