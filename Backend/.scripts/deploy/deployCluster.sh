@@ -181,7 +181,7 @@ if [[ $err -ne 0 ]]; then
 fi
 
 echo "Generating additional Kubernetes files (ServiceAccounts, ConfigMaps)..."
-./.scripts/deploy/createKubeFiles.sh
+sudo ./.scripts/deploy/createKubeFiles.sh
 
 echo "Applying manifests to the k3s cluster..."
 kubectl apply -f "$K8S_DIR"

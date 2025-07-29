@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-K8S_DIR="../k8sFiles"
+K8S_DIR="../../k8sFiles"
 mkdir -p "$K8S_DIR"
 
 SERVICES=(vm-api vm-auth vm-core vm-md vm-logger vm-redis-api)
