@@ -1,4 +1,5 @@
 /build/*
 /cmake-build-*/*
 /.idea
-!/Backend/masterkey.txt
+/Backend/.secrets/
+/Backend/.vault/

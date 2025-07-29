@@ -1,7 +1,6 @@
 package Redis
 
 import (
-	"Redis-API-Wrapper"
 	"VM-API/src/commonTypes"
 	"encoding/json"
 	"fmt"

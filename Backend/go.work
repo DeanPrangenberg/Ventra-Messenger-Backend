@@ -6,8 +6,7 @@ use (
 	./shared/Logger-Wrapper
 	./shared/Postgres-Wrapper
 	./shared/Redis-API-Wrapper
-	
-	./init-kafka
+
 	./VM-API
 	./VM-REDIS-API
 	./VM-AUTH

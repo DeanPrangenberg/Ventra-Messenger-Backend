@@ -2,25 +2,29 @@ FROM golang:1.24.4 AS builder
 
 WORKDIR /app
 
-COPY Backend/VM-MD/go.mod ./
+COPY Backend/generate-go-work.sh ./
+RUN chmod +x generate-go-work.sh && ./generate-go-work.sh VM-MD
+
+COPY Backend/shared ./shared
+COPY Backend/VM-MD ./VM-MD
+
+WORKDIR /app/VM-MD/src
+
 RUN go mod tidy
-
-COPY Backend/shared ../shared
-COPY Backend/VM-MD/src/ ./src/
-
 RUN go mod download
 
-COPY Backend/VM-MD/src/ ./src/
-
-WORKDIR /app/src
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/VM-MD
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/VM-MD.bin
 
 FROM debian:stable-slim
 
 WORKDIR /app
 
-COPY --from=builder /app/VM-MD .
+RUN apt-get update && apt-get install -y curl jq && rm -rf /var/lib/apt/lists/*
 
-EXPOSE 8881
+COPY --from=builder /app/VM-MD.bin /usr/local/bin/vm-md
+COPY Backend/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-CMD ["./VM-MD"]
+EXPOSE 8886
+
+ENTRYPOINT ["/entrypoint.sh"]
