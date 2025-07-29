@@ -12,7 +12,7 @@ RUN wget -O /tmp/vault.zip https://releases.hashicorp.com/vault/1.15.4/vault_1.1
     && chmod +x /usr/local/bin/vault
 
 WORKDIR /scripts
-COPY Backend/init-kafka/kafka-init.sh /scripts/kafka-init.sh
+COPY init-kafka/kafka-init.sh /scripts/kafka-init.sh
 RUN chmod +x /scripts/kafka-init.sh
 
 CMD ["/scripts/kafka-init.sh"]
