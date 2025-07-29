@@ -117,6 +117,29 @@ build_and_import_images
 echo "Converting docker-compose.yml to Kubernetes manifests..."
 kompose convert -f "$DOCKERCOMPOSE_FILE" --out "$K8S_DIR"
 
+echo "Patching Deployments/DaemonSets/StatefulSets to set imagePullPolicy for local images..."
+# Liste der lokalen Images, die du importiert hast
+LOCAL_IMAGES=("backend-vm-api" "backend-vm-auth" "backend-vm-core" "backend-vm-md" "backend-vm-logger" "backend-vm-redis-api" "kafka-init" "vm-vault-init") # Füge ggf. weitere hinzu
+
+# Finde alle relevanten YAML-Dateien (Deployments, StatefulSets, DaemonSets)
+find "$K8S_DIR" -type f -name '*.yaml' | while read -r file; do
+  # Prüfe, ob die Datei eine dieser Arten ist
+  if yq -e '.kind == "Deployment" or .kind == "StatefulSet" or .kind == "DaemonSet"' "$file" > /dev/null; then
+    echo "  Processing $file..."
+    # Iteriere über die Liste der lokalen Images
+    for img_name in "${LOCAL_IMAGES[@]}"; do
+      # Prüfe, ob das Image in der Datei verwendet wird (irgendwo unter .spec.template.spec.containers[])
+      if yq -e --arg in "$img_name" '.spec.template.spec.containers[] | select(.image == $in)' "$file" > /dev/null; then
+        echo "    Found container using image '$img_name'. Setting imagePullPolicy to IfNotPresent."
+        # Setze imagePullPolicy für *alle* Container mit diesem Image-Namen in dieser Ressource
+        # yq -i -y ist veraltet, benutze -i mit dem passenden Ausgabeformat
+        yq -i -y "(.spec.template.spec.containers[] | select(.image == \"$img_name\")).imagePullPolicy = \"IfNotPresent\"" "$file"
+      fi
+    done
+  fi
+done
+echo "Finished patching imagePullPolicy."
+
 echo "Patching all PVCs to use accessMode: ReadWriteOnce and set storage requests..."
 # --- AKTUALISIERT: Robusteres Patchen, um ReadWriteOncePod zu erlauben, falls kompose es generiert ---
 find "$K8S_DIR" -type f -name '*.yaml' | while read -r file; do
@@ -158,7 +181,7 @@ if [[ $err -ne 0 ]]; then
 fi
 
 echo "Generating additional Kubernetes files (ServiceAccounts, ConfigMaps)..."
-./createKubeFiles.sh
+./.scripts/deploy/createKubeFiles.sh
 
 echo "Applying manifests to the k3s cluster..."
 kubectl apply -f "$K8S_DIR"

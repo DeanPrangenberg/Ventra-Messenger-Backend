@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml --out k8sFiles
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: vm-core
+  name: vm-core
+  namespace: default
+spec:
+  ports:
+    - name: "8883"
+      port: 8883
+      targetPort: 8883
+  selector:
+    io.kompose.service: vm-core
+status:
+  loadBalancer: {}
