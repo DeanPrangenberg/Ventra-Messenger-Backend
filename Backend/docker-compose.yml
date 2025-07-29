@@ -4,96 +4,72 @@ services:
   vm-api:
     image: backend-vm-api
     build:
-      context: ..
-      dockerfile: Backend/VM-API/Dockerfile
+      context: .
+      dockerfile: VM-API/Dockerfile
     ports:
       - "127.0.0.1:8881:8881"
     networks:
       - ventra-net
-    volumes:
-      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
-      - ./.secrets/vaultInitCerts/vm-api/client.crt:/tmp/ventra/client.crt:ro
-      - ./.secrets/vaultInitCerts/vm-api/client.key:/tmp/ventra/client.key:ro
     environment:
       - SERVICE_NAME=vm-api
 
   vm-auth:
     image: backend-vm-auth
     build:
-      context: ..
-      dockerfile: Backend/VM-AUTH/Dockerfile
+      context: .
+      dockerfile: VM-AUTH/Dockerfile
     expose:
       - "8882"
     networks:
       - ventra-net
-    volumes:
-      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
-      - ./.secrets/vaultInitCerts/vm-auth/client.crt:/tmp/ventra/client.crt:ro
-      - ./.secrets/vaultInitCerts/vm-auth/client.key:/tmp/ventra/client.key:ro
     environment:
       - SERVICE_NAME=vm-auth
 
   vm-core:
     image: backend-vm-core
     build:
-      context: ..
-      dockerfile: Backend/VM-CORE/Dockerfile
+      context: .
+      dockerfile: VM-CORE/Dockerfile
     expose:
       - "8883"
     networks:
       - ventra-net
-    volumes:
-      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
-      - ./.secrets/vaultInitCerts/vm-core/client.crt:/tmp/ventra/client.crt:ro
-      - ./.secrets/vaultInitCerts/vm-core/client.key:/tmp/ventra/client.key:ro
     environment:
       - SERVICE_NAME=vm-core
 
   vm-md:
     image: backend-vm-md
     build:
-      context: ..
-      dockerfile: Backend/VM-MD/Dockerfile
+      context: .
+      dockerfile: VM-MD/Dockerfile
     expose:
       - "8884"
     networks:
       - ventra-net
-    volumes:
-      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
-      - ./.secrets/vaultInitCerts/vm-md/client.crt:/tmp/ventra/client.crt:ro
-      - ./.secrets/vaultInitCerts/vm-md/client.key:/tmp/ventra/client.key:ro
     environment:
       - SERVICE_NAME=vm-md
 
   vm-logger:
     image: backend-vm-logger
     build:
-      context: ..
-      dockerfile: Backend/VM-LOGGER/Dockerfile
+      context: .
+      dockerfile: VM-LOGGER/Dockerfile
     expose:
       - "8885"
     networks:
       - ventra-net
-    volumes:
-      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
-      - ./.secrets/vaultInitCerts/vm-logger/client.crt:/tmp/ventra/client.crt:ro
-      - ./.secrets/vaultInitCerts/vm-logger/client.key:/tmp/ventra/client.key:ro
     environment:
       - SERVICE_NAME=vm-logger
 
   vm-redis-api:
     image: backend-vm-redis-api
     build:
-      context: ..
-      dockerfile: Backend/VM-REDIS-API/Dockerfile
+      context: .
+      dockerfile: VM-REDIS-API/Dockerfile
     expose:
       - "8886"
     networks:
       - ventra-net
-    volumes:
-      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
-      - ./.secrets/vaultInitCerts/vm-redis-api/client.crt:/tmp/ventra/client.crt:ro
-      - ./.secrets/vaultInitCerts/vm-redis-api/client.key:/tmp/ventra/client.key:ro
     environment:
       - SERVICE_NAME=vm-redis-api
 
@@ -121,10 +97,6 @@ services:
     container_name: vm-vault
     ports:
       - "8200:8200"  # Standard Vault Port
-    volumes:
-      - ./.vault/config:/.vault/config
-      - ./.vault/data:/.vault/data
-      - ./.vault/tls:/.vault/tls:ro  # TLS-Zertifikate
     environment:
       VAULT_ADDR: https://0.0.0.0:8200
       VAULT_API_ADDR: https://vm-vault:8200
@@ -137,16 +109,12 @@ services:
 
   vm-vault-init:
     build:
-      context: ..
-      dockerfile: Backend/init-vault/Dockerfile
+      context: .
+      dockerfile: init-vault/Dockerfile
     depends_on:
       - vm-vault
     environment:
       - VAULT_ADDR=https://vm-vault:8200
-    volumes:
-      - ./.vault/tls/ca.crt:/vault-ca/ca.crt:ro
-      - ./.vault/secrets:/vaultSecrets
-      - ./.secrets/vaultInitCerts:/vaultInitCerts:ro
     networks:
       - ventra-net
     restart: "on-failure"
@@ -178,11 +146,6 @@ services:
       KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
     ports:
       - "9092:9092"
-    volumes:
-      - ./.vault/tls/ca.crt:/tmp/ventra/ca.crt:ro
-      - ./.secrets/vaultInitCerts/vm-kafka/client.crt:/tmp/ventra/client.crt:ro
-      - ./.secrets/vaultInitCerts/vm-kafka/client.key:/tmp/ventra/client.key:ro
-      - ./kafka/secrets:/etc/kafka/secrets:ro
     networks:
       - ventra-net
 
@@ -201,8 +164,8 @@ services:
 
   kafka-init:
     build:
-      context: ..
-      dockerfile: Backend/init-kafka/Dockerfile
+      context: .
+      dockerfile: init-kafka/Dockerfile
     depends_on:
       - kafka
       - vm-vault
