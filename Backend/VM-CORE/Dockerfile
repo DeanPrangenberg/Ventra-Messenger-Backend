@@ -2,18 +2,17 @@ FROM golang:1.24.4 AS builder
 
 WORKDIR /app
 
-COPY Backend/generate-go-work.sh ./
+COPY .scripts/dev/generate-go-work.sh ./generate-go-work.sh
 RUN chmod +x generate-go-work.sh && ./generate-go-work.sh VM-CORE
 
-COPY Backend/shared ./shared
-COPY Backend/VM-CORE ./VM-CORE
+COPY shared ./shared
+COPY VM-CORE ./VM-CORE
 
-WORKDIR /app/VM-CORE/src
+WORKDIR /app/VM-CORE
 
-RUN go mod tidy
-RUN go mod download
+RUN go mod tidy && go mod download
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/VM-CORE.bin
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/VM-CORE.bin /app/VM-CORE/src/main.go
 
 FROM debian:stable-slim
 
@@ -22,7 +21,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y curl jq && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/VM-CORE.bin /usr/local/bin/vm-core
-COPY Backend/entrypoint.sh /entrypoint.sh
+COPY .scripts/dev/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 8886

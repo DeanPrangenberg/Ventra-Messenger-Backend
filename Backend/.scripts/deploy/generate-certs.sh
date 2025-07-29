@@ -2,16 +2,6 @@
 set -euo pipefail
 
 # === CONFIGURATION ===
-declare -A SERVICES=(
-  [vm-auth]=".secrets/vaultInitCerts/vm-auth"
-  [vm-kafka]=".secrets/vaultInitCerts/vm-kafka"
-  [vm-api]=".secrets/vaultInitCerts/vm-api"
-  [vm-logger]=".secrets/vaultInitCerts/vm-logger"
-  [vm-core]=".secrets/vaultInitCerts/vm-core"
-  [vm-md]=".secrets/vaultInitCerts/vm-md"
-  [vm-redis-api]=".secrets/vaultInitCerts/vm-redis-api"
-)
-
 TLS_DIR="./.vault/tls"
 CA_DIR="$TLS_DIR/ca"
 
@@ -64,41 +54,6 @@ chown 100:100 "$TLS_DIR/vault.crt" || true
 
 rm -f "$TLS_DIR/vault.csr"
 
-# === SERVICE CLIENT CERTS ===
-for SERVICE in "${!SERVICES[@]}"; do
-  OUT="${SERVICES[$SERVICE]}"
-  mkdir -p "$OUT"
-  echo "Generating client key for $SERVICE..."
-  openssl genrsa -out "$OUT/client.key" 2048
-  chmod 600 "$OUT/client.key"
-  chown 100:100 "$OUT/client.key" || true
-
-  echo "Creating CSR for $SERVICE..."
-  openssl req -new -key "$OUT/client.key" \
-    -subj "/C=DE/ST=Berlin/L=Berlin/O=Ventra Messenger/CN=$SERVICE" \
-    -reqexts SAN \
-    -config <(cat /etc/ssl/openssl.cnf <(printf "\n[SAN]\nsubjectAltName=DNS:$SERVICE.services.ventra.internal")) \
-    -out "$OUT/client.csr"
-
-  echo "Signing client certificate for $SERVICE with Root CA..."
-  openssl x509 -req -in "$OUT/client.csr" \
-    -CA "$TLS_DIR/ca.crt" \
-    -CAkey "$CA_DIR/private/ca.key.pem" \
-    -CAcreateserial \
-    -days 365 \
-    -sha256 \
-    -extfile <(printf "subjectAltName=DNS:$SERVICE.services.ventra.internal") \
-    -out "$OUT/client.crt"
-  chmod 644 "$OUT/client.crt"
-  chown 100:100 "$OUT/client.crt" || true
-
-  rm -f "$OUT/client.csr"
-done
-
-echo "All CA, Vault server, and client certificates generated."
+echo "All CA and Vault server certificates generated."
 echo "Root CA: $TLS_DIR/ca.crt"
 echo "Vault server: $TLS_DIR/vault.crt, $TLS_DIR/vault.key"
-for SERVICE in "${!SERVICES[@]}"; do
-  OUT="${SERVICES[$SERVICE]}"
-  echo "Service $SERVICE: $OUT/client.crt, $OUT/client.key"
-done
