@@ -1,12 +1,12 @@
-# init-vault/Dockerfile
 FROM hashicorp/vault:1.20.1
 
-# Install necessary tools
 RUN apk add --no-cache curl jq bash
 
-# Copy the initialization script
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+    chmod +x kubectl && \
+    mv kubectl /usr/local/bin/
+
 COPY init-vault/vault-init-auto.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/vault-init-auto.sh
 
-# Set the script as the entrypoint
 ENTRYPOINT ["/usr/local/bin/vault-init-auto.sh"]

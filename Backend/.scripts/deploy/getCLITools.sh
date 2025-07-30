@@ -3,12 +3,16 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BACKEND_ROOT_DIR="$SCRIPT_DIR/../.."
+echo "[DEBUG] Script directory is: $SCRIPT_DIR"
+echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
+
+source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+
 TOOLS=(yq openssl jq curl kubectl vault helm docker)
 MISSING=()
-
-log() { echo "[INFO] $1"; }
-log_warn() { echo "[WARN] $1"; }
-log_error() { echo "[ERROR] $1"; }
 
 # Detect package manager
 detect_pm() {

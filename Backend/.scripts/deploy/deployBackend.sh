@@ -1,105 +1,53 @@
 #!/bin/bash
-# deployBackend.sh - Orchestrates the complete deployment of the Ventra stack with cert-manager integration
 
-set -euo pipefail # Exit on error, undefined vars, pipe failures
+set -euo pipefail
 
 # === Configuration & Helper Functions ===
-
-# Determine the directory where this script resides
-# This allows calling the script from any location
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BACKEND_ROOT_DIR="$SCRIPT_DIR/../.."
 echo "[DEBUG] Script directory is: $SCRIPT_DIR"
+echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
 
-# Logging functions
-log() {
-    echo "[INFO] $1"
-}
-
-log_warn() {
-    echo "[WARN] $1" >&2
-}
-
-log_error() {
-    echo "[ERROR] $1" >&2
-}
-
-# Ensure required CLI tools are installed
-if [[ -f "$SCRIPT_DIR/getCLITools.sh" ]]; then
-    chmod +x "$SCRIPT_DIR/getCLITools.sh"
-    "$SCRIPT_DIR/getCLITools.sh"
-else
-    log_error "getCLITools.sh not found in $SCRIPT_DIR!"
-    exit 1
-fi
-
-# Function to source environment files safely
-source_env_file() {
-    local env_file="$1"
-    if [[ -f "$env_file" ]]; then
-        log "Loading environment variables from $env_file"
-        # Filter out comments and empty lines, then export
-        while IFS= read -r line || [[ -n "$line" ]]; do
-            # Skip empty lines and comments
-            [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
-            # Basic check for valid env var format
-            if [[ "$line" =~ ^[a-zA-Z_][a-zA-Z0-9_]*= ]]; then
-                export "$line"
-            else
-                log_warn "Skipping invalid line in $env_file: $line"
-            fi
-        done < <(grep -v '^#' "$env_file" | grep -v '^$')
-    else
-        log_error "$env_file not found!"
-        return 1
-    fi
-}
+source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
 
 # Function to wait for a Kubernetes job to complete
 wait_for_job_completion() {
     local job_name="$1"
     local namespace="$2"
-    local timeout="${3:-600}" # Default 10 minutes
-
+    local timeout="${3:-600}"
+    
     log "Waiting for job '$job_name' in namespace '$namespace' to complete (timeout: ${timeout}s)..."
     local elapsed=0
     until kubectl get job "$job_name" -n "$namespace" -o jsonpath='{.status.succeeded}' 2>/dev/null | grep -q "1" || [ $elapsed -ge $timeout ]; do
-        # Check if it failed
         if kubectl get job "$job_name" -n "$namespace" -o jsonpath='{.status.failed}' 2>/dev/null | grep -q "[1-9]"; then
-            log_error "Job '$job_name' failed."
+            error "Job '$job_name' failed."
+            log "Fetching logs for failed job..."
             kubectl logs job/"$job_name" -n "$namespace" --all-containers=true || true
             return 1
         fi
-        log "[INFO] Waiting for job '$job_name' completion... (${elapsed}s elapsed)"
+        log "Waiting for job '$job_name' completion... (${elapsed}s elapsed)"
         sleep 10
         elapsed=$((elapsed + 10))
     done
 
     if [ $elapsed -ge $timeout ]; then
-        log_error "Job '$job_name' did not complete within $timeout seconds."
+        error "Job '$job_name' did not complete within $timeout seconds."
+        log "Describing job for more details..."
         kubectl describe job "$job_name" -n "$namespace"
+        log "Fetching logs for timed out job..."
         kubectl logs job/"$job_name" -n "$namespace" --all-containers=true || true
         return 1
     fi
+
     log "Job '$job_name' completed successfully."
     return 0
 }
 
-# === 1. Check prerequisites ===
+# === Prerequisites Check ===
+log "Checking prerequisites..."
 
-echo "=============================================="
-echo "  Ventra Stack Deployment Orchestrator"
-echo "=============================================="
-
-if [[ $# -ne 1 ]] && [[ -z "${VAULT_TOKEN:-}" ]]; then
-    log_error "Vault root token is required."
-    echo "       Either pass it as an argument: ./deployBackend.sh <vault-root-token>"
-    echo "       Or set it as an environment variable: export VAULT_TOKEN='s.token' && ./deployBackend.sh"
-    exit 1
-fi
-
-VAULT_ROOT_TOKEN="${1:-$VAULT_TOKEN}"
-
-# Check if the main scripts are in the expected locations relative to this script
+# Check required scripts
 REQUIRED_SCRIPTS=(
     "$SCRIPT_DIR/deploy-helm-charts.sh"
     "$SCRIPT_DIR/service-configurator/cert-manager.sh"
@@ -108,161 +56,191 @@ REQUIRED_SCRIPTS=(
 
 for script in "${REQUIRED_SCRIPTS[@]}"; do
     if [[ ! -f "$script" ]]; then
-        log_error "$script not found!"
+        error "$script not found!"
         exit 1
     fi
 done
 
+# Check required Kubernetes files
 K8S_FILES_DIR="$SCRIPT_DIR/../../.kubeConfig"
 VAULT_INIT_RBAC_FILE="$K8S_FILES_DIR/vm-services/inti-vault/vault-init-rbac.yaml"
 VAULT_INIT_JOB_FILE="$K8S_FILES_DIR/vm-services/inti-vault/vault-init-job.yaml"
 
-# Check if the required Kubernetes files exist
-if [[ ! -f "$VAULT_INIT_RBAC_FILE" ]]; then
-    log_error "Vault init RBAC file not found: $VAULT_INIT_RBAC_FILE"
-    exit 1
-fi
-if [[ ! -f "$VAULT_INIT_JOB_FILE" ]]; then
-    log_error "Vault init job file not found: $VAULT_INIT_JOB_FILE"
+if [[ ! -f "$VAULT_INIT_RBAC_FILE" ]] || [[ ! -f "$VAULT_INIT_JOB_FILE" ]]; then
+    error "Required Kubernetes files not found."
+    log "RBAC file: $VAULT_INIT_RBAC_FILE - $([[ -f "$VAULT_INIT_RBAC_FILE" ]] && echo "Found" || echo "Not Found")"
+    log "Job file: $VAULT_INIT_JOB_FILE - $([[ -f "$VAULT_INIT_JOB_FILE" ]] && echo "Found" || echo "Not Found")"
     exit 1
 fi
 
-# === 2. Deploy Helm charts (includes cert-manager installation) ===
+# Ensure CLI tools are installed
+if [[ -f "$SCRIPT_DIR/getCLITools.sh" ]]; then
+    chmod +x "$SCRIPT_DIR/getCLITools.sh"
+    log "Checking/Installing CLI tools..."
+    "$SCRIPT_DIR/getCLITools.sh"
+else
+    error "getCLITools.sh not found in $SCRIPT_DIR!"
+    exit 1
+fi
 
-echo ""
-echo "----------------------------------------------"
-echo " Step 1: Deploying Helm Charts (deploy-helm-charts.sh)"
-echo "----------------------------------------------"
+# === Deployment Steps ===
 
+# Step 0: Build and Push Docker Images
+echo "=============================================="
+echo "  Step 0: Building and Pushing Docker Images"
+echo "=============================================="
+log "Starting Docker image build and push process..."
+chmod +x "$SCRIPT_DIR/uploadImages.sh"
+if ! (cd "$SCRIPT_DIR" && ./uploadImages.sh); then
+    error "Docker image build and push failed!"
+    exit 1
+fi
+log "Docker image build and push completed."
+
+# Step 1: Deploy Helm Charts
+echo "=============================================="
+echo "  Step 1: Deploying Helm Charts"
+echo "=============================================="
+log "Starting Helm chart deployment..."
 chmod +x "$SCRIPT_DIR/deploy-helm-charts.sh"
-# Execute in the script's directory to ensure relative paths work
 if ! (cd "$SCRIPT_DIR" && ./deploy-helm-charts.sh); then
-    log_error "Helm chart deployment failed!"
+    error "Helm chart deployment failed!"
     exit 1
 fi
 
-# Load environment variables from the first step
 if ! source_env_file "$SCRIPT_DIR/tmp/.env"; then
-    log_error ".env file not found after Helm chart deployment!"
+    error ".env file not found after Helm chart deployment!"
     exit 1
 fi
-
 log "Helm chart deployment completed successfully."
 
-# === 2.5. Initialize and Unseal Vault Automatically ===
+# Step 1.5: Create GHCR Secrets
+echo "=============================================="
+echo "  Step 1.5: Create GHCR Secrets"
+echo "=============================================="
 
-echo ""
-echo "----------------------------------------------"
-echo " Step 1.5: Initializing and Unsealing Vault (Auto)"
-echo "----------------------------------------------"
+# Create GHCR Image Pull Secret in multiple namespaces
+TARGET_NAMESPACES=("vault")
 
-# Apply RBAC for the init job
+for TARGET_NAMESPACE in "${TARGET_NAMESPACES[@]}"; do
+    log "Ensuring namespace '$TARGET_NAMESPACE' exists..."
+    kubectl get namespace "$TARGET_NAMESPACE" >/dev/null 2>&1 || kubectl create namespace "$TARGET_NAMESPACE"
+    log "Creating GHCR image pull secret in namespace '$TARGET_NAMESPACE'..."
+    chmod +x "$SCRIPT_DIR/createGHCR-Secrets.sh"
+    if ! (cd "$SCRIPT_DIR" && ./createGHCR-Secrets.sh "$TARGET_NAMESPACE"); then
+        error "Failed to create GHCR image pull secret in namespace $TARGET_NAMESPACE!"
+        exit 1
+    fi
+    log "GHCR image pull secret created in namespace '$TARGET_NAMESPACE'."
+done
+
+# Step 2: Initialize Vault
+echo "=============================================="
+echo "  Step 2: Vault Initialization Setup"
+echo "=============================================="
+
+# Apply Vault Init RBAC and Job
 log "Applying Vault init/unseal RBAC from $VAULT_INIT_RBAC_FILE..."
-kubectl apply -f "$VAULT_INIT_RBAC_FILE"
-
-# Apply the init job
-log "Applying Vault init/unseal job from $VAULT_INIT_JOB_FILE..."
-kubectl apply -f "$VAULT_INIT_JOB_FILE"
-
-# Wait for the job to complete successfully
-if ! wait_for_job_completion "vault-init-unseal-job" "vault" 600; then
-    log_error "Vault auto-initialization/unseal job failed or timed out."
+if ! kubectl apply -f "$VAULT_INIT_RBAC_FILE"; then
+    error "Failed to apply Vault init/unseal RBAC!"
     exit 1
 fi
+log "Vault init/unseal RBAC applied successfully."
 
+log "Applying Vault init/unseal job from $VAULT_INIT_JOB_FILE..."
+if ! kubectl apply -f "$VAULT_INIT_JOB_FILE"; then
+    error "Failed to apply Vault init/unseal job!"
+    exit 1
+fi
+log "Vault init/unseal job applied successfully."
+
+# Wait for job completion
+log "Waiting for Vault init/unseal job to complete..."
+if ! wait_for_job_completion "vault-init-unseal-job" "vault" 600; then
+    error "Vault auto-initialization/unseal job failed or timed out."
+    # Additional debugging info
+    log "Checking pod status in vault namespace..."
+    kubectl get pods -n vault | grep vault-init-unseal-job || true
+    log "Checking events in vault namespace..."
+    kubectl get events -n vault --sort-by='.lastTimestamp' | tail -10 || true
+    exit 1
+fi
 log "Vault auto-initialization and unseal completed."
 
-# === Update VAULT_TOKEN from Kubernetes Secret ===
-
-log "Retrieving root token from Kubernetes secret for subsequent steps..."
-VAULT_ROOT_TOKEN_FROM_SECRET=""
-# Use a loop with a timeout to wait for the secret to be created by the job
+# Retrieve Vault Root Token
+log "Retrieving root token from Kubernetes secret..."
 SECRETS_TIMEOUT=120
 SECRETS_ELAPSED=0
+
 until kubectl get secret vault-init-secret -n vault >/dev/null 2>&1 || [ $SECRETS_ELAPSED -ge $SECRETS_TIMEOUT ]; do
-    log "[INFO] Waiting for vault-init-secret to be created... (${SECRETS_ELAPSED}s elapsed)"
+    log "Waiting for vault-init-secret to be created... (${SECRETS_ELAPSED}s elapsed)"
     sleep 5
     SECRETS_ELAPSED=$((SECRETS_ELAPSED + 5))
 done
 
 if [ $SECRETS_ELAPSED -ge $SECRETS_TIMEOUT ]; then
-    log_error "vault-init-secret was not created within $SECRETS_TIMEOUT seconds."
-    # List secrets in vault namespace for debugging
+    error "vault-init-secret was not created within $SECRETS_TIMEOUT seconds."
+    log "Listing secrets in vault namespace for debugging..."
     kubectl get secrets -n vault || true
     exit 1
 fi
 
-# Now retrieve the token
+log "Reading root token from vault-init-secret..."
 VAULT_ROOT_TOKEN_FROM_SECRET=$(kubectl get secret vault-init-secret -n vault -o jsonpath='{.data.root-token}' | base64 -d)
 
 if [[ -n "${VAULT_ROOT_TOKEN_FROM_SECRET}" ]]; then
-    # Update the VAULT_TOKEN for the rest of this script
     export VAULT_TOKEN="${VAULT_ROOT_TOKEN_FROM_SECRET}"
-    log "[INFO] VAULT_TOKEN successfully updated from Kubernetes secret (first 10 chars: ${VAULT_TOKEN:0:10}...)."
+    log "VAULT_TOKEN successfully updated from Kubernetes secret (first 10 chars: ${VAULT_TOKEN:0:10}...)."
 else
-    log_error "Failed to retrieve root token from Kubernetes secret 'vault-init-secret'."
-    # List keys in the secret for debugging
-    kubectl get secret vault-init-secret -n vault -o jsonpath='{.data}' || true
-    echo ""
+    error "Failed to retrieve root token from Kubernetes secret 'vault-init-secret'."
+    log "Inspecting secret contents..."
+    kubectl get secret vault-init-secret -n vault -o yaml || true
     exit 1
 fi
 
-# === 3. Set up Vault PKI (with cert-manager integration) ===
-
-echo ""
-echo "----------------------------------------------"
-echo " Step 2: Setting up Vault PKI (service-configurator/vault.sh)"
-echo "----------------------------------------------"
-
-# Ensure VAULT_ADDR is set correctly for the PKI script
-# It should use the value from .env or default
+# Step 3: Set up Vault PKI
+echo "=============================================="
+echo "  Step 3: Setting up Vault PKI"
+echo "=============================================="
 export VAULT_ADDR="${VAULT_ADDR:-http://127.0.0.1:8200}"
-log "[INFO] Using VAULT_ADDR: $VAULT_ADDR for Vault PKI setup."
+log "Using VAULT_ADDR: $VAULT_ADDR for Vault PKI setup."
 
 chmod +x "$SCRIPT_DIR/service-configurator/vault.sh"
-# Execute in the script's directory to ensure relative paths work
+log "Starting Vault PKI setup..."
 if ! (cd "$SCRIPT_DIR" && VAULT_TOKEN="$VAULT_TOKEN" ./service-configurator/vault.sh); then
-    log_error "Vault PKI setup failed!"
+    error "Vault PKI setup failed!"
     exit 1
 fi
-
 log "Vault PKI setup completed successfully."
 
-# === 4. Configure cert-manager ===
-
-echo ""
-echo "----------------------------------------------"
-echo " Step 3: Configuring cert-manager (service-configurator/cert-manager.sh)"
-echo "----------------------------------------------"
-
-# Reload .env one final time in case the PKI script updated it
+# Step 4: Configure cert-manager
+echo "=============================================="
+echo "  Step 4: Configuring cert-manager"
+echo "=============================================="
+log "Reloading environment variables after Vault PKI setup..."
 if ! source_env_file "$SCRIPT_DIR/tmp/.env"; then
     log_warn "Could not reload .env after Vault PKI setup."
 fi
 
 chmod +x "$SCRIPT_DIR/service-configurator/cert-manager.sh"
-# Execute in the script's directory to ensure relative paths work
-# Pass the dynamically retrieved VAULT_TOKEN
+log "Starting cert-manager configuration..."
 if ! (cd "$SCRIPT_DIR" && VAULT_TOKEN="$VAULT_TOKEN" ./service-configurator/cert-manager.sh); then
-    log_error "cert-manager configuration failed!"
+    error "cert-manager configuration failed!"
     exit 1
 fi
 
-# Load environment variables from the cert-manager configuration
+log "Loading cert-manager environment variables..."
 if ! source_env_file "$SCRIPT_DIR/tmp/.env.cm"; then
     log_warn ".env.cm file not found after cert-manager configuration. Continuing..."
 fi
-
 log "cert-manager configuration completed successfully."
 
-# === 5. Final Summary ===
-
-# Reload .env one final time in case any script updated it
+# === Final Summary ===
+log "Preparing final summary..."
 if ! source_env_file "$SCRIPT_DIR/tmp/.env"; then
     log_warn "Could not reload final .env file."
 fi
 
-echo ""
 echo "=============================================="
 echo " 🎉 Deployment completed successfully! 🎉"
 echo "=============================================="

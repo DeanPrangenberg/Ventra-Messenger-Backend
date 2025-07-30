@@ -14,9 +14,11 @@ spec:
     spec:
       restartPolicy: Never
       serviceAccountName: vault-init-sa
+      imagePullSecrets:
+        - name: ventra-ghcr-secret
       containers:
         - name: vault-init
-          image: ghcr.io/deanprangenberg/ventra-vault-init:latest
+          image: ghcr.io/deanprangenberg/ventra-init-vault:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: VAULT_NAMESPACE
