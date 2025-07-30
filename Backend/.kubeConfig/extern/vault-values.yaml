@@ -1,0 +1,62 @@
+# vault-values.yaml - Production Vault Configuration for k3s
+
+# Disable development mode for a more secure and persistent setup
+server:
+  dev:
+    enabled: false
+
+  # Configure a single Vault server (standalone mode implicitly)
+  # We rely on externalAccess to configure the service correctly
+  # Remove the standalone block if it causes conflicts with externalAccess
+  # standalone:
+  #   enabled: true # This might conflict with externalAccess service creation
+  #   config: |
+  #     ...
+
+  # Volume configuration for audit logs
+  # Defines a volume to be mounted from the host filesystem
+  volumes:
+    - name: audit-logs
+      hostPath:
+        # Path on the host system where logs will be stored
+        path: /var/log/vault-prod
+        type: DirectoryOrCreate # Creates the directory if it doesn't exist
+
+  # Volume mount configuration for the Vault container
+  volumeMounts:
+    - name: audit-logs
+      mountPath: /vault/logs # Path inside the container where logs are written
+
+# Enable the Vault Web UI
+ui:
+  enabled: true
+
+# Disable the Vault Agent Injector (optional, disable if not needed)
+injector:
+  enabled: false
+
+# Configure external access via NodePort
+# This is the primary way to expose Vault in this setup
+externalAccess:
+  enabled: true
+  service:
+    type: NodePort
+    # The key for the node port might be 'http' depending on the chart version
+    # Check with: helm show values hashicorp/vault
+    nodePorts:
+      http: 30200
+
+service:
+  enabled: true
+  # Typ des Services explizit festlegen
+  type: NodePort
+  # Port-Mapping definieren
+  port: 8200
+  targetPort: 8200
+  # NodePort explizit festlegen (muss im gültigen Bereich liegen)
+  nodePort: 30200
+
+ha:
+  enabled: false
+  raft:
+    enabled: false

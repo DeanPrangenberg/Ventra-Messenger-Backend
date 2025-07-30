@@ -1,14 +1,12 @@
-FROM alpine:latest
+# init-vault/Dockerfile
+FROM hashicorp/vault:1.20.1
 
-RUN apk add --no-cache curl jq openssl
+# Install necessary tools
+RUN apk add --no-cache curl jq bash
 
-WORKDIR /scripts
-COPY init-vault/vault-init.sh /scripts/vault-init.sh
-RUN chmod +x /scripts/vault-init.sh
+# Copy the initialization script
+COPY vault-init-auto.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/vault-init-auto.sh
 
-RUN wget -O /tmp/vault.zip https://releases.hashicorp.com/vault/1.15.4/vault_1.15.4_linux_amd64.zip \
-    && unzip /tmp/vault.zip -d /usr/local/bin \
-    && rm /tmp/vault.zip \
-    && chmod +x /usr/local/bin/vault
-
-CMD ["/scripts/vault-init.sh"]
+# Set the script as the entrypoint
+ENTRYPOINT ["/usr/local/bin/vault-init-auto.sh"]
