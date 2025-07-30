@@ -91,30 +91,28 @@ services:
     networks:
       - ventra-net
 
-  # 🔐 Vault: Production-ähnliche Konfiguration
+  # 🔐 Vault: Development-Modus für einfache Integration
   vm-vault:
     image: hashicorp/vault:latest
-    container_name: vm-vault
     ports:
-      - "8200:8200"  # Standard Vault Port
+      - "8200:8200"
     environment:
-      VAULT_ADDR: https://0.0.0.0:8200
-      VAULT_API_ADDR: https://vm-vault:8200
-      VAULT_CLUSTER_ADDR: https://vm-vault:8201
-    cap_add:
-      - IPC_LOCK  # Für sichere Speicherung von Secrets
-    command: "vault server -config=/.vault/config/vault.hcl"
+      VAULT_ADDR: http://0.0.0.0:8200 # HTTP für Dev
+      SKIP_SETCAP: "true" # Für Container-Kompatibilität
+    # Kein command hier, wird in createKubeFiles.sh gesetzt
     networks:
       - ventra-net
 
   vm-vault-init:
+    image: backend-vm-vault-init
     build:
       context: .
       dockerfile: init-vault/Dockerfile
     depends_on:
       - vm-vault
     environment:
-      - VAULT_ADDR=https://vm-vault:8200
+      - VAULT_ADDR=http://vm-vault:8200 # HTTP für Dev
+      # VAULT_TOKEN wird vom Init-Skript dynamisch gehandhabt oder ist 'myroot'
     networks:
       - ventra-net
     restart: "on-failure"
@@ -134,16 +132,11 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: kafka-zookeeper:2181
-      KAFKA_LISTENERS: SSL://0.0.0.0:9093
-      KAFKA_ADVERTISED_LISTENERS: SSL://kafka:9093
-      KAFKA_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/kafka.keystore.jks
-      KAFKA_SSL_KEYSTORE_PASSWORD: changeit
-      KAFKA_SSL_KEY_PASSWORD: changeit
-      KAFKA_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka.truststore.jks
-      KAFKA_SSL_TRUSTSTORE_PASSWORD: changeit
-      KAFKA_SSL_CLIENT_AUTH: required
+      # Vereinfachte Konfiguration für Dev ohne SSL
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SSL
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false" # Bessere Praxis
     ports:
       - "9092:9092"
     networks:
@@ -163,6 +156,7 @@ services:
       - ventra-net
 
   kafka-init:
+    image: backend-vm-kafka-init
     build:
       context: .
       dockerfile: init-kafka/Dockerfile
@@ -170,40 +164,24 @@ services:
       - kafka
       - vm-vault
     environment:
-      - VAULT_ADDR=https://vm-vault:8200
+      - VAULT_ADDR=http://vm-vault:8200 # HTTP für Dev
+      # VAULT_TOKEN wird vom Init-Skript dynamisch gehandhabt
     networks:
       - ventra-net
 
   prometheus:
     image: prom/prometheus:latest
-    container_name: prometheus
     ports:
       - "9090:9090"
+    # Volumes entfernt, wird über ConfigMap/PVC gehandhabt
     command:
-      - /bin/sh
-      - -c
-      - |
-        echo '
-        global:
-          scrape_interval: 15s
-        scrape_configs:
-          - job_name: "prometheus"
-            static_configs:
-              - targets: ["localhost:9090"]
-          - job_name: "node-exporter"
-            static_configs:
-              - targets: ["node-exporter:9100"]
-          - job_name: "vm-services"
-            static_configs:
-              - targets: ["vm-api:8881", "vm-auth:8882", "vm-core:8883"]
-        ' > /etc/prometheus/prometheus.yml && \
-        /bin/prometheus --config.file=/etc/prometheus/prometheus.yml
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
     networks:
       - ventra-net
 
   node-exporter:
     image: prom/node-exporter:latest
-    container_name: node-exporter
     ports:
       - "9100:9100"
     networks:
@@ -211,7 +189,6 @@ services:
 
   grafana:
     image: grafana/grafana:latest
-    container_name: grafana
     ports:
       - "3000:3000"
     environment:

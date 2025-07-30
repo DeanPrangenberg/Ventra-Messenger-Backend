@@ -3,3 +3,5 @@
 /.idea
 /Backend/.secrets/
 /Backend/.vault/
+*/.env
+*/tmp

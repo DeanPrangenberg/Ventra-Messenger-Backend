@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vault-init-unseal-job
+  namespace: vault
+  labels:
+    app: vault-init
+spec:
+  backoffLimit: 10
+  template:
+    metadata:
+      labels:
+        app: vault-init
+    spec:
+      restartPolicy: Never
+      serviceAccountName: vault-init-sa
+      containers:
+        - name: vault-init
+          image: ghcr.io/deanprangenberg/ventra-vault-init:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: VAULT_NAMESPACE
+              value: "vault"
