@@ -3,7 +3,7 @@
 
 set -euo pipefail
 
-TOOLS=(yq openssl jq curl kubectl vault helm)
+TOOLS=(yq openssl jq curl kubectl vault helm docker)
 MISSING=()
 
 log() { echo "[INFO] $1"; }
@@ -42,7 +42,6 @@ log "Installing missing tools using $PM..."
 for tool in "${MISSING[@]}"; do
     case "$tool" in
         yq)
-            # Try package manager, else fallback to binary
             if [[ "$PM" == "apt" ]]; then
                 $SUDO apt-get update && $SUDO apt-get install -y yq || true
             elif [[ "$PM" == "dnf" || "$PM" == "yum" ]]; then
@@ -94,6 +93,33 @@ for tool in "${MISSING[@]}"; do
         helm)
             curl -s https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | $SUDO bash
             log "Installed helm"
+            ;;
+        docker)
+            if [[ "$PM" == "apt" ]]; then
+                $SUDO apt-get update
+                $SUDO apt-get install -y ca-certificates curl gnupg lsb-release
+                $SUDO mkdir -p /etc/apt/keyrings
+                curl -fsSL https://download.docker.com/linux/ubuntu/gpg | $SUDO gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+                echo \
+                  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+                  $(lsb_release -cs) stable" | $SUDO tee /etc/apt/sources.list.d/docker.list > /dev/null
+                $SUDO apt-get update
+                $SUDO apt-get install -y docker-ce docker-ce-cli containerd.io
+            elif [[ "$PM" == "dnf" || "$PM" == "yum" ]]; then
+                $SUDO $PM install -y dnf-plugins-core
+                $SUDO $PM config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+                $SUDO $PM install -y docker-ce docker-ce-cli containerd.io
+                $SUDO systemctl enable --now docker
+            elif [[ "$PM" == "zypper" ]]; then
+                $SUDO zypper install -y docker
+                $SUDO systemctl enable --now docker
+            elif [[ "$PM" == "pacman" ]]; then
+                $SUDO pacman -Sy --noconfirm docker
+                $SUDO systemctl enable --now docker
+            else
+                log_warn "Automatic Docker installation not supported for this package manager. Please install Docker manually."
+            fi
+            log "Installed docker"
             ;;
         *)
             log_warn "Unknown tool: $tool. Please install manually."
