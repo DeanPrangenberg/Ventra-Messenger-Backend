@@ -19,7 +19,7 @@ spec:
       containers:
         - name: vault-init
           image: ghcr.io/deanprangenberg/ventra-init-vault:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always # Always pull the latest image
           env:
             - name: VAULT_NAMESPACE
               value: "vault"

@@ -1,55 +1,36 @@
 server:
-  dev:
-    enabled: false
   standalone:
     enabled: true
     config: |
       ui = true
+
       listener "tcp" {
         address = "0.0.0.0:8200"
         cluster_address = "0.0.0.0:8201"
-        tls_disable = "true"
+        tls_disable = true
       }
+
       storage "file" {
         path = "/vault/data"
       }
-      api_addr = "http://POD_IP:8200"
-      cluster_addr = "https://POD_IP:8201"
+
       disable_mlock = true
-  volumes:
-    - name: audit-logs
-      hostPath:
-        path: /var/log/vault-prod
-        type: DirectoryOrCreate
-  volumeMounts:
-    - name: audit-logs
-      mountPath: /vault/logs
+
   dataStorage:
     enabled: true
     size: 10Gi
-    storageClass: ""
-    mountPath: /vault/data
     accessMode: ReadWriteOnce
-    whenScaled: Retain
-  auditStorage:
-    enabled: false
+
 ui:
   enabled: true
+  service:
+    enabled: true
+    type: NodePort
+    nodePort: 30200
+    port: 8200
+
 injector:
   enabled: false
-externalAccess:
-  enabled: true
-  service:
-    type: NodePort
-    nodePorts:
-      http: 30200
-service:
-  enabled: true
-  type: NodePort
-  port: 8200
-  targetPort: 8200
-  nodePort: 30200
+
 ha:
   enabled: false
-  raft:
-    enabled: false

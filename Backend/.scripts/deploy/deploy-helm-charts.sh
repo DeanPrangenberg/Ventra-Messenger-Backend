@@ -66,6 +66,9 @@ helm upgrade --install vault hashicorp/vault \
   --namespace vault \
   --values "$VAULT_VALUES_FILE"
 
+log "Patching Vault service to NodePort..."
+kubectl patch svc vault -n vault -p '{"spec": {"type": "NodePort", "ports": [{"name": "http", "port": 8200, "targetPort": 8200, "nodePort": 30200}]}}'
+
 log "Installing Kafka..."
 helm upgrade --install kafka bitnami/kafka \
   --namespace kafka \

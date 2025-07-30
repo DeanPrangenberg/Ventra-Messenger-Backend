@@ -78,7 +78,7 @@ for dockerfile_path in "${!IMAGE_PATH_MAP[@]}"; do
     log "Building image $local_image_tag..."
     # Change to the backend root directory to ensure the build context is correct
     # Then run docker build with the relative path to the Dockerfile and '.' as context
-    if (cd "$BACKEND_ROOT_DIR" && docker build --no-cache -f "$relative_dockerfile_path" -t "$local_image_tag" .); then
+    if (cd "$BACKEND_ROOT_DIR" && docker build -f "$relative_dockerfile_path" -t "$local_image_tag" .); then
         log "Successfully built $local_image_tag"
     else
         error "Failed to build image $image_name"
