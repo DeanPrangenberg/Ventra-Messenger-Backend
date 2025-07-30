@@ -7,6 +7,9 @@ BACKEND_ROOT_DIR="$SCRIPT_DIR/../.."
 echo "[DEBUG] Script directory is: $SCRIPT_DIR"
 echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
 
+source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+
 declare -A IMAGE_PATH_MAP=(
     ["$BACKEND_ROOT_DIR/init-kafka/Dockerfile"]="init-kafka"
     ["$BACKEND_ROOT_DIR/init-vault/Dockerfile"]="init-vault"
@@ -17,41 +20,6 @@ declare -A IMAGE_PATH_MAP=(
     ["$BACKEND_ROOT_DIR/VM-MD/Dockerfile"]="vm-md"
     ["$BACKEND_ROOT_DIR/VM-REDIS-API/Dockerfile"]="vm-redis-api"
 )
-
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
-
-log() {
-    echo -e "${GREEN}[INFO]${NC} $1"
-}
-
-log_warn() {
-    echo -e "${YELLOW}[WARN]${NC} $1" >&2
-}
-
-error() {
-    echo -e "${RED}[ERROR]${NC} $1" >&2
-    exit 1
-}
-
-source_env_file() {
-    local env_file="$1"
-    if [[ -f "$env_file" ]]; then
-        log "Loading environment variables from $env_file"
-        while IFS= read -r line || [[ -n "$line" ]]; do
-            [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
-            if [[ "$line" =~ ^[a-zA-Z_][a-zA-Z0-9_]*= ]]; then
-                export "$line"
-            else
-                log_warn "Skipping invalid line in $env_file: $line"
-            fi
-        done < <(grep -v '^#' "$env_file" | grep -v '^$')
-    else
-        error "$env_file not found!"
-    fi
-}
 
 log "Starting Docker image build and push process..."
 
@@ -72,12 +40,18 @@ command -v docker >/dev/null 2>&1 || error "Docker is not installed or not in PA
 ROOT_ENV_FILE="$BACKEND_ROOT_DIR/.env"
 source_env_file "$ROOT_ENV_FILE"
 
+# --- KORREKTUR: Variablen laden und verarbeiten ---
+# 1. Prüfen, ob die Variablen gesetzt sind (Originalwerte)
 if [[ -z "${GITHUB_IMAGE_TOKEN:-}" ]] || [[ -z "${GITHUB_USERNAME:-}" ]]; then
     error "GITHUB_IMAGE_TOKEN or GITHUB_USERNAME not set in $ROOT_ENV_FILE."
 fi
 
+# 2. Konvertiere GITHUB_USERNAME EINMAL in Kleinbuchstaben für die weitere Verwendung
+GITHUB_USERNAME_LOWERCASE="${GITHUB_USERNAME,,}"
+
+# 3. Verwende die konvertierte Variable für Login und Image-Namen
 log "Logging into GitHub Container Registry (GHCR)..."
-echo "$GITHUB_IMAGE_TOKEN" | docker login ghcr.io -u "$GITHUB_USERNAME" --password-stdin || error "Failed to log in to GHCR."
+echo "$GITHUB_IMAGE_TOKEN" | docker login ghcr.io -u "$GITHUB_USERNAME_LOWERCASE" --password-stdin || error "Failed to log in to GHCR."
 
 # Store the original directory to return to it later
 ORIGINAL_DIR="$PWD"
@@ -85,7 +59,7 @@ ORIGINAL_DIR="$PWD"
 for dockerfile_path in "${!IMAGE_PATH_MAP[@]}"; do
     image_name="${IMAGE_PATH_MAP[$dockerfile_path]}"
     local_image_tag="${image_name}:latest"
-    ghcr_image_name="ghcr.io/${GITHUB_USERNAME}/ventra-${image_name}"
+    ghcr_image_name="ghcr.io/${GITHUB_USERNAME_LOWERCASE}/ventra-${image_name}"
     ghcr_image_tag="${ghcr_image_name}:latest"
 
     log "Processing image: $image_name"
@@ -142,7 +116,8 @@ if [[ "$CLEANUP_LOCAL_IMAGES" == "yes" ]]; then
     for dockerfile_path in "${!IMAGE_PATH_MAP[@]}"; do
         image_name="${IMAGE_PATH_MAP[$dockerfile_path]}"
         local_image_tag="${image_name}:latest"
-        ghcr_image_name="ghcr.io/${GITHUB_USERNAME}/ventra-${image_name}"
+        # Verwende die bereits konvertierte Variable
+        ghcr_image_name="ghcr.io/${GITHUB_USERNAME_LOWERCASE}/ventra-${image_name}"
         ghcr_image_tag="${ghcr_image_name}:latest"
 
         docker rmi "$local_image_tag" "$ghcr_image_tag" 2>/dev/null || true

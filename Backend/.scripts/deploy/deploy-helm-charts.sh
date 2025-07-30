@@ -4,42 +4,13 @@
 echo "Fast Ventra Stack Installation for k3s"
 echo "======================================"
 
-# Logging Funktionen
-log() {
-    echo "[INFO] $1"
-}
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BACKEND_ROOT_DIR="$SCRIPT_DIR/../.."
+echo "[DEBUG] Script directory is: $SCRIPT_DIR"
+echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
 
-log_warn() {
-    echo "[WARN] $1"
-}
-
-log_error() {
-    echo "[ERROR] $1"
-}
-
-# Neue Funktion zum Speichern von Umgebungsvariablen
-save_env_var() {
-    local var_name="$1"
-    local var_value="$2"
-    local env_file="${3:-$ENV_FILE}"
-
-    # Überprüfe, ob Parameter fehlen
-    if [[ -z "$var_name" || -z "$var_value" ]]; then
-        echo "Error: Missing variable name or value" >&2
-        return 1
-    fi
-
-    local escaped_value
-    escaped_value=$(printf '%s' "$var_value" | sed 's/[$`\\]/\\&/g; s/[\r\n]/ /g')
-
-    printf '%s=%s\n' "$var_name" "$escaped_value" | \
-        sudo tee -a "$env_file" > /dev/null
-
-    if [[ $? -ne 0 ]]; then
-        echo "Error: Failed to write to $env_file" >&2
-        return 1
-    fi
-}
+source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
 
 # 1. SCRIPT_DIR und Pfade definieren (Ganz früh im Skript!)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

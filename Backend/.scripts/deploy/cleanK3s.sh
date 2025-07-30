@@ -1,18 +1,12 @@
 #!/bin/bash
 
-# Farben für bessere Lesbarkeit (optional)
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BACKEND_ROOT_DIR="$SCRIPT_DIR/../.."
+echo "[DEBUG] Script directory is: $SCRIPT_DIR"
+echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
 
-# Funktion zum Ausgeben von Statusmeldungen
-log() {
-  echo -e "${GREEN}[INFO]${NC} $1"
-}
-
-error() {
-  echo -e "${RED}[ERROR]${NC} $1" >&2
-}
+source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
 
 # K3s stoppen
 log "Stopping k3s..."
