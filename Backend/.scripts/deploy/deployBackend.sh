@@ -11,6 +11,8 @@ echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
 source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
 source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
 
+
+
 # Function to wait for a Kubernetes job to complete
 wait_for_job_completion() {
     local job_name="$1"
@@ -229,12 +231,6 @@ if ! (cd "$SCRIPT_DIR" && VAULT_TOKEN="$VAULT_TOKEN" ./service-configurator/cert
     exit 1
 fi
 
-log "Loading cert-manager environment variables..."
-if ! source_env_file "$SCRIPT_DIR/tmp/.env.cm"; then
-    log_warn ".env.cm file not found after cert-manager configuration. Continuing..."
-fi
-log "cert-manager configuration completed successfully."
-
 # === Final Summary ===
 log "Preparing final summary..."
 if ! source_env_file "$SCRIPT_DIR/tmp/.env"; then
@@ -243,27 +239,4 @@ fi
 
 echo "=============================================="
 echo " 🎉 Deployment completed successfully! 🎉"
-echo "=============================================="
-echo ""
-echo "Generated Files (in $SCRIPT_DIR/tmp/):"
-echo "  - .env       : Environment variables for the stack"
-echo "  - .env.cm    : Environment variables for cert-manager configuration"
-echo ""
-echo "Next Steps:"
-echo "  - Load environment variables: source $SCRIPT_DIR/tmp/.env && source $SCRIPT_DIR/tmp/.env.cm"
-echo "  - Access services (see .env or output from deploy-helm-charts.sh)"
-echo "  - Issue certificates using cert-manager (Issuer: vault-issuer in namespace: ${CERT_MANAGER_NAMESPACE:-<Not Set>})"
-echo ""
-echo "Important Vault Information:"
-echo "  - Vault ADDR        : ${VAULT_ADDR:-<Not Set>}"
-echo "  - Vault Token       : ${VAULT_TOKEN:-<Not Set>} (retrieved from Kubernetes secret)"
-echo ""
-echo "Important cert-manager Information:"
-echo "  - Namespace         : ${CERT_MANAGER_NAMESPACE:-<Not Set>}"
-echo "  - Vault Issuer Name : ${VAULT_ISSUER_NAME:-vault-issuer}"
-echo "  - Vault Cluster URL : ${CERT_MANAGER_VAULT_ADDR:-<Not Set>}"
-echo ""
-echo "Dashboard Access:"
-echo "  - URL               : ${KUBERNETES_DASHBOARD_URL:-<Not Set>}"
-echo "  - Token             : ${KUBERNETES_DASHBOARD_TOKEN:-<Not Set>}"
 echo "=============================================="
