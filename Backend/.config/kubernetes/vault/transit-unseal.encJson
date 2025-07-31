@@ -1,6 +1,0 @@
-{
-  "salt": "098cdb8df086e7f2f65844423bafcb15",
-  "iv": "40ca45664e574846b9fa4b36",
-  "ciphertext": "0Qv2h7zZPr9htjlwniR+nrsVlAbajXOmIMce0hpv8pwoWroB5+zPFIjGqEolMFkBOdgYvAdXG82f3Kk+psb/I+M/xVxJqLctZzdWZxyXtLwgsi6LBMlZeDVueCdbK+qGsnIT3vCeCXjuWESwfOXQraX9t2QiP3wXDi1NhlEBQOT2KqJU8yPeqHLb4UV6OdK1s142/qpL72fHlKUQ6CN3ZgV25ECJOVthVNzJL5feaWGPtnYnzSfyMHAVecNFfTi6BJUzxJlaj84vx+S/Ve6pBgDqAr11y8XeVbL9gJsAKGrXZhQZrlDTXWeKxYekBipPE7BxYKLsCA82FlgBUh0QVXPrf/BVtcAS1S6QpMlp7JWgJqDYqfLe9/yhwNWmqF+cHhnuvGb6bS1OtMnT0kekuP8q5VEtixIhdvdPzb9DAN4bC8UHXLHGVb2BkLLMgDpLOu8wN1EzZEgplTBHQRB2rvUc10Zc+0/FbZlAxH0iefZNidYJRrvIM/9LegjXWU9ge2jABSXh9qmAnAXH+tk63DQU1ePlwvs=",
-  "originalFile": "/home/deanprangenberg/dev/Ventra-Messenger/Backend/.config/kubernetes/vault/transit-unseal.json"
-}
