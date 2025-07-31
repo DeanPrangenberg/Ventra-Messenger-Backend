@@ -99,26 +99,9 @@ if ! (cd "$SCRIPT_DIR" && ./uploadImages.sh); then
 fi
 log "Docker image build and push completed."
 
-# Step 1: Deploy Helm Charts
-echo "=============================================="
-echo "  Step 1: Deploying Helm Charts"
-echo "=============================================="
-log "Starting Helm chart deployment..."
-chmod +x "$SCRIPT_DIR/deploy-helm-charts.sh"
-if ! (cd "$SCRIPT_DIR" && ./deploy-helm-charts.sh); then
-    error "Helm chart deployment failed!"
-    exit 1
-fi
-
-if ! source_env_file "$SCRIPT_DIR/tmp/.env"; then
-    error ".env file not found after Helm chart deployment!"
-    exit 1
-fi
-log "Helm chart deployment completed successfully."
-
 # Step 1.5: Create GHCR Secrets
 echo "=============================================="
-echo "  Step 1.5: Create GHCR Secrets"
+echo "  Step 0.5: Create GHCR Secrets"
 echo "=============================================="
 
 # Create GHCR Image Pull Secret in multiple namespaces
@@ -136,58 +119,57 @@ for TARGET_NAMESPACE in "${TARGET_NAMESPACES[@]}"; do
     log "GHCR image pull secret created in namespace '$TARGET_NAMESPACE'."
 done
 
-# Step 2: Initialize Vault
+# Step 1: Deploy Helm Charts
 echo "=============================================="
-echo "  Step 2: Vault Initialization Setup"
+echo "  Step 1: Deploying Helm Charts"
+echo "=============================================="
+log "Starting Helm chart deployment..."
+chmod +x "$SCRIPT_DIR/deploy-helm-charts.sh"
+if ! (cd "$SCRIPT_DIR" && ./deploy-helm-charts.sh); then
+    error "Helm chart deployment failed!"
+    exit 1
+fi
+
+if ! source_env_file "$SCRIPT_DIR/tmp/.env"; then
+    error ".env file not found after Helm chart deployment!"
+    exit 1
+fi
+log "Helm chart deployment completed successfully."
+
+
+
+# Step 2: Wait for Vault to be initialized and unsealed by Init-Container
+echo "=============================================="
+echo "  Step 2: Waiting for Vault Init/Unseal"
 echo "=============================================="
 
-# Apply Vault Init RBAC and Job
-log "Applying Vault init/unseal RBAC from $VAULT_INIT_RBAC_FILE..."
-if ! kubectl apply -f "$VAULT_INIT_RBAC_FILE"; then
-    error "Failed to apply Vault init/unseal RBAC!"
-    exit 1
-fi
-log "Vault init/unseal RBAC applied successfully."
+log "Vault will be initialized and unsealed by the init-container."
+log "Waiting for Vault pod to be ready..."
+kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=vault -n vault --timeout=300s
 
-log "Applying Vault init/unseal job from $VAULT_INIT_JOB_FILE..."
-if ! kubectl apply -f "$VAULT_INIT_JOB_FILE"; then
-    error "Failed to apply Vault init/unseal job!"
-    exit 1
-fi
-log "Vault init/unseal job applied successfully."
-
-# Wait for job completion
-log "Waiting for Vault init/unseal job to complete..."
-if ! wait_for_job_completion "vault-init-unseal-job" "vault" 600; then
-    error "Vault auto-initialization/unseal job failed or timed out."
-    # Additional debugging info
-    log "Checking pod status in vault namespace..."
-    kubectl get pods -n vault | grep vault-init-unseal-job || true
-    log "Checking events in vault namespace..."
-    kubectl get events -n vault --sort-by='.lastTimestamp' | tail -10 || true
-    exit 1
-fi
-log "Vault auto-initialization and unseal completed."
-
-# Retrieve Vault Root Token
-log "Retrieving root token from Kubernetes secret..."
+log "Waiting for Vault init/unseal secrets to be created..."
 SECRETS_TIMEOUT=120
 SECRETS_ELAPSED=0
 
-until kubectl get secret vault-init-secret -n vault >/dev/null 2>&1 || [ $SECRETS_ELAPSED -ge $SECRETS_TIMEOUT ]; do
-    log "Waiting for vault-init-secret to be created... (${SECRETS_ELAPSED}s elapsed)"
+until (kubectl get secret vault-init-secret -n vault >/dev/null 2>&1 && kubectl get secret vault-unseal-secret -n vault >/dev/null 2>&1) || [ $SECRETS_ELAPSED -ge $SECRETS_TIMEOUT ]; do
+    log "Waiting for Vault secrets (init & unseal) to be created... (${SECRETS_ELAPSED}s elapsed)"
     sleep 5
     SECRETS_ELAPSED=$((SECRETS_ELAPSED + 5))
 done
 
 if [ $SECRETS_ELAPSED -ge $SECRETS_TIMEOUT ]; then
-    error "vault-init-secret was not created within $SECRETS_TIMEOUT seconds."
+    error "Vault init/unseal secrets were not created within $SECRETS_TIMEOUT seconds."
     log "Listing secrets in vault namespace for debugging..."
     kubectl get secrets -n vault || true
+    log "Checking Vault pod logs..."
+    kubectl logs -l app.kubernetes.io/name=vault -n vault -c vault-init-unseal --tail=50 || true
     exit 1
 fi
 
-log "Reading root token from vault-init-secret..."
+log "Vault init/unseal secrets found."
+
+# Retrieve Vault Root Token
+log "Retrieving root token from Kubernetes secret..."
 VAULT_ROOT_TOKEN_FROM_SECRET=$(kubectl get secret vault-init-secret -n vault -o jsonpath='{.data.root-token}' | base64 -d)
 
 if [[ -n "${VAULT_ROOT_TOKEN_FROM_SECRET}" ]]; then

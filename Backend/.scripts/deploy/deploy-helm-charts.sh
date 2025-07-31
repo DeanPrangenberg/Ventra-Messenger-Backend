@@ -62,9 +62,12 @@ if [[ ! -f "$VAULT_VALUES_FILE" ]]; then
     exit 1
 fi
 
-helm upgrade --install vault hashicorp/vault \
-  --namespace vault \
-  --values "$VAULT_VALUES_FILE"
+helm upgrade vault hashicorp/vault -n vault \
+  --reuse-values \
+  -f "$VAULT_VALUES_FILE" \
+  --set imagePullSecrets[0].name=ventra-ghcr-secret \
+  --set server.image.pullSecrets[0].name=ventra-ghcr-secret
+
 
 log "Patching Vault service to NodePort..."
 kubectl patch svc vault -n vault -p '{"spec": {"type": "NodePort", "ports": [{"name": "http", "port": 8200, "targetPort": 8200, "nodePort": 30200}]}}'

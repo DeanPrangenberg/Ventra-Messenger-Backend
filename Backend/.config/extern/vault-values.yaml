@@ -1,0 +1,38 @@
+# damit alle Pods das PullSecret bekommen
+imagePullSecrets:
+  - name: ventra-ghcr-secret
+
+server:
+  image:
+    pullSecrets:
+      - name: ventra-ghcr-secret
+  standalone:
+    enabled: true
+    config: |
+      ui = true
+      api_addr = "http://vault.default.svc.cluster.local:8200"
+      listener "tcp" {
+        address = "0.0.0.0:8200"
+        cluster_address = "0.0.0.0:8201"
+        tls_disable = true
+      }
+      storage "file" {
+        path = "/vault/data"
+      }
+      disable_mlock = true
+  dataStorage:
+    enabled: true
+    size: 10Gi
+    accessMode: ReadWriteOnce
+  serviceAccount:
+    create: true
+    name: vault
+    imagePullSecrets:
+      - name: ventra-ghcr-secret
+  extraInitContainers:
+    - name: vault-init-unseal
+      image: ghcr.io/deanprangenberg/ventra-init-vault:latest
+      imagePullPolicy: Always
+      env:
+        - name: VAULT_ADDR
+          value: "http://127.0.0.1:8200"
