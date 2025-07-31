@@ -15,8 +15,23 @@ source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
 source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
 
 #
+# Installing required CLI tools
+#
+
+log "Installing required CLI tools..."
+chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/nodeSetup/getCLITools.sh"
+"$BACKEND_ROOT_DIR/.scripts/newDepoly/nodeSetup/getCLITools.sh"
+log "Required CLI tools installed."
+
+log "Installing Python dependencies..."
+chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/nodeSetup/getPipLibs.sh"
+"$BACKEND_ROOT_DIR/.scripts/newDepoly/nodeSetup/getPipLibs.sh"
+log "Python dependencies installed."
+
+#
 # Setuo storage class if not exists
 #
+
 log "Setting up storage class if not exists..."
 kubectl get storageclass local-storage >/dev/null 2>&1 || {
     log "Creating local storage class..."
@@ -55,4 +70,11 @@ chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/installScripts/vault.sh"
 
 chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/vault/transit-Vault.sh"
 "$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/vault/transit-Vault.sh"
+
+log_important_user "Encrypting Transit-Vault unseal keys and root token enter your password to encrypt the keys and root token (very important, do not lose it!)"
+log_important_user "This Password is used to unseal the Transit-Vault after a server reboot or if the Transit-Vault pod is restarted."
+chmod +x "$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py"
+"$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py" "$VAULT_CONFIG_DIR/transit-unseal.json"
+
 log "Vault setup complete"
+

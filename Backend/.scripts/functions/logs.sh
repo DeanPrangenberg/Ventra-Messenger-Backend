@@ -21,3 +21,11 @@ error() {
 log_wait() {
   echo -e "${MAGENTA}[$(date +'%Y-%m-%d %H:%M:%S')] [WAIT]${NC} $1"
 }
+
+log_user() {
+    echo -e "${CYAN}[$(date +'%Y-%m-%d %H:%M:%S')] [USER]${NC} $1"
+}
+
+log_important_user() {
+    echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] [IMPORTANT USER]${MAGENTA} $1 ${NC}"
+}

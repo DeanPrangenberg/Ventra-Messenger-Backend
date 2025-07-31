@@ -4,14 +4,14 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKEND_ROOT_DIR="$SCRIPT_DIR/../.."
+BACKEND_ROOT_DIR="$SCRIPT_DIR/../../../"
 echo "[DEBUG] Script directory is: $SCRIPT_DIR"
 echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
 
 source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
 source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
 
-TOOLS=(yq openssl jq curl kubectl vault helm docker)
+TOOLS=(yq openssl jq curl kubectl vault helm docker argon2 python3 pip)
 MISSING=()
 
 # Detect package manager
@@ -45,6 +45,30 @@ log "Installing missing tools using $PM..."
 
 for tool in "${MISSING[@]}"; do
     case "$tool" in
+        python3)
+            if [[ "$PM" == "apt" ]]; then
+                $SUDO apt-get update && $SUDO apt-get install -y python3
+            elif [[ "$PM" == "dnf" || "$PM" == "yum" ]]; then
+                $SUDO $PM install -y python3
+            elif [[ "$PM" == "zypper" ]]; then
+                $SUDO zypper install -y python3
+            elif [[ "$PM" == "pacman" ]]; then
+                $SUDO pacman -Sy --noconfirm python
+            fi
+            log "Installed python3"
+            ;;
+        pip)
+            if [[ "$PM" == "apt" ]]; then
+                $SUDO apt-get update && $SUDO apt-get install -y python3-pip
+            elif [[ "$PM" == "dnf" || "$PM" == "yum" ]]; then
+                $SUDO $PM install -y python3-pip
+            elif [[ "$PM" == "zypper" ]]; then
+                $SUDO zypper install -y python3-pip
+            elif [[ "$PM" == "pacman" ]]; then
+                $SUDO pacman -Sy --noconfirm python-pip
+            fi
+            log "Installed pip"
+            ;;
         yq)
             if [[ "$PM" == "apt" ]]; then
                 $SUDO apt-get update && $SUDO apt-get install -y yq || true
