@@ -17,3 +17,7 @@ error() {
     echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] [ERROR]${NC} $1" >&2
     exit 1
 }
+
+log_wait() {
+  echo -e "${MAGENTA}[$(date +'%Y-%m-%d %H:%M:%S')] [WAIT]${NC} $1"
+}
