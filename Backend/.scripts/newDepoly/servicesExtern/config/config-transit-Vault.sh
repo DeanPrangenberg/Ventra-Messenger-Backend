@@ -12,7 +12,7 @@ VAULT_CONFIG_DIR=$BACKEND_ROOT_DIR/.config/kubernetes/vault
 VAULT_TMP_DATA_DIR=$BACKEND_ROOT_DIR/.data/tmp/vault
 VAULT_OTHER_DATA_DIR=$BACKEND_ROOT_DIR/.data/other/vault
 UNSEAL_TOKEN_TRANSIT_FILE=$VAULT_OTHER_DATA_DIR/transit-unseal.json
-AUTO_UNSEAL_TOKEN_FILE=$VAULT_TMP_DATA_DIR/autounseal-token.json
+AUTO_UNSEAL_TOKEN_FILE=$VAULT_TMP_DATA_DIR/autounseal-token.txt
 
 # Source shared functions
 source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
@@ -83,10 +83,15 @@ path "transit/decrypt/autounseal" {
 }
 EOF
 
-# 7. Create token for Auto-Unseal
-mkdir -p "$VAULT_TMP_DATA_DIR"
-touch "$AUTO_UNSEAL_TOKEN_FILE"
-vault token create -orphan -policy="autounseal" -wrap-ttl=120 -period=24h -field=wrapping_token -format=json > "$AUTO_UNSEAL_TOKEN_FILE"
+# 7. Create and save auto-unseal token (direkt ohne wrapping)
+AUTO_UNSEAL_TOKEN=$(vault token create -orphan -policy="autounseal" -period=24h -field=token)
+if [[ -z "$AUTO_UNSEAL_TOKEN" ]]; then
+  log_error "Failed to create auto-unseal token."
+  exit 1
+fi
+
+# Speichere direkt in .txt Datei (nicht als env)
+echo "$AUTO_UNSEAL_TOKEN" > "$VAULT_TMP_DATA_DIR/autounseal-token.txt"
 
 #
 # Clean up exported variables
@@ -94,4 +99,4 @@ vault token create -orphan -policy="autounseal" -wrap-ttl=120 -period=24h -field
 unset VAULT_ADDR
 unset VAULT_TOKEN
 
-echo "Transit Vault setup complete."
+log "Transit Vault setup complete."
