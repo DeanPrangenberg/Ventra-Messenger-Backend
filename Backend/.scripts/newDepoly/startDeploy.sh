@@ -8,7 +8,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_ROOT_DIR="$SCRIPT_DIR/../.."
-VAULT_CONFIG_DIR="$BACKEND_ROOT_DIR/.config/kubernetes/vault"
+VAULT_OTHER_DATA_DIR=$BACKEND_ROOT_DIR/.data/other/vault
+UNSEAL_TOKEN_TRANSIT_FILE=$VAULT_OTHER_DATA_DIR/transit-unseal.json
 HOST_IP=$(hostname -I | awk '{print $1}')
 
 source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
@@ -29,7 +30,7 @@ chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/nodeSetup/getPipLibs.sh"
 log "Python dependencies installed."
 
 #
-# Setuo storage class if not exists
+# Setup storage class if not exists
 #
 
 log "Setting up storage class if not exists..."
@@ -74,7 +75,7 @@ chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/vault/transit-Vaul
 log_important_user "Encrypting Transit-Vault unseal keys and root token enter your password to encrypt the keys and root token (very important, do not lose it!)"
 log_important_user "This Password is used to unseal the Transit-Vault after a server reboot or if the Transit-Vault pod is restarted."
 chmod +x "$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py"
-"$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py" "$VAULT_CONFIG_DIR/transit-unseal.json"
+"$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py" "$UNSEAL_TOKEN_TRANSIT_FILE"
 
 log "Vault setup complete"
 

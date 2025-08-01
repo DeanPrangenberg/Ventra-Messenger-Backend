@@ -2,25 +2,26 @@
 set -euo pipefail
 
 #
-# Setting up paths and loading functions
+# Script header
 #
 
+# Script specific directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_ROOT_DIR="$SCRIPT_DIR/../../../.."
-VAULT_CONFIG_DIR="$BACKEND_ROOT_DIR/.config/kubernetes/vault"
-UNSEAL_FILE="$VAULT_CONFIG_DIR/transit-unseal.json"
-TOKEN_FILE="$VAULT_CONFIG_DIR/autounseal-token.json"
+VAULT_CONFIG_DIR=$BACKEND_ROOT_DIR/.config/kubernetes/vault
+VAULT_TMP_DATA_DIR=$BACKEND_ROOT_DIR/.data/tmp/vault
+VAULT_OTHER_DATA_DIR=$BACKEND_ROOT_DIR/.data/other/vault
+UNSEAL_TOKEN_TRANSIT_FILE=$VAULT_OTHER_DATA_DIR/transit-unseal.json
+AUTO_UNSEAL_TOKEN_FILE=$VAULT_TMP_DATA_DIR/autounseal-token.json
 
-HOST_IP=$(hostname -I | awk '{print $1}')
-
+# Source shared functions
 source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
 source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
 
 #
 # Load environment variables from env file
 #
-
-source_env_file "$VAULT_CONFIG_DIR/vault.env"
+source_env_file "$VAULT_OTHER_DATA_DIR/vault.env"
 export VAULT_ADDR="$TRANSIT_VAULT_ADDR"
 
 #
@@ -56,14 +57,14 @@ log "Vault pod $POD_NAME is Running."
 #
 
 # 1. Initialize Vault
-vault operator init -key-shares=1 -key-threshold=1 -format=json > "$UNSEAL_FILE"
+vault operator init -key-shares=1 -key-threshold=1 -format=json > "$UNSEAL_TOKEN_TRANSIT_FILE"
 
 # 2. Unseal Vault
-UNSEAL_KEY=$(jq -r '.unseal_keys_b64[0]' "$UNSEAL_FILE")
+UNSEAL_KEY=$(jq -r '.unseal_keys_b64[0]' "$UNSEAL_TOKEN_TRANSIT_FILE")
 vault operator unseal "$UNSEAL_KEY"
 
 # 3. Login as root
-ROOT_TOKEN=$(jq -r '.root_token' "$UNSEAL_FILE")
+ROOT_TOKEN=$(jq -r '.root_token' "$UNSEAL_TOKEN_TRANSIT_FILE")
 export VAULT_TOKEN="$ROOT_TOKEN"
 
 # 4. Enable Transit engine
@@ -83,7 +84,9 @@ path "transit/decrypt/autounseal" {
 EOF
 
 # 7. Create token for Auto-Unseal
-vault token create -orphan -policy="autounseal" -wrap-ttl=120 -period=24h -field=wrapping_token -format=json > "$TOKEN_FILE"
+mkdir -p "$VAULT_TMP_DATA_DIR"
+touch "$AUTO_UNSEAL_TOKEN_FILE"
+vault token create -orphan -policy="autounseal" -wrap-ttl=120 -period=24h -field=wrapping_token -format=json > "$AUTO_UNSEAL_TOKEN_FILE"
 
 #
 # Clean up exported variables
