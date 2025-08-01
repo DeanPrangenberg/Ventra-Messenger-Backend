@@ -7,9 +7,9 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-storage
+  storageClassName: local-pki-storage
   local:
-    path: /mnt/vault-data-0
+    path: /mnt/vault-pki-data-0
   nodeAffinity:
     required:
       nodeSelectorTerms:

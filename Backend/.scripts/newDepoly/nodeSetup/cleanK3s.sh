@@ -37,7 +37,8 @@ rm -rf /etc/systemd/system/k3s* \
        /run/flannel \
        /var/lib/kubelet \
        /var/lib/rancher/k3s \
-       /mnt/vault-data-0
+       /mnt/vault-transit-data-0 \
+       /mnt/vault-pki-data-0
 
 rm -f /usr/local/bin/k3s /usr/local/bin/k3s-killall.sh \
       /usr/local/bin/kubectl /usr/local/bin/crictl /usr/local/bin/ctr

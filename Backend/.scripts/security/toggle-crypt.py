@@ -172,7 +172,7 @@ def main():
             print(f"Unhandled error on {p}: {e}", file=sys.stderr)
         finally:
             if WAIT_ON_ERROR:
-                time.sleep(3)
+                time.sleep(1)
 
 if __name__ == "__main__":
     main()

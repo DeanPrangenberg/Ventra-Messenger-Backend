@@ -14,4 +14,4 @@ server:
   dataStorage:
     enabled: true
     size: 10Gi
-    storageClass: local-storage
+    storageClass: local-transit-storage
