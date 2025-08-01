@@ -2,16 +2,20 @@
 set -euo pipefail
 
 #
-# Setting up paths and loading functions
+# Script header
 #
 
+# Script specific directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_ROOT_DIR="$SCRIPT_DIR/../../.."
-VAULT_CONFIG_DIR="$BACKEND_ROOT_DIR/.config/kubernetes/vault"
+VAULT_CONFIG_DIR=$BACKEND_ROOT_DIR/.config/kubernetes/vault
+VAULT_OTHER_DATA_DIR=$BACKEND_ROOT_DIR/.data/other/vault
 HOST_IP=$(hostname -I | awk '{print $1}')
 
+# Source shared functions
 source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
 source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+
 
 #
 # Creatie Vault namespace if it doesn't exist
@@ -24,6 +28,9 @@ log "Vault namespace is ready."
 #
 # Transit Vault Installation and inti Configuration
 #
+
+echo "DEBUG: VAULT_CONFIG_DIR is $VAULT_CONFIG_DIR"
+ls -l "$VAULT_CONFIG_DIR/vault-transit-config.hcl"
 
 log "Creating or updating Transit-Vault configMap..."
 kubectl create configmap vault-transit-config \
@@ -44,8 +51,9 @@ log "Patching Transit-Vault service to NodePort..."
 kubectl patch svc transit-vault -n vault -p '{"spec": {"type": "NodePort", "ports": [{"name": "http", "port": 8200, "targetPort": 8200, "nodePort": 30200}]}}'
 log "Transit-Vault service patched to NodePort."
 
-VAULT_NODE_PORT=30200
+TRANSIT_VAULT_NODE_PORT=30200
 log "Saving Transit-Vault data to environment file..."
 rm -f "$VAULT_CONFIG_DIR/vault.env"
-save_env_var "TRANSIT_VAULT_ADDR" "http://$HOST_IP:$VAULT_NODE_PORT" "$VAULT_CONFIG_DIR/vault.env"
+save_env_var TRANSIT_VAULT_ADDR "http://$HOST_IP:$TRANSIT_VAULT_NODE_PORT" "$VAULT_OTHER_DATA_DIR/vault.env"
 log "Transit-Vault data saved to environment file."
+
