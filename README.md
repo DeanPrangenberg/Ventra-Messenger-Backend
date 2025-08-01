@@ -23,12 +23,17 @@ graph TD
         REDIS[(Redis)] <-->|Process| REDISAPI
         CS <-->|Publish/Subscribe| KAFKA
         KAFKA <-->|Publish/Subscribe| MD[Message Dispatcher]
+        KAFKA <-->|Certs| CM[Cert-Manager]
+        PV[Pki Vault] -->|Certs| CM
+        TV[Transit Vault] -->|unseal| PV
         MD -->|Cache| REDISAPI
         LOGGER[Logger Service] -->|Expose| PROM[Prometheus]
         LOGGER -->|Log| REDISAPI
         API -->|Log| LOGGER
         CS -->|Log| LOGGER
         MD -->|Log| LOGGER
+        PROM -->|Scrape| PV
+        GRAF[Grafana] --> |Display| PROM 
     end
 ```
 
