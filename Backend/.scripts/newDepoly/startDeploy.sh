@@ -90,6 +90,13 @@ fi
 log "Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) setup complete."
 
 #
+# Dashboard setup
+#
+log "Setting up Kubernetes Dashboard..."
+chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/install/install-kube-dashboard.sh"
+"$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/install/install-kube-dashboard.sh"
+
+#
 # Setup Vault
 #
 
