@@ -5,6 +5,7 @@
 /Backend/.vault/
 */.env
 */tmp
+*/vault.env
 */autounseal-token.json
 */transit-unseal.encJson
 */transit-unseal.json
