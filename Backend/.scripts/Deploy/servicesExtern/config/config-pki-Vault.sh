@@ -102,6 +102,10 @@ vault write pki/config/urls \
     crl_distribution_points="$PKI_VAULT_ADDR/v1/pki/crl"
 log "PKI-Vault CA URLs configured."
 
+#
+# PKI Vault cert-manager Configuration
+#
+
 # Create or update PKI role for cert-manager
 vault write pki/roles/cert-manager \
   allowed_domains="ventra.cluster" \
@@ -114,6 +118,38 @@ vault write pki/roles/cert-manager \
   key_usage="DigitalSignature,KeyEncipherment,KeyAgreement" \
   require_cn=false
 log "PKI role for cert-manager created or updated."
+
+# Enable Kubernetes auth method if not already enabled
+if ! vault auth list | grep -q '^kubernetes/'; then
+    log "Enabling Kubernetes auth method..."
+    vault auth enable kubernetes
+    log "Kubernetes auth method enabled."
+else
+    log "Kubernetes auth method already enabled."
+fi
+
+# Configure Kubernetes auth method
+log "Configuring Kubernetes auth method..."
+kubectl exec -n vault pki-vault-0 -- /bin/sh -c \
+  "VAULT_TOKEN=$VAULT_TOKEN vault write auth/kubernetes/config \
+    kubernetes_host='https://kubernetes.default.svc' \
+    kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+    token_reviewer_jwt=@/var/run/secrets/kubernetes.io/serviceaccount/token"
+
+# Create Vault policy for cert-manager
+vault policy write cert-manager <<EOF
+path "pki/issue/cert-manager" {
+  capabilities = ["create"]
+}
+EOF
+
+# Kubernetes Auth Role: binds sa to policy
+vault write auth/kubernetes/role/cert-manager \
+  bound_service_account_names=vault-issuer \
+  bound_service_account_namespaces=cert-manager \
+  policies=cert-manager \
+  ttl=24h
+
 
 log "PKI Vault status:"
 vault status

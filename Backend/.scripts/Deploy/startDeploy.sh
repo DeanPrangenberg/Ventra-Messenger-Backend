@@ -20,13 +20,13 @@ source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
 #
 
 log "Installing required CLI tools..."
-chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/nodeSetup/getCLITools.sh"
-"$BACKEND_ROOT_DIR/.scripts/newDepoly/nodeSetup/getCLITools.sh"
+chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/nodeSetup/getCLITools.sh"
+"$BACKEND_ROOT_DIR/.scripts/Deploy/nodeSetup/getCLITools.sh"
 log "Required CLI tools installed."
 
 log "Installing Python dependencies..."
-chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/nodeSetup/getPipLibs.sh"
-"$BACKEND_ROOT_DIR/.scripts/newDepoly/nodeSetup/getPipLibs.sh"
+chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/nodeSetup/getPipLibs.sh"
+"$BACKEND_ROOT_DIR/.scripts/Deploy/nodeSetup/getPipLibs.sh"
 log "Python dependencies installed."
 
 #
@@ -93,8 +93,9 @@ log "Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) setup complete
 # Dashboard setup
 #
 log "Setting up Kubernetes Dashboard..."
-chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/install/install-kube-dashboard.sh"
-"$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/install/install-kube-dashboard.sh"
+chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-kube-dashboard.sh"
+"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-kube-dashboard.sh"
+log "Kubernetes Dashboard setup complete."
 
 #
 # Setup Vault
@@ -103,9 +104,9 @@ chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/install/install-ku
 log "Setting up Vaults..."
 
 # Install and configure Transit Vault first
-"$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/install/install-transit-vault.sh"
-chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/config/config-transit-Vault.sh"
-"$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/config/config-transit-Vault.sh"
+"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-transit-vault.sh"
+chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-transit-Vault.sh"
+"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-transit-Vault.sh"
 
 log_important_user "Encrypting Transit-Vault unseal keys and root token enter your password to encrypt the keys and root token (very important, do not lose it!)"
 chmod +x "$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py"
@@ -113,11 +114,15 @@ chmod +x "$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py"
 log "Transit-Vault unseal keys and root token encrypted."
 
 # Now install and configure PKI Vault with auto-unseal
-chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/install/install-pki-vault.sh"
-"$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/install/install-pki-vault.sh"
+chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-pki-vault.sh"
+"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-pki-vault.sh"
 
-chmod +x "$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/config/config-pki-Vault.sh"
-"$BACKEND_ROOT_DIR/.scripts/newDepoly/servicesExtern/config/config-pki-Vault.sh"
+chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-pki-Vault.sh"
+"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-pki-Vault.sh"
 
 log "Vaults setup complete"
 
+log "Setting up Cert Manager..."
+chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-cert-manager.sh"
+"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-cert-manager.sh"
+log "Cert Manager setup complete."
