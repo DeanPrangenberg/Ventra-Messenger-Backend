@@ -5,6 +5,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_ROOT_DIR="$SCRIPT_DIR/../../../.."
 VAULT_OTHER_DATA_DIR=$BACKEND_ROOT_DIR/.data/other/vault
+VAULT_TMP_DATA_DIR=$BACKEND_ROOT_DIR/.data/tmp/vault
 CA_CERT_FILE=$VAULT_OTHER_DATA_DIR/ca-cert.pem
 
 source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
@@ -33,6 +34,30 @@ helm install \
 log_wait "Waiting for cert-manager webhook to be ready..."
 kubectl wait --for=condition=available --timeout=600s deployment/cert-manager-webhook -n "${CERT_MANAGER_NAMESPACE}"
 
+log "Applying ClusterRole for cert-manager to create ServiceAccount tokens..."
+cat <<EOF | kubectl apply -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cert-manager-controller-vault-issuer
+rules:
+- apiGroups: [""]
+  resources: ["serviceaccounts/token"]
+  verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-controller-vault-issuer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cert-manager-controller-vault-issuer
+subjects:
+- kind: ServiceAccount
+  name: cert-manager
+  namespace: cert-manager
+EOF
 
 ISSUER_NAME="vault-issuer"
 VAULT_SERVER="http://pki-vault.vault.svc.cluster.local:8200"
@@ -103,10 +128,20 @@ spec:
   commonName: ${CERT_COMMON_NAME}
   dnsNames:
   - ${CERT_COMMON_NAME}
+  privateKey:
+      algorithm: RSA
+      size: 4096
 EOF
 
 log_wait "Waiting for certificate '${CERT_NAME}' to be issued..."
 kubectl wait --for=condition=Ready=True --timeout=120s \
   certificate/${CERT_NAME} -n ${CERT_MANAGER_NAMESPACE}
 
-log "Certificate '${CERT_NAME}' issued successfully and stored in secret '${CERT_SECRET_NAME}'."
+log "Certificate '${CERT_NAME}' issued successfully."
+
+log "Saving certificate and key to files in '${VAULT_TMP_DATA_DIR}'..."
+mkdir -p "${VAULT_TMP_DATA_DIR}"
+kubectl get secret ${CERT_SECRET_NAME} -n ${CERT_MANAGER_NAMESPACE} -o jsonpath='{.data.tls\.crt}' | base64 --decode > "${VAULT_TMP_DATA_DIR}/test-tls.crt"
+kubectl get secret ${CERT_SECRET_NAME} -n ${CERT_MANAGER_NAMESPACE} -o jsonpath='{.data.tls\.key}' | base64 --decode > "${VAULT_TMP_DATA_DIR}/test-tls.key"
+
+log "Certificate and key saved to '${VAULT_TMP_DATA_DIR}/test-tls.crt' and '${VAULT_TMP_DATA_DIR}/test-tls.key'."
