@@ -130,26 +130,31 @@ fi
 
 # Configure Kubernetes auth method
 log "Configuring Kubernetes auth method..."
-kubectl exec -n vault pki-vault-0 -- /bin/sh -c \
-  "VAULT_TOKEN=$VAULT_TOKEN vault write auth/kubernetes/config \
-    kubernetes_host='https://kubernetes.default.svc' \
+kubectl exec -n vault pki-vault-0 -- \
+  env VAULT_TOKEN="$VAULT_TOKEN" \
+  vault write auth/kubernetes/config \
+    kubernetes_host="https://kubernetes.default.svc" \
     kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
-    token_reviewer_jwt=@/var/run/secrets/kubernetes.io/serviceaccount/token"
+    token_reviewer_jwt=@/var/run/secrets/kubernetes.io/serviceaccount/token
+log "Kubernetes auth method configured."
 
 # Create Vault policy for cert-manager
-vault policy write cert-manager <<EOF
+log "Creating Vault policy for cert-manager..."
+vault policy write cert-manager - <<EOF
 path "pki/issue/cert-manager" {
   capabilities = ["create"]
 }
 EOF
+log "Vault policy for cert-manager created."
 
 # Kubernetes Auth Role: binds sa to policy
+log "Creating Kubernetes auth role for cert-manager..."
 vault write auth/kubernetes/role/cert-manager \
   bound_service_account_names=vault-issuer \
   bound_service_account_namespaces=cert-manager \
   policies=cert-manager \
   ttl=24h
-
+log "Vault Kubernetes auth role for cert-manager created."
 
 log "PKI Vault status:"
 vault status

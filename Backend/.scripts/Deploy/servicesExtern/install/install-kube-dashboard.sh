@@ -17,7 +17,8 @@ log "Dashboard namespace is ready."
 
 log "Installing Kubernetes Dashboard..."
 curl -sL https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml |
-  sed "s/namespace: kubernetes-dashboard/namespace: $DASHBOARD_NS/g" |
+  sed -e "s/namespace: kubernetes-dashboard/namespace: $DASHBOARD_NS/g" \
+      -e "s/--namespace=kubernetes-dashboard/--namespace=$DASHBOARD_NS/g" |
   kubectl apply -f - >/dev/null 2>&1
 
 # Kurz warten
@@ -48,7 +49,7 @@ EOF
 
 # 8. Dashboard Token generieren
 log "Generating Dashboard login token..."
-DASHBOARD_TOKEN=$(kubectl -n "$DASHBOARD_NS" create token admin-user 2>/dev/null || echo "Token generation failed")
+DASHBOARD_TOKEN=$(kubectl -n "$DASHBOARD_NS" create token admin-user --duration=8760h 2>/dev/null || echo "Token generation failed")
 
 if [[ "$DASHBOARD_TOKEN" == "Token generation failed" || -z "$DASHBOARD_TOKEN" ]]; then
   log_warn "Could not generate Dashboard token automatically"
