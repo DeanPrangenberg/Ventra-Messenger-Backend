@@ -141,8 +141,8 @@ log "Kubernetes auth method configured."
 # Create Vault policy for cert-manager
 log "Creating Vault policy for cert-manager..."
 vault policy write cert-manager - <<EOF
-path "pki/issue/cert-manager" {
-  capabilities = ["create"]
+path "pki/sign/cert-manager" {
+  capabilities = ["update"]
 }
 EOF
 log "Vault policy for cert-manager created."
