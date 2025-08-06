@@ -102,25 +102,29 @@ log "Kubernetes Dashboard setup complete."
 #
 
 log "Setting up Vaults..."
-
 # Install and configure Transit Vault first
+chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-transit-vault.sh"
 "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-transit-vault.sh"
 chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-transit-Vault.sh"
 "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-transit-Vault.sh"
 
+# Encrypt the unseal keys for Transit Vault
 log_important_user "Encrypting Transit-Vault unseal keys and root token enter your password to encrypt the keys and root token (very important, do not lose it!)"
 chmod +x "$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py"
 "$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py" "$UNSEAL_TOKEN_TRANSIT_FILE"
 log "Transit-Vault unseal keys and root token encrypted."
 
-# Now install and configure PKI Vault with auto-unseal
+# Install and configure PKI Vault with auto-unseal
 chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-pki-vault.sh"
 "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-pki-vault.sh"
 
 chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-pki-Vault.sh"
 "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-pki-Vault.sh"
-
 log "Vaults setup complete"
+
+#
+# Setup Cert Manager
+#
 
 log "Setting up Cert Manager..."
 chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-cert-manager.sh"

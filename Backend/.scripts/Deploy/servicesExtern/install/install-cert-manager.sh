@@ -77,7 +77,6 @@ spec:
       kubernetes:
         mountPath: /v1/auth/kubernetes
         role: ${VAULT_ROLE}
-        audience: "vault"
         serviceAccountRef:
           name: ${ISSUER_NAME}
 EOF
