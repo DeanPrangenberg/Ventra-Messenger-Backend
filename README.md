@@ -1,4 +1,4 @@
-# 🔐 Ventra-Messenger - Secure & Scalable Self-Hosted Messenger  
+# 🔐 Ventra-Messenger - Secure & Scalable Self-Hosted Messenger (still in development)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![Docker](https://img.shields.io/badge/docker-ready-success)
