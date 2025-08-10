@@ -1,0 +1,204 @@
+version: "3.8"
+
+services:
+  vm-api:
+    image: backend-vm-api
+    build:
+      context: .
+      dockerfile: VM-API/Dockerfile
+    ports:
+      - "127.0.0.1:8881:8881"
+    networks:
+      - ventra-net
+    environment:
+      - SERVICE_NAME=vm-api
+
+  vm-auth:
+    image: backend-vm-auth
+    build:
+      context: .
+      dockerfile: VM-AUTH/Dockerfile
+    expose:
+      - "8882"
+    networks:
+      - ventra-net
+    environment:
+      - SERVICE_NAME=vm-auth
+
+  vm-core:
+    image: backend-vm-core
+    build:
+      context: .
+      dockerfile: VM-CORE/Dockerfile
+    expose:
+      - "8883"
+    networks:
+      - ventra-net
+    environment:
+      - SERVICE_NAME=vm-core
+
+  vm-md:
+    image: backend-vm-md
+    build:
+      context: .
+      dockerfile: VM-MD/Dockerfile
+    expose:
+      - "8884"
+    networks:
+      - ventra-net
+    environment:
+      - SERVICE_NAME=vm-md
+
+  vm-logger:
+    image: backend-vm-logger
+    build:
+      context: .
+      dockerfile: VM-LOGGER/Dockerfile
+    expose:
+      - "8885"
+    networks:
+      - ventra-net
+    environment:
+      - SERVICE_NAME=vm-logger
+
+  vm-redis-api:
+    image: backend-vm-redis-api
+    build:
+      context: .
+      dockerfile: VM-REDIS-API/Dockerfile
+    expose:
+      - "8886"
+    networks:
+      - ventra-net
+    environment:
+      - SERVICE_NAME=vm-redis-api
+
+  vm-main-db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: testPassword1234
+      POSTGRES_DB: main_db
+    expose:
+      - "8890"
+    networks:
+      - ventra-net
+
+  vm-redis:
+    image: redis:7
+    expose:
+      - "8891"
+    networks:
+      - ventra-net
+
+  # 🔐 Vault: Development-Modus für einfache Integration
+  vm-vault:
+    image: hashicorp/vault:latest
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_ADDR: http://0.0.0.0:8200 # HTTP für Dev
+      SKIP_SETCAP: "true" # Für Container-Kompatibilität
+    # Kein command hier, wird in createKubeFiles.sh gesetzt
+    networks:
+      - ventra-net
+
+  vm-vault-init:
+    image: backend-vm-vault-init
+    build:
+      context: .
+      dockerfile: init-vault/Dockerfile
+    depends_on:
+      - vm-vault
+    environment:
+      - VAULT_ADDR=http://vm-vault:8200 # HTTP für Dev
+      # VAULT_TOKEN wird vom Init-Skript dynamisch gehandhabt oder ist 'myroot'
+    networks:
+      - ventra-net
+    restart: "on-failure"
+
+  kafka-zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - ventra-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on:
+      - kafka-zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: kafka-zookeeper:2181
+      # Vereinfachte Konfiguration für Dev ohne SSL
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false" # Bessere Praxis
+    ports:
+      - "9092:9092"
+    networks:
+      - ventra-net
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    depends_on:
+      - kafka
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: kafka-zookeeper:2181
+    networks:
+      - ventra-net
+
+  kafka-init:
+    image: backend-vm-kafka-init
+    build:
+      context: .
+      dockerfile: init-kafka/Dockerfile
+    depends_on:
+      - kafka
+      - vm-vault
+    environment:
+      - VAULT_ADDR=http://vm-vault:8200 # HTTP für Dev
+      # VAULT_TOKEN wird vom Init-Skript dynamisch gehandhabt
+    networks:
+      - ventra-net
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    # Volumes entfernt, wird über ConfigMap/PVC gehandhabt
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - ventra-net
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    ports:
+      - "9100:9100"
+    networks:
+      - ventra-net
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    networks:
+      - ventra-net
+
+networks:
+  ventra-net:
+    driver: bridge
