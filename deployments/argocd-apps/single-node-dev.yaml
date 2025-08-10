@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ventra-messenger-single-node-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/DeanPrangenberg/CryptGuard-Messenger.git'
+    targetRevision: dev  # Use the dev branch for development
+    path: deployments/overlays/single-node/dev
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: ventra-messenger-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

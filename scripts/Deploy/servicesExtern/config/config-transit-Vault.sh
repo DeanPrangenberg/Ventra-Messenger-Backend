@@ -15,8 +15,8 @@ UNSEAL_TOKEN_TRANSIT_FILE=$VAULT_OTHER_DATA_DIR/transit-unseal.json
 AUTO_UNSEAL_TOKEN_FILE=$VAULT_TMP_DATA_DIR/autounseal-token.txt
 
 # Source shared functions
-source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
-source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
 
 #
 # Load environment variables from env file

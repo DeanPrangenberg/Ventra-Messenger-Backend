@@ -2,7 +2,7 @@ FROM golang:1.24.4 AS builder
 
 WORKDIR /app
 
-COPY .scripts/dev/generate-go-work.sh ./generate-go-work.sh
+COPY scripts/dev/generate-go-work.sh ./generate-go-work.sh
 RUN chmod +x generate-go-work.sh && ./generate-go-work.sh VM-LOGGER
 
 COPY shared ./shared
@@ -21,7 +21,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y curl jq && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/VM-LOGGER.bin /usr/local/bin/vm-logger
-COPY .scripts/dev/entrypoint.sh /entrypoint.sh
+COPY scripts/dev/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 8886

@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-dashboard
+spec:
+  template:
+    spec:
+      containers:
+        - name: kubernetes-dashboard
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "300m"

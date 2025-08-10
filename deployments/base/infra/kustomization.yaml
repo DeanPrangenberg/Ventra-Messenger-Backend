@@ -1,0 +1,6 @@
+resources:
+  - grafana.yaml
+  - prometheus.yaml
+  - postgres.yaml
+  - redis.yaml
+  - kubernetes-dashboard.yaml

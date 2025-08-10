@@ -19,8 +19,8 @@ fi
 AUTO_UNSEAL_TOKEN=$(tr -d '"\n' < "$AUTO_UNSEAL_TOKEN_FILE")
 export VAULT_TOKEN="$AUTO_UNSEAL_TOKEN"
 
-source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
-source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
 
 source_env_file "$VAULT_OTHER_DATA_DIR/vault.env"
 export VAULT_ADDR="$PKI_VAULT_ADDR"

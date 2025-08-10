@@ -8,8 +8,8 @@ BACKEND_ROOT_DIR="$SCRIPT_DIR/../../.."
 echo "[DEBUG] Script directory is: $SCRIPT_DIR"
 echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
 
-source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
-source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
 
 TOOLS=(yq openssl jq curl kubectl vault helm docker argon2 python3 pip)
 MISSING=()
