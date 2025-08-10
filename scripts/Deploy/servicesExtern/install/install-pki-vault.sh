@@ -17,8 +17,8 @@ TRANSIT_VAULT_NODE_PORT=30201
 PKI_VAULT_NODE_PORT=30200
 
 # Source shared functions
-source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
-source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
 
 #
 # Creatie Vault namespace if it doesn't exist

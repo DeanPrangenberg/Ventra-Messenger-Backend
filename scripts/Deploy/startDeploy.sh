@@ -12,21 +12,21 @@ VAULT_OTHER_DATA_DIR=$BACKEND_ROOT_DIR/.data/other/vault
 UNSEAL_TOKEN_TRANSIT_FILE=$VAULT_OTHER_DATA_DIR/transit-unseal.json
 HOST_IP=$(hostname -I | awk '{print $1}')
 
-source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
-source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
 
 #
 # Installing required CLI tools
 #
 
 log "Installing required CLI tools..."
-chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/nodeSetup/getCLITools.sh"
-"$BACKEND_ROOT_DIR/.scripts/Deploy/nodeSetup/getCLITools.sh"
+chmod +x "$BACKEND_ROOT_DIR/scripts/Deploy/nodeSetup/getCLITools.sh"
+"$BACKEND_ROOT_DIR/scripts/Deploy/nodeSetup/getCLITools.sh"
 log "Required CLI tools installed."
 
 log "Installing Python dependencies..."
-chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/nodeSetup/getPipLibs.sh"
-"$BACKEND_ROOT_DIR/.scripts/Deploy/nodeSetup/getPipLibs.sh"
+chmod +x "$BACKEND_ROOT_DIR/scripts/Deploy/nodeSetup/getPipLibs.sh"
+"$BACKEND_ROOT_DIR/scripts/Deploy/nodeSetup/getPipLibs.sh"
 log "Python dependencies installed."
 
 #
@@ -93,8 +93,8 @@ log "Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) setup complete
 # Dashboard setup
 #
 log "Setting up Kubernetes Dashboard..."
-chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-kube-dashboard.sh"
-"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-kube-dashboard.sh"
+chmod +x "$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/install/install-kube-dashboard.sh"
+"$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/install/install-kube-dashboard.sh"
 log "Kubernetes Dashboard setup complete."
 
 #
@@ -103,23 +103,23 @@ log "Kubernetes Dashboard setup complete."
 
 log "Setting up Vaults..."
 # Install and configure Transit Vault first
-chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-transit-vault.sh"
-"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-transit-vault.sh"
-chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-transit-Vault.sh"
-"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-transit-Vault.sh"
+chmod +x "$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/install/install-transit-vault.sh"
+"$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/install/install-transit-vault.sh"
+chmod +x "$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/config/config-transit-Vault.sh"
+"$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/config/config-transit-Vault.sh"
 
 # Encrypt the unseal keys for Transit Vault
 log_important_user "Encrypting Transit-Vault unseal keys and root token enter your password to encrypt the keys and root token (very important, do not lose it!)"
-chmod +x "$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py"
-"$BACKEND_ROOT_DIR/.scripts/security/toggle-crypt.py" "$UNSEAL_TOKEN_TRANSIT_FILE"
+chmod +x "$BACKEND_ROOT_DIR/scripts/security/toggle-crypt.py"
+"$BACKEND_ROOT_DIR/scripts/security/toggle-crypt.py" "$UNSEAL_TOKEN_TRANSIT_FILE"
 log "Transit-Vault unseal keys and root token encrypted."
 
 # Install and configure PKI Vault with auto-unseal
-chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-pki-vault.sh"
-"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-pki-vault.sh"
+chmod +x "$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/install/install-pki-vault.sh"
+"$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/install/install-pki-vault.sh"
 
-chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-pki-Vault.sh"
-"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/config/config-pki-Vault.sh"
+chmod +x "$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/config/config-pki-Vault.sh"
+"$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/config/config-pki-Vault.sh"
 log "Vaults setup complete"
 
 #
@@ -127,8 +127,8 @@ log "Vaults setup complete"
 #
 
 log "Setting up Cert Manager..."
-chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-cert-manager.sh"
-"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-cert-manager.sh"
+chmod +x "$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/install/install-cert-manager.sh"
+"$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/install/install-cert-manager.sh"
 log "Cert Manager setup complete."
 
 #
@@ -136,6 +136,6 @@ log "Cert Manager setup complete."
 #
 
 log "Setting up Kafka..."
-chmod +x "$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-kafka.sh"
-"$BACKEND_ROOT_DIR/.scripts/Deploy/servicesExtern/install/install-kafka.sh"
+chmod +x "$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/install/install-kafka.sh"
+"$BACKEND_ROOT_DIR/scripts/Deploy/servicesExtern/install/install-kafka.sh"
 log "Kafka setup complete."

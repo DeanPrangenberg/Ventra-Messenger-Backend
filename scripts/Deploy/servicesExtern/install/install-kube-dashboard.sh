@@ -6,8 +6,8 @@ DASHBOARD_TOKEN_FILE=$BACKEND_ROOT_DIR/.data/other/dashboard/dashboard-token.txt
 DASHBOARD_URL_FILE=$BACKEND_ROOT_DIR/.data/other/dashboard/dashboard-url.txt
 
 # Source shared functions
-source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
-source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
 
 DASHBOARD_NS="dashboard"
 

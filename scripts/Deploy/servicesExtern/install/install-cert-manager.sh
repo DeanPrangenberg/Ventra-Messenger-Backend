@@ -8,8 +8,8 @@ VAULT_OTHER_DATA_DIR=$BACKEND_ROOT_DIR/.data/other/vault
 VAULT_TMP_DATA_DIR=$BACKEND_ROOT_DIR/.data/tmp/vault
 CA_CERT_FILE=$VAULT_OTHER_DATA_DIR/ca-cert.pem
 
-source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
-source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
 
 CERT_MANAGER_NAMESPACE="cert-manager"
 CERT_MANAGER_VERSION="v1.13.3"

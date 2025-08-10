@@ -7,8 +7,8 @@ BACKEND_ROOT_DIR="$SCRIPT_DIR/../../.."
 echo "[DEBUG] Script directory is: $SCRIPT_DIR"
 echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
 
-source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
-source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
 
 declare -A IMAGE_PATH_MAP=(
     ["$BACKEND_ROOT_DIR/init-kafka/Dockerfile"]="init-kafka"

@@ -11,8 +11,8 @@ KAFKA_STORAGE_CLASS_FILE="$BACKEND_ROOT_DIR/.config/kubernetes/storageClasses/ka
 KAFKA_PV_FILE="$BACKEND_ROOT_DIR/.config/kubernetes/PVCs/kafka/local-kafka-storage-pvc.yaml"
 
 # Source shared functions (assuming they exist and work)
-source "$BACKEND_ROOT_DIR/.scripts/functions/logs.sh"
-source "$BACKEND_ROOT_DIR/.scripts/functions/env.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
+source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
 
 KAFKA_NAMESPACE="kafka"
 CERT_MANAGER_NAMESPACE="cert-manager"

@@ -1,16 +1,16 @@
 go 1.24
 
 use (
-	./shared/CryptoLib
-	./shared/Kafka-Wrapper
-	./shared/Logger-Wrapper
-	./shared/Postgres-Wrapper
-	./shared/Redis-API-Wrapper
+	./pkg/CryptoLib
+	./pkg/Kafka-Wrapper
+	./pkg/Logger-Wrapper
+	./pkg/Postgres-Wrapper
+	./pkg/Redis-API-Wrapper
 
-	./VM-API
-	./VM-REDIS-API
-	./VM-AUTH
-	./VM-CORE
-	./VM-LOGGER
-	./VM-MD
+	./cmd/VM-API
+	./cmd/VM-REDIS-API
+	./cmd/VM-AUTH
+	./cmd/VM-CORE
+	./cmd/VM-LOGGER
+	./cmd/VM-MD
 )
