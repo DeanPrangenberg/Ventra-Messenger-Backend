@@ -1,0 +1,6 @@
+{
+  "salt": "aa60c8ae5556db3d6834baec6ee04c2c",
+  "iv": "2a0f48810b2e05da7613afdf",
+  "ciphertext": "DMBs1TUu1f84YNdfjnOBsTB+c9jIqGsj6N6JJD0sO8b3L/gpFS7gUj44Ls4khJoyX+rfSq1REp5BbidhqkM4Ezi30ppJ1Pyd7xplcD+JhmIXXThpQIPFv95h+HxitGyLLv56XN6woR+bqNhcQzZWXYcunx2N9bGWHgei5ErcBIzKzY8pxTMgL+emcub170U4ZCFCWkx8ycZzyzMiRfFzsqExHEBARbzlLDhPTwxIfINst+3tj9AfqYJRRGMB25xM2tjGe3BED9ICG+1R04xQli3ynaVyLZGUNO19QaOdD09xXp0CMEJSpMVT8jgqSi/is8pJVoHFPpis9EHM3nmrJePCDKJNFyX9gkjGCxNnfoSqTvN/xcUeS8rOzVXYBY9WLdntrSpUrR+6dSEwY5lmwr3++NhH7bYc6xn+lbqwUVLLy/iTktYy/nYDWmTtLb5YB+ygE938Nh2nsin6R0lfVoMbOp8MNyw4a24Jfb2UMcT8TATguBY1lxn3ZYhLrzJ3sXHamGDh54E3sJcOPVJ8WsBB5aaN2TQ=",
+  "originalFile": "/home/deanprangenberg/dev/Ventra-Messenger/Backend/.data/other/vault/transit-unseal.json"
+}
