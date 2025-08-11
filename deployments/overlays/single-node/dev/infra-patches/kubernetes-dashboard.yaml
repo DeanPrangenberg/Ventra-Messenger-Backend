@@ -13,4 +13,4 @@ spec:
               cpu: "300m"
           args:
             - --auto-generate-certificates
-            - --namespace=ventra-messenger-dev
+            - --namespace=ventra-messenger

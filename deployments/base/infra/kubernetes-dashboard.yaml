@@ -13,7 +13,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: kubernetes-dashboard-csrf
-  namespace: ventra-messenger-dev
+  namespace: ventra-messenger
 type: Opaque
 data:
   # Pre-generated random value - replace with a secure value in production
