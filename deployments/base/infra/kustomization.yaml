@@ -5,6 +5,4 @@ resources:
   - postgres.yaml
   - redis.yaml
   - kubernetes-dashboard.yaml
-  - kafka/kafka-cluster.yaml
-  - kafka/kafkatopics.yaml
-  - kafka/kafka-ui.yaml
+  - kafka

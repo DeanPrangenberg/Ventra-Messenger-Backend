@@ -13,6 +13,8 @@ spec:
     server: 'https://kubernetes.default.svc'
     namespace: ventra-messenger
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
