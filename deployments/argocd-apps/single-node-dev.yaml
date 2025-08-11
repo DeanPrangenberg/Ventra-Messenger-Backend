@@ -11,7 +11,7 @@ spec:
     path: deployments/overlays/single-node/dev
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ventra-messenger-dev
+    namespace: ventra-messenger
   syncPolicy:
     automated:
       prune: true

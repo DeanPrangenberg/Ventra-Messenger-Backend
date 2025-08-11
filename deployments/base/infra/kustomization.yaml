@@ -1,4 +1,5 @@
 resources:
+  - namespace.yaml
   - grafana.yaml
   - prometheus.yaml
   - postgres.yaml
