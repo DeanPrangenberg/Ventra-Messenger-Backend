@@ -26,4 +26,4 @@ spec:
             - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
               value: "120000"
             - name: STRIMZI_KAFKA_IMAGES
-              value: '3.4.0=quay.io/strimzi/kafka:3.4.0-0.37.0,3.4.1=quay.io/strimzi/kafka:3.4.1-0.37.0,3.5.0=quay.io/strimzi/kafka:3.5.0-0.37.0'
+              value: '3.4.0=quay.io/strimzi/kafka:3.4.0-0.37.0,3.4.1=quay.io/strimzi/kafka:3.4.1-0.37.0,3.5.0=quay.io/strimzi/kafka:3.5.0-0.37.0,3.5.1=quay.io/strimzi/kafka:3.5.1-0.37.0'
