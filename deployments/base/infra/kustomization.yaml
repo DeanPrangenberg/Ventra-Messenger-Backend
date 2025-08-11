@@ -1,7 +1,4 @@
 resources:
-  - strimzi-operator-rbac.yaml
-  - strimzi-operator-deployment.yaml
-  - strimzi-platform-features-configmap.yaml
   - grafana.yaml
   - prometheus.yaml
   - postgres.yaml
