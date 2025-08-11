@@ -21,10 +21,3 @@ spec:
               value: "1"
             - name: KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR
               value: "1"
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        resources:
-          requests:
-            storage: 2Gi
