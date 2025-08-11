@@ -1,0 +1,104 @@
+# Kafka cluster with KRaft mode and mTLS
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: kafka-cluster
+spec:
+  kafka:
+    version: 3.5.1
+    replicas: 3
+    listeners:
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+        authentication:
+          type: tls
+      - name: external
+        port: 9094
+        type: nodeport
+        tls: true
+        authentication:
+          type: tls
+    config:
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      default.replication.factor: 3
+      min.insync.replicas: 2
+      inter.broker.protocol.version: "3.5"
+    storage:
+      type: persistent-claim
+      size: 100Gi
+      deleteClaim: false
+    # KRaft mode configuration
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: kafka-metrics-config.yml
+    kraft:
+      enabled: true
+  # No zookeeper section as we're using KRaft mode
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+---
+# Kafka UI
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-ui
+  template:
+    metadata:
+      labels:
+        app: kafka-ui
+    spec:
+      containers:
+        - name: kafka-ui
+          image: provectuslabs/kafka-ui:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: KAFKA_CLUSTERS_0_NAME
+              value: "kafka-cluster"
+            - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
+              value: "kafka-cluster-kafka-bootstrap:9093"
+            - name: KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL
+              value: "SSL"
+            - name: KAFKA_CLUSTERS_0_SSL_TRUSTSTORE_LOCATION
+              value: "/etc/kafka-ui/truststore/truststore.jks"
+            - name: KAFKA_CLUSTERS_0_SSL_KEYSTORE_LOCATION
+              value: "/etc/kafka-ui/keystore/keystore.jks"
+          volumeMounts:
+            - name: kafka-truststore
+              mountPath: "/etc/kafka-ui/truststore"
+            - name: kafka-keystore
+              mountPath: "/etc/kafka-ui/keystore"
+      volumes:
+        - name: kafka-truststore
+          secret:
+            secretName: kafka-cluster-clients-ca-cert
+        - name: kafka-keystore
+          secret:
+            secretName: kafka-ui-keystore
+---
+# Service to expose Kafka UI
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-ui
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30205
+  selector:
+    app: kafka-ui

@@ -1,0 +1,39 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: messagInput
+spec:
+  replicas: 1
+  partitions: 10
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: messagQueue
+spec:
+  replicas: 1
+  partitions: 10
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: user-status
+spec:
+  replicas: 1
+  partitions: 10
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: user-auth-events
+spec:
+  replicas: 1
+  partitions: 10
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: stats-updates
+spec:
+  replicas: 1
+  partitions: 10
