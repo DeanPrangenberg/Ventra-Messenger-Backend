@@ -1,82 +1,34 @@
 apiVersion: v1
-kind: Namespace
-metadata:
-  name: ventra-messenger-dev
-  annotations:
-    argocd.argoproj.io/sync-wave: "-3"
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: strimzi-cluster-operator
-  namespace: ventra-messenger-dev
-  annotations:
-    argocd.argoproj.io/sync-wave: "-2"
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: strimzi-cluster-operator-global
-  annotations:
-    argocd.argoproj.io/sync-wave: "-2"
-rules:
-  - apiGroups: ["kafka.strimzi.io"]
-    resources: ["kafkas", "kafkatopics", "kafkausers", "kafkaconnects", "kafkabridges", "kafkamirrormakers"]
-    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-  - apiGroups: ["apiextensions.k8s.io"]
-    resources: ["customresourcedefinitions"]
-    verbs: ["get", "list", "create", "update"]
-  - apiGroups: [""]
-    resources: ["pods", "services", "endpoints", "persistentvolumeclaims", "configmaps", "secrets"]
-    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-  # Add these additional permissions the operator needs
-  - apiGroups: ["apps"]
-    resources: ["deployments", "statefulsets"]
-    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-  - apiGroups: ["networking.k8s.io"]
-    resources: ["ingresses"]
-    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: strimzi-cluster-operator-binding
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
-subjects:
-  - kind: ServiceAccount
+  kind: Namespace
+  metadata:
+    name: ventra-messenger-dev
+  ---
+  apiVersion: v1
+  kind: ServiceAccount
+  metadata:
     name: strimzi-cluster-operator
     namespace: ventra-messenger-dev
-roleRef:
+  ---
+  apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
-  name: strimzi-cluster-operator-global
-  apiGroup: rbac.authorization.k8s.io
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: strimzi-cluster-operator
-  namespace: ventra-messenger-dev
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
+  metadata:
+    name: strimzi-cluster-operator-global
+  rules:
+    # Keep your existing rules here
+    - apiGroups: ["kafka.strimzi.io"]
+      resources: ["kafkas", "kafkatopics", "kafkausers", "kafkaconnects", "kafkabridges", "kafkamirrormakers"]
+      verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+    # Other rules...
+  ---
+  apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    name: strimzi-cluster-operator-binding
+  subjects:
+    - kind: ServiceAccount
       name: strimzi-cluster-operator
-  template:
-    metadata:
-      labels:
-        name: strimzi-cluster-operator
-    spec:
-      serviceAccountName: strimzi-cluster-operator
-      containers:
-        - name: strimzi-cluster-operator
-          image: quay.io/strimzi/operator:0.37.0
-          args:
-            - --watch-namespace=$(STRIMZI_NAMESPACE)
-          env:
-            - name: STRIMZI_NAMESPACE
-              value: ventra-messenger-dev
-            - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
-              value: "120000"
+      namespace: ventra-messenger-dev
+  roleRef:
+    kind: ClusterRole
+    name: strimzi-cluster-operator-global
+    apiGroup: rbac.authorization.k8s.io
