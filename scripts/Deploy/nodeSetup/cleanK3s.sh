@@ -8,22 +8,9 @@ fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_ROOT_DIR="$SCRIPT_DIR/../../.."
-echo "[DEBUG] Script directory is: $SCRIPT_DIR"
-echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
 
 source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
 source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
-
-source_env_file "$BACKEND_ROOT_DIR/.env"
-
-log_important_user "This will WIPE your entire K3s cluster. Are you sure? (y/N)"
-if [ "$DEV_MODE_SCRIPTS" != "1" ]; then
-  read -r confirm
-  if [ "$confirm" != "y" ]; then
-    log "Aborted."
-    exit 0
-  fi
-fi
 
 # === 1. Full k3s wipe ===
 echo "=== Wiping k3s installation ==="

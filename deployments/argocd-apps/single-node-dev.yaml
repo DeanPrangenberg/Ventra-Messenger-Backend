@@ -6,15 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/DeanPrangenberg/CryptGuard-Messenger.git'
+    repoURL: 'https://github.com/DeanPrangenberg/Ventra-Messenger-Backend.git'
     targetRevision: dev
     path: deployments/overlays/single-node/dev
-    usernameSecret:
-      name: git-creds
-      key: username
-    passwordSecret:
-      name: git-creds
-      key: password
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: ventra-messenger-dev

@@ -1,12 +1,12 @@
 resources:
-  - ../../../base/apps
+  # - ../../../base/apps
   - ../../../base/infra
 
-patchesStrategicMerge:
-  - deployment-patch.yaml
-  - infra-patches/grafana.yaml
-  - infra-patches/prometheus.yaml
-  - infra-patches/postgres.yaml
-  - infra-patches/redis.yaml
-  - infra-patches/kubernetes-dashboard.yaml
-  - infra-patches/kubernetes-dashboard-service.yaml
+patches:
+  - path: deployment-patch.yaml
+  - path: infra-patches/grafana.yaml
+  - path: infra-patches/prometheus.yaml
+  - path: infra-patches/postgres.yaml
+  - path: infra-patches/redis.yaml
+  - path: infra-patches/kubernetes-dashboard.yaml
+  - path: infra-patches/kubernetes-dashboard-service.yaml
