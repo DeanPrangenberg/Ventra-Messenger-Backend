@@ -1,24 +1,13 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: strimzi
-spec:
-  interval: 1h
-  url: https://strimzi.io/charts/
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
 metadata:
   name: strimzi-kafka-operator
+  namespace: ventra-messenger-dev
 spec:
-  interval: 1h
-  chart:
-    spec:
-      chart: strimzi-kafka-operator
-      version: "0.37.0"
-      sourceRef:
-        kind: HelmRepository
-        name: strimzi
-  values:
+  repo: https://strimzi.io/charts/
+  chart: strimzi-kafka-operator
+  version: 0.37.0
+  targetNamespace: ventra-messenger-dev
+  valuesContent: |-
     watchNamespaces:
       - ventra-messenger-dev
