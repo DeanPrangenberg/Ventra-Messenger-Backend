@@ -17,7 +17,7 @@ spec:
       containers:
         - name: strimzi-cluster-operator
           image: quay.io/strimzi/operator:0.37.0
-          command: [ "/opt/strimzi/bin/cluster-operator.sh" ]
+          command: ["/opt/strimzi/bin/cluster-operator.sh"]
           args:
             - --watch-namespace=$(STRIMZI_NAMESPACE)
           env:
