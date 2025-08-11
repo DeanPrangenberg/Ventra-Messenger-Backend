@@ -11,3 +11,6 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "300m"
+          args:
+            - --auto-generate-certificates
+            - --namespace=ventra-messenger-dev
