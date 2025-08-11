@@ -19,7 +19,7 @@ spec:
             - containerPort: 8080
           env:
             - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
-              value: "kafka-cluster-kafka-bootstrap:9092"
+              value: "kafka-cluster-kafka-bootstrap.kafka:9092"
             - name: KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL
               value: PLAINTEXT
 ---
