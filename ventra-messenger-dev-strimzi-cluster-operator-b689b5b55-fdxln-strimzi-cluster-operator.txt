@@ -3,8 +3,8 @@ rm: cannot remove '/tmp/ks-script-nbueyl57': Operation not permitted
 Auto-detected KUBERNETES_SERVICE_DNS_DOMAIN: cluster.local
 Configuration file log4j2.properties not found. Using default static logging setting. Dynamic updates of logging configuration will not work.
 + exec /usr/bin/tini -w -e 143 -- java -Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager -Dvertx.cacheDirBase=/tmp/vertx-cache -Djava.security.egd=file:/dev/./urandom -XX:+ExitOnOutOfMemoryError -XX:MinRAMPercentage=15 -XX:MaxRAMPercentage=20 -classpath :lib/io.strimzi.cluster-operator-0.37.0.jar:lib/io.strimzi.api-0.37.0.jar:lib/io.fabric8.kubernetes-model-apiextensions-6.8.1.jar:lib/io.strimzi.config-model-0.37.0.jar:lib/io.strimzi.operator-common-0.37.0.jar:lib/io.strimzi.crd-annotations-0.37.0.jar:lib/org.quartz-scheduler.quartz-2.3.2.jar:lib/org.eclipse.jetty.jetty-server-9.4.51.v20230217.jar:lib/org.eclipse.jetty.jetty-http-9.4.51.v20230217.jar:lib/org.eclipse.jetty.jetty-io-9.4.51.v20230217.jar:lib/javax.servlet.javax.servlet-api-3.1.0.jar:lib/io.fabric8.openshift-client-6.8.1.jar:lib/com.github.mifmif.generex-1.0.2.jar:lib/dk.brics.automaton.automaton-1.11-8.jar:lib/io.fabric8.openshift-client-api-6.8.1.jar:lib/io.fabric8.openshift-model-clusterautoscaling-6.8.1.jar:lib/io.fabric8.openshift-model-operator-6.8.1.jar:lib/io.fabric8.openshift-model-operatorhub-6.8.1.jar:lib/io.fabric8.openshift-model-machine-6.8.1.jar:lib/io.fabric8.openshift-model-whereabouts-6.8.1.jar:lib/io.fabric8.openshift-model-monitoring-6.8.1.jar:lib/io.fabric8.openshift-model-storageversionmigrator-6.8.1.jar:lib/io.fabric8.openshift-model-tuned-6.8.1.jar:lib/io.fabric8.openshift-model-console-6.8.1.jar:lib/io.fabric8.openshift-model-config-6.8.1.jar:lib/io.fabric8.openshift-model-machineconfig-6.8.1.jar:lib/io.fabric8.openshift-model-miscellaneous-6.8.1.jar:lib/io.fabric8.openshift-model-hive-6.8.1.jar:lib/io.fabric8.openshift-model-installer-6.8.1.jar:lib/io.fabric8.kubernetes-client-6.8.1.jar:lib/io.fabric8.kubernetes-httpclient-jdk-6.8.1.jar:lib/io.fabric8.kubernetes-client-api-6.8.1.jar:lib/io.fabric8.kubernetes-model-gatewayapi-6.8.1.jar:lib/io.fabric8.kubernetes-model-resource-6.8.1.jar:lib/io.fabric8.kubernetes-model-admissionregistration-6.8.1.jar:lib/io.fabric8.kubernetes-model-autoscaling-6.8.1.jar:lib/io.fabric8.kubernetes-model-batch-6.8.1.jar:lib/io.fabric8.kubernetes-model-certificates-6.8.1.jar:lib/io.fabric8.kubernetes-model-discovery-6.8.1.jar:lib/io.fabric8.kubernetes-model-extensions-6.8.1.jar:lib/io.fabric8.kubernetes-model-flowcontrol-6.8.1.jar:lib/io.fabric8.kubernetes-model-metrics-6.8.1.jar:lib/io.fabric8.kubernetes-model-scheduling-6.8.1.jar:lib/io.fabric8.kubernetes-model-node-6.8.1.jar:lib/org.slf4j.slf4j-api-1.7.36.jar:lib/org.snakeyaml.snakeyaml-engine-2.6.jar:lib/com.fasterxml.jackson.datatype.jackson-datatype-jsr310-2.15.2.jar:lib/io.fabric8.kubernetes-model-core-6.8.1.jar:lib/io.fabric8.kubernetes-model-common-6.8.1.jar:lib/io.fabric8.kubernetes-model-events-6.8.1.jar:lib/io.fabric8.kubernetes-model-policy-6.8.1.jar:lib/io.fabric8.kubernetes-model-rbac-6.8.1.jar:lib/io.fabric8.kubernetes-model-apps-6.8.1.jar:lib/io.fabric8.kubernetes-model-storageclass-6.8.1.jar:lib/io.fabric8.kubernetes-model-networking-6.8.1.jar:lib/io.fabric8.kubernetes-model-coordination-6.8.1.jar:lib/io.fabric8.openshift-model-6.8.1.jar:lib/io.fabric8.zjsonpatch-0.3.0.jar:lib/com.fasterxml.jackson.core.jackson-core-2.15.2.jar:lib/com.fasterxml.jackson.core.jackson-databind-2.15.2.jar:lib/com.fasterxml.jackson.core.jackson-annotations-2.15.2.jar:lib/com.fasterxml.jackson.dataformat.jackson-dataformat-yaml-2.15.2.jar:lib/org.yaml.snakeyaml-2.0.jar:lib/io.vertx.vertx-core-4.4.4.jar:lib/io.netty.netty-common-4.1.94.Final.jar:lib/io.netty.netty-buffer-4.1.94.Final.jar:lib/io.netty.netty-handler-4.1.94.Final.jar:lib/io.netty.netty-handler-proxy-4.1.94.Final.jar:lib/io.netty.netty-codec-http-4.1.94.Final.jar:lib/io.netty.netty-codec-http2-4.1.94.Final.jar:lib/io.netty.netty-resolver-4.1.94.Final.jar:lib/io.netty.netty-resolver-dns-4.1.94.Final.jar:lib/io.netty.netty-codec-dns-4.1.94.Final.jar:lib/io.strimzi.certificate-manager-0.37.0.jar:lib/org.apache.logging.log4j.log4j-core-2.17.2.jar:lib/org.apache.logging.log4j.log4j-api-2.17.2.jar:lib/org.apache.logging.log4j.log4j-slf4j-impl-2.17.2.jar:lib/org.apache.logging.log4j.log4j-jul-2.17.2.jar:lib/io.strimzi.kafka-oauth-server-0.13.0.jar:lib/io.strimzi.kafka-oauth-server-plain-0.13.0.jar:lib/io.strimzi.kafka-oauth-client-0.13.0.jar:lib/io.strimzi.kafka-oauth-common-0.13.0.jar:lib/com.nimbusds.nimbus-jose-jwt-9.31.jar:lib/com.github.stephenc.jcip.jcip-annotations-1.0-1.jar:lib/com.jayway.jsonpath.json-path-2.8.0.jar:lib/net.minidev.json-smart-2.4.10.jar:lib/net.minidev.accessors-smart-2.4.9.jar:lib/org.eclipse.jetty.jetty-util-9.4.51.v20230217.jar:lib/org.apache.kafka.kafka-clients-3.5.1.jar:lib/com.github.luben.zstd-jni-1.5.5-1.jar:lib/org.lz4.lz4-java-1.8.0.jar:lib/org.xerial.snappy.snappy-java-1.1.10.1.jar:lib/org.apache.zookeeper.zookeeper-3.6.4.jar:lib/org.apache.yetus.audience-annotations-0.13.0.jar:lib/io.netty.netty-transport-native-epoll-4.1.94.Final.jar:lib/org.apache.zookeeper.zookeeper-jute-3.6.4.jar:lib/io.netty.netty-transport-4.1.94.Final.jar:lib/io.netty.netty-transport-native-epoll-4.1.94.Final-linux-x86_64.jar:lib/io.netty.netty-transport-native-unix-common-4.1.94.Final.jar:lib/io.netty.netty-transport-classes-epoll-4.1.94.Final.jar:lib/io.micrometer.micrometer-core-1.9.5.jar:lib/org.hdrhistogram.HdrHistogram-2.1.12.jar:lib/org.latencyutils.LatencyUtils-2.0.3.jar:lib/io.micrometer.micrometer-registry-prometheus-1.9.5.jar:lib/io.prometheus.simpleclient_common-0.15.0.jar:lib/io.prometheus.simpleclient-0.15.0.jar:lib/io.prometheus.simpleclient_tracer_otel-0.15.0.jar:lib/io.prometheus.simpleclient_tracer_common-0.15.0.jar:lib/io.prometheus.simpleclient_tracer_otel_agent-0.15.0.jar:lib/io.vertx.vertx-micrometer-metrics-4.4.4.jar:lib/io.netty.netty-codec-4.1.94.Final.jar:lib/io.netty.netty-codec-socks-4.1.94.Final.jar io.strimzi.operator.cluster.Main
-2025-08-11 14:43:14 INFO  Main:72 - ClusterOperator 0.37.0 is starting
-2025-08-11 14:43:14 INFO  Util:224 - Using config:
+2025-08-11 14:53:46 INFO  Main:72 - ClusterOperator 0.37.0 is starting
+2025-08-11 14:53:46 INFO  Util:224 - Using config:
 	PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 	container: oci
 	GRAFANA_PORT: tcp://10.43.110.206:3000
@@ -28,6 +28,7 @@ Configuration file log4j2.properties not found. Using default static logging set
 	KUBERNETES_PORT_443_TCP: tcp://10.43.0.1:443
 	JAVA_MAIN: io.strimzi.operator.cluster.Main
 	POSTGRES_PORT_5432_TCP: tcp://10.43.27.80:5432
+	KUBERNETES_IGNORE_UNKNOWN_PROPERTIES: true
 	STRIMZI_VERSION: 0.37.0
 	STRIMZI_NAMESPACE: ventra-messenger-dev
 	KAFKA_UI_PORT_8080_TCP_PROTO: tcp
@@ -69,20 +70,20 @@ Configuration file log4j2.properties not found. Using default static logging set
 	PROMETHEUS_SERVICE_PORT: 9090
 	TINI_SHA256_PPC64LE: 3f658420974768e40810001a038c29d003728c5fe86da211cff5059e48cfdfde
 	KUBERNETES_DASHBOARD_SERVICE_PORT: 443
-	HOSTNAME: strimzi-cluster-operator-b689b5b55-fdxln
+	HOSTNAME: strimzi-cluster-operator-75c767c4fb-r4qnv
 	STRIMZI_KAFKA_CONNECT_IMAGES: 3.4.0=quay.io/strimzi/kafka:3.4.0-0.37.0,3.4.1=quay.io/strimzi/kafka:3.4.1-0.37.0,3.5.0=quay.io/strimzi/kafka:3.5.0-0.37.0,3.5.1=quay.io/strimzi/kafka:3.5.1-0.37.0
 	STRIMZI_KAFKA_IMAGES: 3.4.0=quay.io/strimzi/kafka:3.4.0-0.37.0,3.4.1=quay.io/strimzi/kafka:3.4.1-0.37.0,3.5.0=quay.io/strimzi/kafka:3.5.0-0.37.0,3.5.1=quay.io/strimzi/kafka:3.5.1-0.37.0
 	POSTGRES_PORT_5432_TCP_ADDR: 10.43.27.80
 	GRAFANA_SERVICE_PORT: 3000
 	KUBERNETES_PORT_443_TCP_PORT: 443
 	PROMETHEUS_PORT_9090_TCP_ADDR: 10.43.26.94
-	STRIMZI_OPERATOR_NAME: strimzi-cluster-operator-b689b5b55-fdxln
+	STRIMZI_OPERATOR_NAME: strimzi-cluster-operator-75c767c4fb-r4qnv
 	HOME: /home/strimzi
 	REDIS_SERVICE_PORT: 6379
 	MALLOC_ARENA_MAX: 2
 	KAFKA_UI_PORT_8080_TCP: tcp://10.43.203.46:8080
 
-2025-08-11 14:43:14 INFO  Main:75 - Cluster Operator configuration is ClusterOperatorConfig{
+2025-08-11 14:53:46 INFO  Main:75 - Cluster Operator configuration is ClusterOperatorConfig{
 	namespaces='[ventra-messenger-dev]'
 	reconciliationIntervalMs=120000
 	operationTimeoutMs=300000
@@ -100,12 +101,12 @@ Configuration file log4j2.properties not found. Using default static logging set
 	dnsCacheTtlSec=30
 	podSetReconciliationOnly=false
 	podSetControllerWorkQueueSize=1024
-	operatorName='strimzi-cluster-operator-b689b5b55-fdxln'
+	operatorName='strimzi-cluster-operator-75c767c4fb-r4qnv'
 	podSecurityProviderClass='io.strimzi.plugin.security.profiles.impl.BaselinePodSecurityProvider'
 	leaderElectionConfig='null'}
-2025-08-11 14:43:14 INFO  Main:345 - Health and metrics server is ready on port 8080)
-2025-08-11 14:43:14 INFO  Main:259 - Leader election is not enabled
-2025-08-11 14:43:14 ERROR PlatformFeaturesAvailability:140 - Detection of Kubernetes version failed.
+2025-08-11 14:53:47 INFO  Main:345 - Health and metrics server is ready on port 8080)
+2025-08-11 14:53:47 INFO  Main:259 - Leader election is not enabled
+2025-08-11 14:53:47 ERROR PlatformFeaturesAvailability:140 - Detection of Kubernetes version failed.
 io.fabric8.kubernetes.client.KubernetesClientException: An error has occurred.
 	at io.fabric8.kubernetes.client.KubernetesClientException.copyAsCause(KubernetesClientException.java:238) ~[io.fabric8.kubernetes-client-api-6.8.1.jar:?]
 	at io.fabric8.kubernetes.client.dsl.internal.OperationSupport.waitForResult(OperationSupport.java:507) ~[io.fabric8.kubernetes-client-6.8.1.jar:?]
@@ -181,7 +182,7 @@ Caused by: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unr
 	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?]
 	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?]
 	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?]
-2025-08-11 14:43:14 ERROR Main:127 - Failed to gather environment facts
+2025-08-11 14:53:47 ERROR Main:127 - Failed to gather environment facts
 io.fabric8.kubernetes.client.KubernetesClientException: An error has occurred.
 	at io.fabric8.kubernetes.client.KubernetesClientException.copyAsCause(KubernetesClientException.java:238) ~[io.fabric8.kubernetes-client-api-6.8.1.jar:?]
 	at io.fabric8.kubernetes.client.dsl.internal.OperationSupport.waitForResult(OperationSupport.java:507) ~[io.fabric8.kubernetes-client-6.8.1.jar:?]
@@ -257,7 +258,7 @@ Caused by: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unr
 	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?]
 	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?]
 	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?]
-2025-08-11 14:43:14 ERROR Main:104 - Unable to start operator for 1 or more namespace
+2025-08-11 14:53:47 ERROR Main:104 - Unable to start operator for 1 or more namespace
 io.fabric8.kubernetes.client.KubernetesClientException: An error has occurred.
 	at io.fabric8.kubernetes.client.KubernetesClientException.copyAsCause(KubernetesClientException.java:238) ~[io.fabric8.kubernetes-client-api-6.8.1.jar:?]
 	at io.fabric8.kubernetes.client.dsl.internal.OperationSupport.waitForResult(OperationSupport.java:507) ~[io.fabric8.kubernetes-client-6.8.1.jar:?]
@@ -333,12 +334,12 @@ Caused by: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unr
 	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?]
 	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?]
 	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?]
-2025-08-11 14:43:14 INFO  ShutdownHook:35 - Shutdown hook started
-2025-08-11 14:43:14 INFO  ShutdownHook:60 - Shutting down Vert.x
-2025-08-11 14:43:17 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 2545 ms, time limit is 2000 ms
-2025-08-11 14:43:18 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 3546 ms, time limit is 2000 ms
-2025-08-11 14:43:19 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 4545 ms, time limit is 2000 ms
-2025-08-11 14:43:20 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 5545 ms, time limit is 2000 ms
+2025-08-11 14:53:47 INFO  ShutdownHook:35 - Shutdown hook started
+2025-08-11 14:53:47 INFO  ShutdownHook:60 - Shutting down Vert.x
+2025-08-11 14:53:49 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 2540 ms, time limit is 2000 ms
+2025-08-11 14:53:50 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 3541 ms, time limit is 2000 ms
+2025-08-11 14:53:51 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 4541 ms, time limit is 2000 ms
+2025-08-11 14:53:52 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 5541 ms, time limit is 2000 ms
 io.vertx.core.VertxException: Thread blocked
 	at java.lang.Object.wait(Native Method) ~[?:?]
 	at java.lang.Thread.join(Thread.java:1304) ~[?:?]
@@ -350,7 +351,7 @@ io.vertx.core.VertxException: Thread blocked
 	at java.lang.Runtime.exit(Runtime.java:115) ~[?:?]
 	at java.lang.System.exit(System.java:1860) ~[?:?]
 	at io.strimzi.operator.cluster.Main.lambda$main$5(Main.java:105) ~[io.strimzi.cluster-operator-0.37.0.jar:0.37.0]
-	at io.strimzi.operator.cluster.Main$$Lambda$391/0x0000706abe383cf0.handle(Unknown Source) ~[?:?]
+	at io.strimzi.operator.cluster.Main$$Lambda$392/0x00007148fe386b08.handle(Unknown Source) ~[?:?]
 	at io.vertx.core.impl.future.FutureImpl$3.onFailure(FutureImpl.java:153) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.emitFailure(FutureBase.java:75) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureImpl.tryFail(FutureImpl.java:230) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
@@ -366,7 +367,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.vertx.core.impl.future.PromiseImpl.tryFail(PromiseImpl.java:23) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.Promise.fail(Promise.java:89) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.strimzi.operator.cluster.Main.lambda$createPlatformFeaturesAvailability$6(Main.java:128) ~[io.strimzi.cluster-operator-0.37.0.jar:0.37.0]
-	at io.strimzi.operator.cluster.Main$$Lambda$402/0x0000706abe38a358.handle(Unknown Source) ~[?:?]
+	at io.strimzi.operator.cluster.Main$$Lambda$402/0x00007148fe38da80.handle(Unknown Source) ~[?:?]
 	at io.vertx.core.impl.future.FutureImpl$3.onFailure(FutureImpl.java:153) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.emitFailure(FutureBase.java:75) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureImpl.tryFail(FutureImpl.java:230) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
@@ -401,7 +402,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.vertx.core.impl.future.PromiseImpl.tryFail(PromiseImpl.java:23) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.PromiseImpl.onFailure(PromiseImpl.java:54) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.lambda$emitFailure$1(FutureBase.java:69) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
-	at io.vertx.core.impl.future.FutureBase$$Lambda$586/0x0000706abe457a08.run(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.future.FutureBase$$Lambda$586/0x00007148fe4577d8.run(Unknown Source) ~[?:?]
 	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
@@ -410,7 +411,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-2025-08-11 14:43:21 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 6545 ms, time limit is 2000 ms
+2025-08-11 14:53:53 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 6541 ms, time limit is 2000 ms
 io.vertx.core.VertxException: Thread blocked
 	at java.lang.Object.wait(Native Method) ~[?:?]
 	at java.lang.Thread.join(Thread.java:1304) ~[?:?]
@@ -422,7 +423,7 @@ io.vertx.core.VertxException: Thread blocked
 	at java.lang.Runtime.exit(Runtime.java:115) ~[?:?]
 	at java.lang.System.exit(System.java:1860) ~[?:?]
 	at io.strimzi.operator.cluster.Main.lambda$main$5(Main.java:105) ~[io.strimzi.cluster-operator-0.37.0.jar:0.37.0]
-	at io.strimzi.operator.cluster.Main$$Lambda$391/0x0000706abe383cf0.handle(Unknown Source) ~[?:?]
+	at io.strimzi.operator.cluster.Main$$Lambda$392/0x00007148fe386b08.handle(Unknown Source) ~[?:?]
 	at io.vertx.core.impl.future.FutureImpl$3.onFailure(FutureImpl.java:153) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.emitFailure(FutureBase.java:75) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureImpl.tryFail(FutureImpl.java:230) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
@@ -438,7 +439,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.vertx.core.impl.future.PromiseImpl.tryFail(PromiseImpl.java:23) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.Promise.fail(Promise.java:89) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.strimzi.operator.cluster.Main.lambda$createPlatformFeaturesAvailability$6(Main.java:128) ~[io.strimzi.cluster-operator-0.37.0.jar:0.37.0]
-	at io.strimzi.operator.cluster.Main$$Lambda$402/0x0000706abe38a358.handle(Unknown Source) ~[?:?]
+	at io.strimzi.operator.cluster.Main$$Lambda$402/0x00007148fe38da80.handle(Unknown Source) ~[?:?]
 	at io.vertx.core.impl.future.FutureImpl$3.onFailure(FutureImpl.java:153) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.emitFailure(FutureBase.java:75) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureImpl.tryFail(FutureImpl.java:230) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
@@ -473,7 +474,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.vertx.core.impl.future.PromiseImpl.tryFail(PromiseImpl.java:23) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.PromiseImpl.onFailure(PromiseImpl.java:54) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.lambda$emitFailure$1(FutureBase.java:69) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
-	at io.vertx.core.impl.future.FutureBase$$Lambda$586/0x0000706abe457a08.run(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.future.FutureBase$$Lambda$586/0x00007148fe4577d8.run(Unknown Source) ~[?:?]
 	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
@@ -482,7 +483,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-2025-08-11 14:43:22 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 7546 ms, time limit is 2000 ms
+2025-08-11 14:53:54 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 7541 ms, time limit is 2000 ms
 io.vertx.core.VertxException: Thread blocked
 	at java.lang.Object.wait(Native Method) ~[?:?]
 	at java.lang.Thread.join(Thread.java:1304) ~[?:?]
@@ -494,7 +495,7 @@ io.vertx.core.VertxException: Thread blocked
 	at java.lang.Runtime.exit(Runtime.java:115) ~[?:?]
 	at java.lang.System.exit(System.java:1860) ~[?:?]
 	at io.strimzi.operator.cluster.Main.lambda$main$5(Main.java:105) ~[io.strimzi.cluster-operator-0.37.0.jar:0.37.0]
-	at io.strimzi.operator.cluster.Main$$Lambda$391/0x0000706abe383cf0.handle(Unknown Source) ~[?:?]
+	at io.strimzi.operator.cluster.Main$$Lambda$392/0x00007148fe386b08.handle(Unknown Source) ~[?:?]
 	at io.vertx.core.impl.future.FutureImpl$3.onFailure(FutureImpl.java:153) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.emitFailure(FutureBase.java:75) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureImpl.tryFail(FutureImpl.java:230) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
@@ -510,7 +511,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.vertx.core.impl.future.PromiseImpl.tryFail(PromiseImpl.java:23) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.Promise.fail(Promise.java:89) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.strimzi.operator.cluster.Main.lambda$createPlatformFeaturesAvailability$6(Main.java:128) ~[io.strimzi.cluster-operator-0.37.0.jar:0.37.0]
-	at io.strimzi.operator.cluster.Main$$Lambda$402/0x0000706abe38a358.handle(Unknown Source) ~[?:?]
+	at io.strimzi.operator.cluster.Main$$Lambda$402/0x00007148fe38da80.handle(Unknown Source) ~[?:?]
 	at io.vertx.core.impl.future.FutureImpl$3.onFailure(FutureImpl.java:153) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.emitFailure(FutureBase.java:75) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureImpl.tryFail(FutureImpl.java:230) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
@@ -545,7 +546,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.vertx.core.impl.future.PromiseImpl.tryFail(PromiseImpl.java:23) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.PromiseImpl.onFailure(PromiseImpl.java:54) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.lambda$emitFailure$1(FutureBase.java:69) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
-	at io.vertx.core.impl.future.FutureBase$$Lambda$586/0x0000706abe457a08.run(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.future.FutureBase$$Lambda$586/0x00007148fe4577d8.run(Unknown Source) ~[?:?]
 	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
@@ -554,7 +555,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-2025-08-11 14:43:23 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 8545 ms, time limit is 2000 ms
+2025-08-11 14:53:55 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 8541 ms, time limit is 2000 ms
 io.vertx.core.VertxException: Thread blocked
 	at java.lang.Object.wait(Native Method) ~[?:?]
 	at java.lang.Thread.join(Thread.java:1304) ~[?:?]
@@ -566,7 +567,7 @@ io.vertx.core.VertxException: Thread blocked
 	at java.lang.Runtime.exit(Runtime.java:115) ~[?:?]
 	at java.lang.System.exit(System.java:1860) ~[?:?]
 	at io.strimzi.operator.cluster.Main.lambda$main$5(Main.java:105) ~[io.strimzi.cluster-operator-0.37.0.jar:0.37.0]
-	at io.strimzi.operator.cluster.Main$$Lambda$391/0x0000706abe383cf0.handle(Unknown Source) ~[?:?]
+	at io.strimzi.operator.cluster.Main$$Lambda$392/0x00007148fe386b08.handle(Unknown Source) ~[?:?]
 	at io.vertx.core.impl.future.FutureImpl$3.onFailure(FutureImpl.java:153) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.emitFailure(FutureBase.java:75) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureImpl.tryFail(FutureImpl.java:230) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
@@ -582,7 +583,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.vertx.core.impl.future.PromiseImpl.tryFail(PromiseImpl.java:23) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.Promise.fail(Promise.java:89) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.strimzi.operator.cluster.Main.lambda$createPlatformFeaturesAvailability$6(Main.java:128) ~[io.strimzi.cluster-operator-0.37.0.jar:0.37.0]
-	at io.strimzi.operator.cluster.Main$$Lambda$402/0x0000706abe38a358.handle(Unknown Source) ~[?:?]
+	at io.strimzi.operator.cluster.Main$$Lambda$402/0x00007148fe38da80.handle(Unknown Source) ~[?:?]
 	at io.vertx.core.impl.future.FutureImpl$3.onFailure(FutureImpl.java:153) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.emitFailure(FutureBase.java:75) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureImpl.tryFail(FutureImpl.java:230) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
@@ -617,7 +618,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.vertx.core.impl.future.PromiseImpl.tryFail(PromiseImpl.java:23) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.PromiseImpl.onFailure(PromiseImpl.java:54) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.lambda$emitFailure$1(FutureBase.java:69) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
-	at io.vertx.core.impl.future.FutureBase$$Lambda$586/0x0000706abe457a08.run(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.future.FutureBase$$Lambda$586/0x00007148fe4577d8.run(Unknown Source) ~[?:?]
 	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
@@ -626,7 +627,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-2025-08-11 14:43:24 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 9546 ms, time limit is 2000 ms
+2025-08-11 14:53:56 WARN  BlockedThreadChecker: - Thread Thread[vert.x-eventloop-thread-0,5,main] has been blocked for 9541 ms, time limit is 2000 ms
 io.vertx.core.VertxException: Thread blocked
 	at java.lang.Object.wait(Native Method) ~[?:?]
 	at java.lang.Thread.join(Thread.java:1304) ~[?:?]
@@ -638,7 +639,7 @@ io.vertx.core.VertxException: Thread blocked
 	at java.lang.Runtime.exit(Runtime.java:115) ~[?:?]
 	at java.lang.System.exit(System.java:1860) ~[?:?]
 	at io.strimzi.operator.cluster.Main.lambda$main$5(Main.java:105) ~[io.strimzi.cluster-operator-0.37.0.jar:0.37.0]
-	at io.strimzi.operator.cluster.Main$$Lambda$391/0x0000706abe383cf0.handle(Unknown Source) ~[?:?]
+	at io.strimzi.operator.cluster.Main$$Lambda$392/0x00007148fe386b08.handle(Unknown Source) ~[?:?]
 	at io.vertx.core.impl.future.FutureImpl$3.onFailure(FutureImpl.java:153) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.emitFailure(FutureBase.java:75) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureImpl.tryFail(FutureImpl.java:230) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
@@ -654,7 +655,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.vertx.core.impl.future.PromiseImpl.tryFail(PromiseImpl.java:23) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.Promise.fail(Promise.java:89) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.strimzi.operator.cluster.Main.lambda$createPlatformFeaturesAvailability$6(Main.java:128) ~[io.strimzi.cluster-operator-0.37.0.jar:0.37.0]
-	at io.strimzi.operator.cluster.Main$$Lambda$402/0x0000706abe38a358.handle(Unknown Source) ~[?:?]
+	at io.strimzi.operator.cluster.Main$$Lambda$402/0x00007148fe38da80.handle(Unknown Source) ~[?:?]
 	at io.vertx.core.impl.future.FutureImpl$3.onFailure(FutureImpl.java:153) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.emitFailure(FutureBase.java:75) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureImpl.tryFail(FutureImpl.java:230) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
@@ -689,7 +690,7 @@ io.vertx.core.VertxException: Thread blocked
 	at io.vertx.core.impl.future.PromiseImpl.tryFail(PromiseImpl.java:23) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.PromiseImpl.onFailure(PromiseImpl.java:54) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
 	at io.vertx.core.impl.future.FutureBase.lambda$emitFailure$1(FutureBase.java:69) ~[io.vertx.vertx-core-4.4.4.jar:4.4.4]
-	at io.vertx.core.impl.future.FutureBase$$Lambda$586/0x0000706abe457a08.run(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.future.FutureBase$$Lambda$586/0x00007148fe4577d8.run(Unknown Source) ~[?:?]
 	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
@@ -698,6 +699,6 @@ io.vertx.core.VertxException: Thread blocked
 	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[io.netty.netty-common-4.1.94.Final.jar:4.1.94.Final]
 	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-2025-08-11 14:43:24 ERROR ShutdownHook:73 - Timed out while waiting for Vert.x close
-2025-08-11 14:43:24 INFO  ShutdownHook:79 - Shutdown of Vert.x is complete
-2025-08-11 14:43:24 INFO  ShutdownHook:41 - Shutdown hook completed
+2025-08-11 14:53:57 ERROR ShutdownHook:73 - Timed out while waiting for Vert.x close
+2025-08-11 14:53:57 INFO  ShutdownHook:79 - Shutdown of Vert.x is complete
+2025-08-11 14:53:57 INFO  ShutdownHook:41 - Shutdown hook completed

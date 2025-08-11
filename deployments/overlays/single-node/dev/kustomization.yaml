@@ -8,6 +8,7 @@ resources:
   - ../../../base/infra
 
 patches:
+  - path: infra-patches/strimzi-operator.yaml
   # - path: deployment-patch.yaml
   - path: infra-patches/grafana.yaml
   - path: infra-patches/prometheus.yaml
