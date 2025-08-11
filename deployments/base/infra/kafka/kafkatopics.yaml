@@ -2,6 +2,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: messag-input
+  namespace: kafka
   labels:
     strimzi.io/cluster: kafka-cluster
 spec:
@@ -15,6 +16,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: messag-queue
+  namespace: kafka
   labels:
     strimzi.io/cluster: kafka-cluster
 spec:
@@ -28,6 +30,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: user-status
+  namespace: kafka
   labels:
     strimzi.io/cluster: kafka-cluster
 spec:
@@ -41,6 +44,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: user-auth-events
+  namespace: kafka
   labels:
     strimzi.io/cluster: kafka-cluster
 spec:
@@ -54,6 +58,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: stats-updates
+  namespace: kafka
   labels:
     strimzi.io/cluster: kafka-cluster
 spec:
