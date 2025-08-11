@@ -33,6 +33,10 @@ spec:
               value: "CONTROLLER"
             - name: KAFKA_CFG_LISTENERS
               value: "PLAINTEXT://:9092,CONTROLLER://:9093"
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: KAFKA_CFG_ADVERTISED_LISTENERS
               value: "PLAINTEXT://$(MY_POD_NAME).kafka.kafka.svc.cluster.local:9092"
             - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP
@@ -57,10 +61,6 @@ spec:
               value: "1073741824"
             - name: KAFKA_CFG_LOG_RETENTION_CHECK_INTERVAL_MS
               value: "300000"
-          envFrom:
-            - fieldRef:
-                fieldPath: metadata.name
-              name: MY_POD_NAME
           volumeMounts:
             - name: data
               mountPath: /bitnami/kafka

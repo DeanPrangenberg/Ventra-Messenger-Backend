@@ -14,5 +14,4 @@ patches:
   - path: infra-patches/postgres.yaml
   # - path: infra-patches/redis.yaml
   - path: infra-patches/kubernetes-dashboard.yaml
-  - path: infra-patches/kafka/kafka-cluster.yaml
-  - path: infra-patches/kafka/kafka-topics.yaml
+  - path: infra-patches/kafka.yaml
