@@ -25,3 +25,5 @@ spec:
               value: ventra-messenger-dev
             - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
               value: "120000"
+            - name: STRIMZI_KAFKA_IMAGES
+              value: '3.4.0=quay.io/strimzi/kafka:3.4.0-0.37.0'
