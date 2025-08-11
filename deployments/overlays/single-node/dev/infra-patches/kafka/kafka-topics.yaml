@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: messagInput
+  name: messag-input
 spec:
   replicas: 1
   partitions: 10
@@ -9,7 +9,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: messagQueue
+  name: messag-queue
 spec:
   replicas: 1
   partitions: 10
