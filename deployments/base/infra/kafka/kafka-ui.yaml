@@ -18,27 +18,10 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: KAFKA_CLUSTERS_0_NAME
-              value: "kafka-cluster"
             - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
-              value: "kafka-cluster-kafka-bootstrap:9093"
+              value: "kafka-cluster-kafka-bootstrap:9092"
             - name: KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL
-              value: SSL
-            - name: KAFKA_CLUSTERS_0_PROPERTIES_SSL_TRUSTSTORE_LOCATION
-              value: "/certs/truststore.jks"
-            - name: KAFKA_CLUSTERS_0_PROPERTIES_SSL_TRUSTSTORE_PASSWORD
-              value: "changeit"
-            - name: KAFKA_CLUSTERS_0_PROPERTIES_SSL_KEYSTORE_LOCATION
-              value: "/certs/keystore.jks"
-            - name: KAFKA_CLUSTERS_0_PROPERTIES_SSL_KEYSTORE_PASSWORD
-              value: "changeit"
-          volumeMounts:
-            - name: certs
-              mountPath: /certs
-      volumes:
-        - name: certs
-          secret:
-            secretName: kafka-cluster-cluster-ca-cert
+              value: PLAINTEXT
 ---
 apiVersion: v1
 kind: Service
