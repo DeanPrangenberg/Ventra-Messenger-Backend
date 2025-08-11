@@ -21,6 +21,8 @@ spec:
           args:
             - --watch-namespace=$(STRIMZI_NAMESPACE)
           env:
+            - name: KUBERNETES_IGNORE_UNKNOWN_PROPERTIES
+              value: "true"
             - name: STRIMZI_NAMESPACE
               value: ventra-messenger-dev
             - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
