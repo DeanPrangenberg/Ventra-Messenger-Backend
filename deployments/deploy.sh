@@ -95,37 +95,6 @@ for i in {1..30}; do
   fi
 done
 
-# Install Strimzi Operator for Kafka support
-log "Checking for Strimzi Operator..."
-if ! kubectl get crd kafkas.kafka.strimzi.io &>/dev/null; then
-  log "Installing Strimzi Operator for Kafka support..."
-
-  # Create kafka namespace
-  kubectl create namespace kafka 2>/dev/null || true
-
-  # Install Strimzi Operator using the latest stable version
-  STRIMZI_VERSION="0.34.0"  # oder die aktuelle stabile Version prüfen
-  kubectl apply -f https://github.com/strimzi/strimzi-kafka-operator/releases/download/${STRIMZI_VERSION}/strimzi-cluster-operator-${STRIMZI_VERSION}.yaml -n kafka
-
-  log_wait "Waiting for Strimzi CRDs to be established..."
-  for i in {1..30}; do
-    if kubectl get crd kafkas.kafka.strimzi.io &>/dev/null && kubectl get crd kafkatopics.kafka.strimzi.io &>/dev/null; then
-      log "Strimzi CRDs are available."
-      break
-    fi
-    log_wait "Waiting for Strimzi CRDs (attempt $i/30)..."
-    sleep 5
-    if [ $i -eq 30 ]; then
-      error "Timed out waiting for Strimzi CRDs."
-      exit 1
-    fi
-  done
-
-  log "Strimzi Operator installed successfully."
-else
-  log "Strimzi Operator already installed."
-fi
-
 # Deployment options
 APPS_DIRS=(
   "single-node-dev"
