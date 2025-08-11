@@ -60,6 +60,9 @@ fi
 log "Setting up ArgoCD namespace..."
 kubectl create namespace argocd 2>/dev/null || true
 
+log "Setting up deployment namespace..."
+kubectl create namespace ventra-messenger 2>/dev/null || true
+
 # Install ArgoCD if the deployment doesn't exist
 if ! kubectl -n argocd get deployment argocd-server &>/dev/null; then
   log "Installing ArgoCD in cluster..."
@@ -114,7 +117,15 @@ APPS=(
   "Multi Node Test (Not ready)"
 )
 
-log "Select the deployment to apply:"
+#log "Installing strimzi-kafka-operator..."
+#helm repo add strimzi https://strimzi.io/charts/
+#helm repo update
+#kubectl create namespace kafka 2>/dev/null || true
+#helm install strimzi-kafka-operator strimzi/strimzi-kafka-operator \
+#  --namespace kafka \
+#  --set watchNamespaces="{kafka,ventra-messenger}"
+
+log "\n\nSelect the deployment to apply:"
 for i in "${!APPS[@]}"; do
   log_user "$((i+1))) ${APPS[i]}"
 done
