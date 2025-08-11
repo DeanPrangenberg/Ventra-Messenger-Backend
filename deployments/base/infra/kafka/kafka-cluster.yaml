@@ -16,30 +16,22 @@ spec:
         port: 9093
         type: internal
         tls: true
-        authentication:
-          type: tls
-      - name: external
-        port: 9094
-        type: nodeport
-        tls: true
-        authentication:
-          type: tls
     config:
       offsets.topic.replication.factor: 3
       transaction.state.log.replication.factor: 3
-      transaction.state.log.min.isr: 2
+      transaction.state.log.min.isr: 3
     storage:
       type: jbod
       volumes:
         - id: 0
           type: persistent-claim
-          size: 100Gi
+          size: 10Gi
           deleteClaim: false
   zookeeper:
     replicas: 3
     storage:
       type: persistent-claim
-      size: 100Gi
+      size: 10Gi
       deleteClaim: false
   entityOperator:
     topicOperator: {}
