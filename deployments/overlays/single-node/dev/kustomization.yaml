@@ -7,6 +7,6 @@ patches:
   - path: infra-patches/grafana.yaml
   - path: infra-patches/prometheus.yaml
   - path: infra-patches/postgres.yaml
-  - path: infra-patches/redis.yaml
+  # - path: infra-patches/redis.yaml
   - path: infra-patches/kubernetes-dashboard.yaml
   - path: infra-patches/kubernetes-dashboard-service.yaml
