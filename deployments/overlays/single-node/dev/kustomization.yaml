@@ -1,8 +1,9 @@
 resources:
+  - ../../../base/apps
   - ../../../base/infra
 
 patches:
-  - path: deployment-patch.yaml
+  # - path: deployment-patch.yaml
   - path: infra-patches/grafana.yaml
   - path: infra-patches/prometheus.yaml
   - path: infra-patches/postgres.yaml
