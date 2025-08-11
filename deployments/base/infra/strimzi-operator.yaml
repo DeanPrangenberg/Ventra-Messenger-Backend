@@ -1,13 +1,67 @@
-apiVersion: helm.cattle.io/v1
-kind: HelmChart
+apiVersion: v1
+kind: Namespace
 metadata:
-  name: strimzi-kafka-operator
+  name: ventra-messenger-dev
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: strimzi-cluster-operator-binding
+subjects:
+  - kind: ServiceAccount
+    name: strimzi-cluster-operator
+    namespace: ventra-messenger-dev
+roleRef:
+  kind: ClusterRole
+  name: strimzi-cluster-operator-global
+  apiGroup: rbac.authorization.k8s.io
+---
+# Using a Deployment directly from the Strimzi container
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strimzi-cluster-operator
   namespace: ventra-messenger-dev
 spec:
-  repo: https://strimzi.io/charts/
-  chart: strimzi-kafka-operator
-  version: 0.37.0
-  targetNamespace: ventra-messenger-dev
-  valuesContent: |-
-    watchNamespaces:
-      - ventra-messenger-dev
+  replicas: 1
+  selector:
+    matchLabels:
+      name: strimzi-cluster-operator
+  template:
+    metadata:
+      labels:
+        name: strimzi-cluster-operator
+    spec:
+      serviceAccountName: strimzi-cluster-operator
+      containers:
+        - name: strimzi-cluster-operator
+          image: quay.io/strimzi/operator:0.37.0
+          args:
+            - --watch-namespace=$(STRIMZI_NAMESPACE)
+          env:
+            - name: STRIMZI_NAMESPACE
+              value: ventra-messenger-dev
+            - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
+              value: "120000"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: strimzi-cluster-operator
+  namespace: ventra-messenger-dev
+---
+# Include other necessary RBAC resources here
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: strimzi-cluster-operator-global
+rules:
+  - apiGroups: ["kafka.strimzi.io"]
+    resources: ["kafkas", "kafkatopics", "kafkausers", "kafkaconnects", "kafkabridges", "kafkamirrormakers"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["get", "list", "create", "update"]
+  - apiGroups: [""]
+    resources: ["pods", "services", "endpoints", "persistentvolumeclaims", "configmaps", "secrets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
