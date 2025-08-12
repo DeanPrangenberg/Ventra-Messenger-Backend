@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: kafka
+  namespace: ventra-messenger
   labels:
     app: kafka
 spec:
@@ -37,13 +38,13 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: KAFKA_CFG_ADVERTISED_LISTENERS
-              value: "PLAINTEXT://$(MY_POD_NAME).kafka.kafka.svc.cluster.local:9092"
+              value: "PLAINTEXT://$(MY_POD_NAME).kafka.ventra-messenger.svc.cluster.local:9092"
             - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP
               value: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
             - name: KAFKA_CFG_INTER_BROKER_LISTENER_NAME
               value: "PLAINTEXT"
             - name: KAFKA_CFG_CONTROLLER_QUORUM_VOTERS
-              value: "0@kafka-0.kafka.kafka.svc.cluster.local:9093,1@kafka-1.kafka.kafka.svc.cluster.local:9093,2@kafka-2.kafka.kafka.svc.cluster.local:9093"
+              value: "0@kafka-0.kafka.ventra-messenger.svc.cluster.local:9093,1@kafka-1.kafka.ventra-messenger.svc.cluster.local:9093,2@kafka-2.kafka.ventra-messenger.svc.cluster.local:9093"
             - name: KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR
               value: "3"
             - name: KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
