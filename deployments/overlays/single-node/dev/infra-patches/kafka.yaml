@@ -9,12 +9,24 @@ spec:
       containers:
         - name: kafka
           env:
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: KAFKA_CFG_PROCESS_ROLES
               value: "broker,controller"
             - name: KAFKA_CFG_CONTROLLER_QUORUM_VOTERS
-              value: "0@kafka-0.kafka.kafka.svc.cluster.local:9093"
+              value: "0@kafka-0.kafka.kafka.svc.cluster.local:9093" # Korrekt
             - name: KAFKA_CFG_CONTROLLER_LISTENER_NAMES
-              value: "CONTROLLER"
+              value: "CONTROLLER" # Korrekt
+            - name: KAFKA_CFG_LISTENERS
+              value: "PLAINTEXT://:9092,CONTROLLER://:9093"
+            - name: KAFKA_CFG_ADVERTISED_LISTENERS
+              value: "PLAINTEXT://$(MY_POD_NAME).kafka.kafka.svc.cluster.local:9092" # Verwendet MY_POD_NAME
+            - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP
+              value: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+            - name: KAFKA_CFG_INTER_BROKER_LISTENER_NAME
+              value: "PLAINTEXT"
             - name: KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR
               value: "1"
             - name: KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
