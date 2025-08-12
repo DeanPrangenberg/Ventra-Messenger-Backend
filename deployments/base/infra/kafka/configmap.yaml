@@ -24,3 +24,6 @@ data:
     replica.fetch.max.bytes=10485760
     replica.fetch.wait.max.ms=500
     auto.include.jmx.reporter=true
+    process.roles=broker,controller
+    controller.quorum.voters=0@kafka-0.kafka.kafka.svc.cluster.local:9093,1@kafka-1.kafka.kafka.svc.cluster.local:9093,2@kafka-2.kafka.kafka.svc.cluster.local:9093
+    node.id=0
