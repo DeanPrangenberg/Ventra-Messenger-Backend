@@ -61,9 +61,11 @@ spec:
             - name: KAFKA_CFG_LOG_RETENTION_CHECK_INTERVAL_MS
               value: "300000"
             - name: KAFKA_CFG_NODE_ID
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.annotations['pod.name.number']
+              value: "${MY_POD_NAME##*-}"
+            - name: KAFKA_ENABLE_KRAFT
+              value: "yes"
+            - name: KAFKA_KRAFT_CLUSTER_ID
+              value: "abcdefghijklmnopqrstuv"
           volumeMounts:
             - name: data
               mountPath: /bitnami/kafka
