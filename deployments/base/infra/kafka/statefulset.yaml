@@ -60,6 +60,10 @@ spec:
               value: "1073741824"
             - name: KAFKA_CFG_LOG_RETENTION_CHECK_INTERVAL_MS
               value: "300000"
+            - name: KAFKA_CFG_NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['pod.name.number']
           volumeMounts:
             - name: data
               mountPath: /bitnami/kafka
