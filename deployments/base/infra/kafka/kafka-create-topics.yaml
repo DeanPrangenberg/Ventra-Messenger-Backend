@@ -1,0 +1,87 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kafka-create-topics
+  namespace: ventra-messenger # Ensure this matches your Kafka namespace
+spec:
+  template:
+    spec:
+      containers:
+        - name: kafka-topic-creator
+          image: bitnami/kafka:3.7
+          command:
+            - sh
+            - -c
+            - |
+              set -e # Exit immediately if a command exits with a non-zero status.
+              
+              # --- Define Topics ---
+              # Add new topics to this list in the format:
+              # <topic_name>:<partitions>:<replication_factor>:<config_key1>=<config_value1>,<config_key2>=<config_value2>
+              # Configs are optional. Separate multiple configs with commas. No spaces around commas.
+              # Example: my-topic:6:1:retention.ms=86400000,compression.type=snappy
+              TOPICS=(
+                "user-data-input:50:1:retention.ms=1209600000,compression.type=snappy"
+                "user-data-bridge:50:1:retention.ms=1209600000,compression.type=sna ppy"
+                "user-events:50:1:retention.ms=1209600000,compression.type=snappy"
+              )
+              
+              echo "Waiting for Kafka to be ready..."
+              # Simple check: try to list topics. Adjust timeout/iterations as needed.
+              retries=30
+              while ! kafka-topics.sh --bootstrap-server kafka.ventra-messenger.svc.cluster.local:9092 --list >/dev/null 2>&1; do
+                sleep 5
+                retries=$((retries - 1))
+                if [ $retries -le 0 ]; then
+                  echo "ERROR: Kafka did not become ready in time."
+                  exit 1
+                fi
+              done
+              echo "Kafka is ready. Creating topics..."
+
+              # --- Loop through topics and create them ---
+              for topic_def in "${TOPICS[@]}"; do
+                # Split the topic definition by ':'
+                IFS=':' read -r topic_name partitions replicas configs <<< "$topic_def"
+
+                if [ -z "$topic_name" ] || [ -z "$partitions" ] || [ -z "$replicas" ]; then
+                  echo "WARNING: Skipping invalid topic definition: $topic_def"
+                  continue
+                fi
+
+                echo "Creating topic '$topic_name' with $partitions partitions, $replicas replicas..."
+
+                # Start building the command
+                cmd="kafka-topics.sh --create --topic $topic_name --partitions $partitions --replication-factor $replicas --bootstrap-server kafka.ventra-messenger.svc.cluster.local:9092"
+
+                # Add configuration options if provided
+                if [ -n "$configs" ]; then
+                  # Split configs by ',' and add each as a --config flag
+                  IFS=',' read -ra CONFIG_ARRAY <<< "$configs"
+                  for config_pair in "${CONFIG_ARRAY[@]}"; do
+                     # Ensure no leading/trailing spaces
+                     config_pair=$(echo "$config_pair" | xargs)
+                     if [ -n "$config_pair" ]; then
+                       cmd="$cmd --config $config_pair"
+                     fi
+                  done
+                fi
+
+                # Execute the command
+                echo "Running command: $cmd"
+                if eval "$cmd"; then
+                  echo "SUCCESS: Topic '$topic_name' created or already exists."
+                else
+                  echo "WARNING: Failed to create topic '$topic_name'. It might already exist or there was an error."
+                  # Depending on requirements, you might want to 'exit 1' here instead of just warning.
+                fi
+              done
+
+              # --- List Topics to Verify ---
+              echo "Listing all topics:"
+              kafka-topics.sh --list --bootstrap-server kafka.ventra-messenger.svc.cluster.local:9092
+
+              echo "Topic creation job completed."
+          env: []
+      restartPolicy: OnFailure
+  backoffLimit: 4
