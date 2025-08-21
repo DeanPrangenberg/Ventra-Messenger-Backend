@@ -9,4 +9,3 @@ patchesStrategicMerge:
   - infra-patches/postgres.yaml
   - infra-patches/redis.yaml
   - infra-patches/kubernetes-dashboard.yaml
-  - infra-patches/kubernetes-dashboard-service.yaml

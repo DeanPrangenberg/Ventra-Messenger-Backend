@@ -7,9 +7,6 @@ BACKEND_ROOT_DIR="$SCRIPT_DIR/.."
 source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
 source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
 
-log "Updating system and installing dependencies..."
-sudo dnf install -y curl git
-
 # Check if kubectl exists, if not install
 if ! command -v kubectl &>/dev/null; then
   log "Installing kubectl..."
@@ -80,6 +77,9 @@ if ! kubectl -n argocd get deployment argocd-server &>/dev/null; then
 else
   log "ArgoCD already installed."
 fi
+
+log "Patching ArgoCD"
+kubectl patch svc argocd-server -n argocd -p '{"spec":{"type":"NodePort","ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":8080,"nodePort":30200}]}}'
 
 log_wait "Waiting for ArgoCD CRDs to be established..."
 for i in {1..30}; do
