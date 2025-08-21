@@ -21,6 +21,15 @@ data:
   csrf: "c2VjdXJlLWNzcmYtdG9rZW4tZm9yLWRhc2hib2FyZAo="
 ---
 apiVersion: v1
+kind: Secret
+metadata:
+  name: kubernetes-dashboard-token
+  namespace: ventra-messenger
+  annotations:
+    kubernetes.io/service-account.name: kubernetes-dashboard
+type: kubernetes.io/service-account-token
+---
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kubernetes-dashboard-settings
