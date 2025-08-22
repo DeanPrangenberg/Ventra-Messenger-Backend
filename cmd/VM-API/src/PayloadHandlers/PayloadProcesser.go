@@ -1,7 +1,6 @@
-package NetworkPackets
+package PayloadHandlers
 
 import (
-	"VM-API/src/MessageHandlers"
 	"VM-API/src/commonTypes"
 	"encoding/json"
 	"log"
@@ -28,7 +27,9 @@ func ProcessPkg(sessionInfo *commonTypes.WebSocketSession, data []byte) error {
 			return err
 		}
 
-		return MessageHandlers.HandleMessage(sessionInfo, msg)
+		// TODO: Implement message sending logic
+		log.Printf("[INFO] Message sent: %s", msg.Content)
+		return nil
 
 	default:
 		log.Printf("[WARN] Unknown package type: %s", pkg.MsgType)

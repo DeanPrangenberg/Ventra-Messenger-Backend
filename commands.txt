@@ -1,6 +1,5 @@
 ARGOCD Token:
-kubectl get secret argocd-initial-admin-secret -n argocd \
--o jsonpath="{.data.password}" | base64 -d
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
 
 Dashboard Token:
 kubectl -n ventra-messenger get secret kubernetes-dashboard-token -o jsonpath='{.data.token}' | base64 --decode

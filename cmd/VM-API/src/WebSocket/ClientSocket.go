@@ -1,13 +1,14 @@
 package WebSocket
 
 import (
-	"VM-API/src/NetworkPackets"
+	"VM-API/src/PayloadHandlers"
 	"VM-API/src/commonTypes"
-	"github.com/google/uuid"
-	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
 	"sync"
+
+	"github.com/google/uuid"
+	"github.com/gorilla/websocket"
 )
 
 var (
@@ -51,7 +52,7 @@ func handleClient(conn *websocket.Conn, remoteAddr string, uuid string) {
 			break
 		}
 
-		if err := NetworkPackets.ProcessPkg(session, msg); err != nil {
+		if err := PayloadHandlers.ProcessPkg(session, msg); err != nil {
 			log.Printf("[ERROR] Processing package failed for %s: %v", remoteAddr, err)
 			break
 		}
