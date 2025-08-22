@@ -1,12 +1,14 @@
-package NetworkPackets
+package PayloadHandlers
 
 import (
+	CryptoLib "CryptoLib/src"
 	"VM-API/src/commonTypes"
 	"crypto/ecdh"
 	"encoding/base64"
 	"encoding/json"
-	"github.com/gorilla/websocket"
 	"log"
+
+	"github.com/gorilla/websocket"
 )
 
 func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMessage) error {
@@ -29,7 +31,7 @@ func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMess
 	}
 
 	if session.PrivKey == nil || session.PubKey == nil {
-		privKey, pubKey, err := crypto.GenerateX25519KeyPair()
+		privKey, pubKey, err := CryptoLib.GenerateX25519KeyPair()
 		if err != nil {
 			log.Printf("[ERROR] Failed to generate server key pair: %v", err)
 			return err
@@ -39,14 +41,14 @@ func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMess
 	}
 
 	// After computing the shared secret:
-	sharedSecret, err := crypto.ComputeSharedSecret(session.PrivKey, clientPubKey)
+	sharedSecret, err := CryptoLib.ComputeSharedSecret(session.PrivKey, clientPubKey)
 	if err != nil {
 		log.Printf("[ERROR] Failed to compute shared secret: %v", err)
 		return err
 	}
 
 	// Hash the shared secret and store the hash
-	hashedSecret := crypto.Blake2sSum256(sharedSecret)
+	hashedSecret := CryptoLib.Blake2sSum256(sharedSecret)
 
 	session.SharedSecret = hashedSecret
 	session.HandShakeDone = true
@@ -67,39 +69,4 @@ func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMess
 
 	log.Println("[INFO] Handshake done with client:", session.ClientUUID)
 	return nil
-}
-
-func handleEncryptedMessage(sessionInfo *commonTypes.WebSocketSession, pkg commonTypes.Pkg) (error, commonTypes.MessagePkg) {
-
-	iv, err := base64.StdEncoding.DecodeString(pkg.IV)
-	if err != nil {
-		log.Printf("[ERROR] Failed to decode IV: %v", err)
-		return err, commonTypes.MessagePkg{}
-	}
-
-	var ciphertextBase64 string
-	if err := json.Unmarshal(pkg.Pkg, &ciphertextBase64); err != nil {
-		log.Printf("[ERROR] Failed to parse ciphertext: %v", err)
-		return err, commonTypes.MessagePkg{}
-	}
-
-	ciphertext, err := base64.StdEncoding.DecodeString(ciphertextBase64)
-	if err != nil {
-		log.Printf("[ERROR] Failed to decode ciphertext: %v", err)
-		return err, commonTypes.MessagePkg{}
-	}
-
-	decryptedBytes, err := crypto.DecryptGCM(sessionInfo.SharedSecret, iv, ciphertext)
-	if err != nil {
-		log.Printf("[ERROR] Decryption failed: %v", err)
-		return err, commonTypes.MessagePkg{}
-	}
-
-	var msg commonTypes.MessagePkg
-	if err := json.Unmarshal(decryptedBytes, &msg); err != nil {
-		log.Printf("[ERROR] Failed to unmarshal decrypted message: %v", err)
-		return err, commonTypes.MessagePkg{}
-	}
-
-	return nil, msg
 }
