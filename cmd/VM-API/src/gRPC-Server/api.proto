@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package vmapi;
+option go_package = "Redis-Wrapper/Redis-API-gRPC";
+
+// Nachricht zum User-Verbindungsstatus abfragen
+message UserStatusRequest {
+  string user_id = 1;
+}
+
+message UserStatusResponse {
+  bool connected = 1;
+}
+
+// Nachricht zum Versenden von Payloads
+message PayloadRequest {
+  string user_id = 1;
+  bytes payload = 2;
+}
+
+message PayloadResponse {
+  string ack = 1;
+}
+
+// Service mit allen RPCs
+service UserApi {
+  rpc IsUserConnected(UserStatusRequest) returns (UserStatusResponse);
+  rpc SendPayload(PayloadRequest) returns (PayloadResponse);
+}

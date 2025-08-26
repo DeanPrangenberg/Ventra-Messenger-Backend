@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// Start Prometheus endpoint
-	PrometheusEndpoint.StartPrometheusEndpoint()
+	go PrometheusEndpoint.StartPrometheusEndpoint()
 
 	// Set up WebSocket handler
 	http.HandleFunc("/ws", WebSocket.WsHandler)

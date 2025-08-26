@@ -1,11 +1,12 @@
 package main
 
 import (
-	gRPC "Redis-API-Wrapper/Redis-API-gRPC"
+	gRPC "Redis-Wrapper/Redis-API-gRPC"
 	"VM-REDIS-API/src/requests"
-	"github.com/redis/go-redis/v9"
 	"log"
 	"net"
+
+	"github.com/redis/go-redis/v9"
 
 	"google.golang.org/grpc"
 )

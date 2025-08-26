@@ -3,12 +3,10 @@ go 1.24
 use (
 	./pkg/CryptoLib
 	./pkg/Kafka-Wrapper
-	./pkg/Logger-Wrapper
 	./pkg/Postgres-Wrapper
-	./pkg/Redis-API-Wrapper
+	./pkg/Redis-Wrapper
 
 	./cmd/VM-API
-	./cmd/VM-REDIS-API
 	./cmd/VM-AUTH
 	./cmd/VM-CORE
 	./cmd/VM-LOGGER
