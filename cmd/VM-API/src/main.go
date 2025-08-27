@@ -6,6 +6,7 @@ import (
 	gRPCserver "VM-API/src/gRPC-Server"
 	"log"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -14,17 +15,18 @@ func main() {
 	go gRPCserver.StartGRPCServer()
 
 	go func() {
-		for i := 0; i < 10000; i++ {
-			if i != 10000 {
+		for i := 0; i < 100; i++ {
+			if i != 100 {
 				PrometheusEndpoint.TestCounter.Inc()
 			} else {
 				PrometheusEndpoint.TestCounter.Desc()
 			}
-			if i > 5000 {
+			if i > 50 {
 				PrometheusEndpoint.TestGauge.Dec()
 			} else {
 				PrometheusEndpoint.TestGauge.Inc()
 			}
+			time.Sleep(1 * time.Second)
 		}
 	}()
 

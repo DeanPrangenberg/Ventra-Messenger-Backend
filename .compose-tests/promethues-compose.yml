@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./promethues-compose/promethues.yml:/etc/prometheus/promethues.yml
+    command:
+      - '--config.file=/etc/prometheus/promethues.yml'
+
+  vm-api:
+    build:
+      context: ../
+      dockerfile: cmd/VM-API/Dockerfile
+    container_name: vm-api
+    ports:
+      - "8881:8881"
+      - "4444:4444"
+      - "4445:4445"

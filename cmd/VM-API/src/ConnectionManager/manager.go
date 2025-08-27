@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/gorilla/websocket"
+	"log"
 )
 
 var (
@@ -17,6 +18,7 @@ func AddConnection(uuid string, conn *websocket.Conn) {
 	defer connMutex.Unlock()
 	connections[uuid] = conn
 	PrometheusEndpoint.ConnectedClients.Inc()
+	log.Println(uuid, " added. Total connections:", len(connections))
 }
 
 func RemoveConnection(uuid string) {
@@ -24,6 +26,7 @@ func RemoveConnection(uuid string) {
 	defer connMutex.Unlock()
 	delete(connections, uuid)
 	PrometheusEndpoint.ConnectedClients.Dec()
+	log.Println(uuid, " removed. Total connections:", len(connections))
 }
 
 func ConnectionExists(uuid string) bool {

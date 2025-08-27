@@ -40,8 +40,9 @@ func handleClient(conn *websocket.Conn, remoteAddr string, uuid string) {
 		if err != nil {
 			log.Printf("[ERROR] Read error from %s: %v", remoteAddr, err)
 			break
+		} else {
+			PrometheusEndpoint.PayloadsReceived.Inc() // Increment after receiving
 		}
-		PrometheusEndpoint.PayloadsReceived.Inc() // Increment after receiving
 
 		if err := PayloadHandlers.ProcessPkg(session, msg); err != nil {
 			log.Printf("[ERROR] Processing package failed for %s: %v", remoteAddr, err)
@@ -54,9 +55,8 @@ func handleClient(conn *websocket.Conn, remoteAddr string, uuid string) {
 		if err := conn.WriteMessage(mt, msg); err != nil {
 			log.Printf("[ERROR] Write error to %s: %v", remoteAddr, err)
 			break
+		} else {
+			PrometheusEndpoint.PayloadsSendToClient.Inc() // Increment after sending
 		}
-		PrometheusEndpoint.PayloadsSendToClient.Inc() // Increment after sending
 	}
-
-	ConnectionManager.RemoveConnection(uuid)
 }
