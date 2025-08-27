@@ -5,10 +5,10 @@ use (
 	./pkg/Kafka-Wrapper
 	./pkg/Postgres-Wrapper
 	./pkg/Redis-Wrapper
+	./pkg/VM-API-gRPC-Wrapper
 
 	./cmd/VM-API
 	./cmd/VM-AUTH
 	./cmd/VM-CORE
-	./cmd/VM-LOGGER
 	./cmd/VM-MD
 )

@@ -1,33 +1,29 @@
-package main
+package gRPCserver
 
 import (
-	gRPC "Redis-Wrapper/Redis-API-gRPC"
-	"VM-REDIS-API/src/requests"
+	pb "VM-API-gRPC-Wrapper/gen-pb"
 	"log"
 	"net"
-
-	"github.com/redis/go-redis/v9"
 
 	"google.golang.org/grpc"
 )
 
-func main() {
-	lis, err := net.Listen("tcp", ":8886")
+type server struct {
+	pb.UnimplementedUserApiServer
+}
+
+func StartGRPCServer() {
+	lis, err := net.Listen("tcp", ":4445")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	grpcServer := grpc.NewServer()
-	gRPC.RegisterUserStatusServiceServer(grpcServer, &requests.Server{
-		gRPC.UnimplementedUserStatusServiceServer{},
-		redis.NewClient(
-			&redis.Options{
-				Addr: "localhost:8891",
-			}),
-	})
+	s := grpc.NewServer()
 
-	log.Println("Server running on :8886")
-	if err := grpcServer.Serve(lis); err != nil {
+	pb.RegisterUserApiServer(s, &server{})
+	log.Println("gRPC server listening on :4445")
+
+	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }

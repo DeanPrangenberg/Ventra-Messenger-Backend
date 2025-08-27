@@ -5,14 +5,14 @@ WORKDIR /app
 COPY scripts/dev/generate-go-work.sh ./generate-go-work.sh
 RUN chmod +x generate-go-work.sh && ./generate-go-work.sh VM-MD
 
-COPY shared ./shared
-COPY VM-MD ./VM-MD
+COPY pkg ./pkg
+COPY "cmd/VM-MD" "./cmd/VM-MD"
 
-WORKDIR /app/VM-MD
+WORKDIR "/app/cmd/VM-MD/src"
 
 RUN go mod tidy && go mod download
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/VM-MD.bin /app/VM-MD/src/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o "/app/cmd/VM-MD.bin" "/app/cmd/VM-MD/src/main.go"
 
 FROM debian:stable-slim
 
@@ -20,10 +20,8 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y curl jq && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /app/VM-MD.bin /usr/local/bin/vm-md
-COPY scripts/dev/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY --from=builder "/app/cmd/VM-MD.bin" /usr/local/bin/vm-md
 
-EXPOSE 8886
+RUN chmod +x /usr/local/bin/vm-md
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/vm-md"]

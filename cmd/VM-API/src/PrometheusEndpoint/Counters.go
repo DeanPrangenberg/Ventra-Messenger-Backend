@@ -10,6 +10,10 @@ var (
 	// PrometheusEndpoint.ConnectedClients.Dec() // to decrement the number of connected clients
 	// PrometheusEndpoint.ConnectedClients.Add() // to add a specific number of connected clients
 	// PrometheusEndpoint.ConnectedClients.Sub() // to subtract a specific number of connected clients
+	TestGauge = prometheus.NewGauge(prometheus.GaugeOpts{
+		Name: "TestGauge",
+		Help: "TestGauge",
+	})
 
 	ConnectedClients = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "ConnectedClients",
@@ -19,6 +23,10 @@ var (
 	// Counter metrics
 	// Example usage:
 	// PrometheusEndpoint.PayloadsReceived.Inc() // to increment the count of received payload
+	TestCounter = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "TestCounter",
+		Help: "TestCounter",
+	})
 
 	PayloadsReceived = prometheus.NewCounter(prometheus.CounterOpts{
 		Name: "PayloadsReceived",
@@ -40,14 +48,16 @@ var (
 		Help: "Counts to the API Connected Clients",
 	})
 
+	allGauges = []prometheus.Gauge{
+		TestGauge,
+		ConnectedClients,
+	}
+
 	allCounters = []prometheus.Counter{
+		TestCounter,
 		PayloadsReceived,
 		PayloadsProcessedSuccessfully,
 		PayloadsProcessedFailed,
 		PayloadsSendToClient,
-	}
-
-	allGauges = []prometheus.Gauge{
-		ConnectedClients,
 	}
 )

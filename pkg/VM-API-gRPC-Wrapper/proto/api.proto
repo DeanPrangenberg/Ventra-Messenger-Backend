@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package vmapi;
-option go_package = "Redis-Wrapper/Redis-API-gRPC";
+option go_package = "VM-API-gRPC-Wrapper/gen-pb";
 
 // Nachricht zum User-Verbindungsstatus abfragen
 message UserStatusRequest {

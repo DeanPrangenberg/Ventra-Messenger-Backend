@@ -1,19 +1,15 @@
 package WebSocket
 
 import (
+	"VM-API/src/ConnectionManager"
 	"VM-API/src/PayloadHandlers"
+	"VM-API/src/PrometheusEndpoint"
 	"VM-API/src/commonTypes"
 	"log"
 	"net/http"
-	"sync"
 
 	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
-)
-
-var (
-	connections = make(map[string]*websocket.Conn)
-	connMutex   sync.Mutex
 )
 
 var upgrader = websocket.Upgrader{
@@ -34,16 +30,10 @@ func WsHandler(w http.ResponseWriter, r *http.Request) {
 
 func handleClient(conn *websocket.Conn, remoteAddr string, uuid string) {
 	defer conn.Close()
-	defer func() {
-		connMutex.Lock()
-		delete(connections, uuid)
-		connMutex.Unlock()
-	}()
+	defer ConnectionManager.RemoveConnection(uuid)
 	session := &commonTypes.WebSocketSession{Conn: conn, ClientUUID: uuid, HandShakeDone: false}
 
-	connMutex.Lock()
-	connections[uuid] = conn
-	connMutex.Unlock()
+	ConnectionManager.AddConnection(uuid, conn)
 
 	for {
 		mt, msg, err := conn.ReadMessage()
@@ -51,15 +41,22 @@ func handleClient(conn *websocket.Conn, remoteAddr string, uuid string) {
 			log.Printf("[ERROR] Read error from %s: %v", remoteAddr, err)
 			break
 		}
+		PrometheusEndpoint.PayloadsReceived.Inc() // Increment after receiving
 
 		if err := PayloadHandlers.ProcessPkg(session, msg); err != nil {
 			log.Printf("[ERROR] Processing package failed for %s: %v", remoteAddr, err)
+			PrometheusEndpoint.PayloadsProcessedFailed.Inc() // Increment on failure
 			break
+		} else {
+			PrometheusEndpoint.PayloadsProcessedSuccessfully.Inc() // Increment on success
 		}
 
 		if err := conn.WriteMessage(mt, msg); err != nil {
 			log.Printf("[ERROR] Write error to %s: %v", remoteAddr, err)
 			break
 		}
+		PrometheusEndpoint.PayloadsSendToClient.Inc() // Increment after sending
 	}
+
+	ConnectionManager.RemoveConnection(uuid)
 }

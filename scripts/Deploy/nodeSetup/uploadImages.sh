@@ -4,6 +4,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_ROOT_DIR="$SCRIPT_DIR/../../.."
+MICROSERVICES_DIR="$BACKEND_ROOT_DIR/cmd"
 echo "[DEBUG] Script directory is: $SCRIPT_DIR"
 echo "[DEBUG] Backend root directory is: $BACKEND_ROOT_DIR"
 
@@ -11,14 +12,10 @@ source "$BACKEND_ROOT_DIR/scripts/functions/logs.sh"
 source "$BACKEND_ROOT_DIR/scripts/functions/env.sh"
 
 declare -A IMAGE_PATH_MAP=(
-    ["$BACKEND_ROOT_DIR/init-kafka/Dockerfile"]="init-kafka"
-    ["$BACKEND_ROOT_DIR/init-vault/Dockerfile"]="init-vault"
-    ["$BACKEND_ROOT_DIR/VM-API/Dockerfile"]="vm-api"
-    ["$BACKEND_ROOT_DIR/VM-AUTH/Dockerfile"]="vm-auth"
-    ["$BACKEND_ROOT_DIR/VM-CORE/Dockerfile"]="vm-core"
-    ["$BACKEND_ROOT_DIR/VM-LOGGER/Dockerfile"]="vm-logger"
-    ["$BACKEND_ROOT_DIR/VM-MD/Dockerfile"]="vm-md"
-    ["$BACKEND_ROOT_DIR/VM-REDIS-API/Dockerfile"]="vm-redis-api"
+    ["$MICROSERVICES_DIR/VM-API/Dockerfile"]="vm-api"
+    ["$MICROSERVICES_DIR/VM-AUTH/Dockerfile"]="vm-auth"
+    ["$MICROSERVICES_DIR/VM-CORE/Dockerfile"]="vm-core"
+    ["$MICROSERVICES_DIR/VM-MD/Dockerfile"]="vm-md"
 )
 
 log "Starting Docker image build and push process..."
