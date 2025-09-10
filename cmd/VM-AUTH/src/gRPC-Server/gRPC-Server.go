@@ -3,7 +3,6 @@ package gRPCserver
 import (
 	pb "VM-AUTH-gRPC-Wrapper/gen-pb"
 	"VM-AUTH/src/JWT-Tokens"
-	"VM-AUTH/src/Manager"
 	"log"
 	"net"
 
@@ -22,12 +21,6 @@ func StartGRPCServer() {
 	}
 
 	s := grpc.NewServer()
-
-	jm := Manager.GetJwtManager()
-
-	pb.RegisterUserAuthServer(s, &VMAuthServer{
-		JM: jm,
-	})
 
 	log.Println("gRPC server listening on :4445")
 

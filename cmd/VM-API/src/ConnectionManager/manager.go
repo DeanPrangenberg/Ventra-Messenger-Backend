@@ -43,14 +43,3 @@ func GetConnection(uuid string) (*websocket.Conn, bool) {
 	conn, exists := connections[uuid]
 	return conn, exists
 }
-
-func GetAllConnections() map[string]*websocket.Conn {
-	connMutex.Lock()
-	defer connMutex.Unlock()
-	// Kopie zurückgeben, um Race Conditions zu vermeiden
-	copy := make(map[string]*websocket.Conn)
-	for k, v := range connections {
-		copy[k] = v
-	}
-	return copy
-}

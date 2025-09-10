@@ -5,7 +5,6 @@ import (
 	RedisWrapper "RedisWrapper/src"
 	"VM-AUTH/src/AuthCommonTypes"
 	"VM-AUTH/src/JWT-Tokens"
-	"VM-AUTH/src/PrometheusEndpoint"
 	"sync"
 
 	"log"
@@ -31,29 +30,6 @@ var (
 	jwtManager *JWT_Tokens.TokenManager
 	jwtMutex   sync.Mutex
 )
-
-func AddConnection(uuid string, conn *AuthCommonTypes.UserSession) {
-	connMutex.Lock()
-	defer connMutex.Unlock()
-	connections[uuid] = conn
-	PrometheusEndpoint.ConnectedClients.Inc()
-	log.Println(uuid, " added. Total connections:", len(connections))
-}
-
-func RemoveConnection(uuid string) {
-	connMutex.Lock()
-	defer connMutex.Unlock()
-	delete(connections, uuid)
-	PrometheusEndpoint.ConnectedClients.Dec()
-	log.Println(uuid, " removed. Total connections:", len(connections))
-}
-
-func GetConnection(uuid string) (*AuthCommonTypes.UserSession, bool) {
-	connMutex.Lock()
-	defer connMutex.Unlock()
-	conn, exists := connections[uuid]
-	return conn, exists
-}
 
 func GetDB() *PostgresWrapper.DB {
 	dbMutex.Lock()
@@ -91,16 +67,4 @@ func GetJwtManager() *JWT_Tokens.TokenManager {
 	}
 	jwtManager = jm
 	return jwtManager
-}
-
-func GetRedisApi() *RedisWrapper.Client {
-	redisClientMutex.Lock()
-	defer redisClientMutex.Unlock()
-	err := redisClient.Connected()
-	if err != nil {
-		redisClient = *RedisWrapper.New("localhost:6379", true)
-		log.Println("Redis connection established")
-	}
-
-	return &redisClient
 }
