@@ -22,6 +22,7 @@ const (
 	UserAuth_VerifyToken_FullMethodName     = "/vmauth.UserAuth/VerifyToken"
 	UserAuth_RevokeToken_FullMethodName     = "/vmauth.UserAuth/RevokeToken"
 	UserAuth_NewSessionToken_FullMethodName = "/vmauth.UserAuth/NewSessionToken"
+	UserAuth_ActivateToken_FullMethodName   = "/vmauth.UserAuth/ActivateToken"
 	UserAuth_Login_FullMethodName           = "/vmauth.UserAuth/Login"
 	UserAuth_Register_FullMethodName        = "/vmauth.UserAuth/Register"
 	UserAuth_UpdatePassword_FullMethodName  = "/vmauth.UserAuth/UpdatePassword"
@@ -39,6 +40,7 @@ type UserAuthClient interface {
 	VerifyToken(ctx context.Context, in *VerifyTokenRequest, opts ...grpc.CallOption) (*VerifyTokenResponse, error)
 	RevokeToken(ctx context.Context, in *RevokeTokenRequest, opts ...grpc.CallOption) (*RevokeTokenResponse, error)
 	NewSessionToken(ctx context.Context, in *NewSessionTokenRequest, opts ...grpc.CallOption) (*NewSessionTokenResponse, error)
+	ActivateToken(ctx context.Context, in *ActivateTokenRequest, opts ...grpc.CallOption) (*ActivateTokenResponse, error)
 	// Account
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
@@ -81,6 +83,16 @@ func (c *userAuthClient) NewSessionToken(ctx context.Context, in *NewSessionToke
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(NewSessionTokenResponse)
 	err := c.cc.Invoke(ctx, UserAuth_NewSessionToken_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userAuthClient) ActivateToken(ctx context.Context, in *ActivateTokenRequest, opts ...grpc.CallOption) (*ActivateTokenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActivateTokenResponse)
+	err := c.cc.Invoke(ctx, UserAuth_ActivateToken_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -165,6 +177,7 @@ type UserAuthServer interface {
 	VerifyToken(context.Context, *VerifyTokenRequest) (*VerifyTokenResponse, error)
 	RevokeToken(context.Context, *RevokeTokenRequest) (*RevokeTokenResponse, error)
 	NewSessionToken(context.Context, *NewSessionTokenRequest) (*NewSessionTokenResponse, error)
+	ActivateToken(context.Context, *ActivateTokenRequest) (*ActivateTokenResponse, error)
 	// Account
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
@@ -191,6 +204,9 @@ func (UnimplementedUserAuthServer) RevokeToken(context.Context, *RevokeTokenRequ
 }
 func (UnimplementedUserAuthServer) NewSessionToken(context.Context, *NewSessionTokenRequest) (*NewSessionTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NewSessionToken not implemented")
+}
+func (UnimplementedUserAuthServer) ActivateToken(context.Context, *ActivateTokenRequest) (*ActivateTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateToken not implemented")
 }
 func (UnimplementedUserAuthServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
@@ -284,6 +300,24 @@ func _UserAuth_NewSessionToken_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserAuthServer).NewSessionToken(ctx, req.(*NewSessionTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserAuth_ActivateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActivateTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserAuthServer).ActivateToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserAuth_ActivateToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserAuthServer).ActivateToken(ctx, req.(*ActivateTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -432,6 +466,10 @@ var UserAuth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "NewSessionToken",
 			Handler:    _UserAuth_NewSessionToken_Handler,
+		},
+		{
+			MethodName: "ActivateToken",
+			Handler:    _UserAuth_ActivateToken_Handler,
 		},
 		{
 			MethodName: "Login",

@@ -30,15 +30,28 @@ func (c *VmAuthClient) Register(ctx context.Context, Username, email, password s
 	return res.RefreshToken, res.SessionToken, res.UserID, nil
 }
 
-func (c *VmAuthClient) UpdateAccount(
-	ctx context.Context, oldPassword, refreshToken, newUsername, newPassword string) error {
-	req := &pb.UpdateAccountRequest{
+func (c *VmAuthClient) UpdatePassword(
+	ctx context.Context, oldPassword, refreshToken, newPassword string) error {
+	req := &pb.UpdatePasswordRequest{
 		OldPassword:  oldPassword,
-		RefreshToken: newPassword,
-		NewUsername:  refreshToken,
-		NewPassword:  newUsername,
+		RefreshToken: refreshToken,
+		NewPassword:  newPassword,
 	}
-	_, err := c.Client.UpdateAccount(ctx, req)
+	_, err := c.Client.UpdatePassword(ctx, req)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *VmAuthClient) UpdateUsername(
+	ctx context.Context, oldPassword, refreshToken, newUsername string) error {
+	req := &pb.UpdateUsernameRequest{
+		OldPassword:  oldPassword,
+		RefreshToken: refreshToken,
+		NewUsername:  newUsername,
+	}
+	_, err := c.Client.UpdateUsername(ctx, req)
 	if err != nil {
 		return err
 	}
@@ -51,6 +64,28 @@ func (c *VmAuthClient) DeleteAccount(ctx context.Context, password, refreshToken
 		RefreshToken: refreshToken,
 	}
 	_, err := c.Client.DeleteAccount(ctx, req)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *VmAuthClient) RevokeAccount(ctx context.Context, userid string) error {
+	req := &pb.RevokeAccountRequest{
+		UserID: userid,
+	}
+	_, err := c.Client.RevokeAccount(ctx, req)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *VmAuthClient) ActivateAccount(ctx context.Context, userid string) error {
+	req := &pb.ActivateAccountRequest{
+		UserID: userid,
+	}
+	_, err := c.Client.ActivateAccount(ctx, req)
 	if err != nil {
 		return err
 	}

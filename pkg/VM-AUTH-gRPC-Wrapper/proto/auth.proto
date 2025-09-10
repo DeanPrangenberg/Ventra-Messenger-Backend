@@ -22,6 +22,15 @@ message RevokeTokenResponse {
   
 }
 
+message ActivateTokenRequest {
+  string Token = 1;
+  string UserID = 2;
+}
+
+message ActivateTokenResponse {
+
+}
+
 message NewSessionTokenRequest {
   string RefreshToken = 1;
 }
@@ -104,6 +113,7 @@ service UserAuth {
   rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
   rpc RevokeToken(RevokeTokenRequest) returns (RevokeTokenResponse);
   rpc NewSessionToken(NewSessionTokenRequest) returns (NewSessionTokenResponse);
+  rpc ActivateToken(ActivateTokenRequest) returns (ActivateTokenResponse);
 
   // Account
   rpc Login(LoginRequest) returns (LoginResponse);

@@ -63,7 +63,7 @@ func (s *VMAuthServer) RevokeToken(ctx context.Context, req *pb.RevokeTokenReque
 	return &pb.RevokeTokenResponse{}, nil
 }
 
-func (s *VMAuthServer) ActivateToken(ctx context.Context, req *pb.RevokeTokenRequest) (*pb.RevokeTokenResponse, error) {
+func (s *VMAuthServer) ActivateToken(ctx context.Context, req *pb.ActivateTokenRequest) (*pb.ActivateTokenResponse, error) {
 	log.Printf("[INFO] Activating Token for user: %s", req.UserID)
 	JM := Manager.GetJwtManager()
 	DB := Manager.GetDB()
@@ -89,7 +89,7 @@ func (s *VMAuthServer) ActivateToken(ctx context.Context, req *pb.RevokeTokenReq
 
 	PrometheusCounters.TokenRevokeSuccess.Inc()
 	log.Printf("[INFO] Token activated successfully for user %s", req.UserID)
-	return &pb.RevokeTokenResponse{}, nil
+	return &pb.ActivateTokenResponse{}, nil
 }
 
 func (s *VMAuthServer) NewSessionToken(ctx context.Context, req *pb.NewSessionTokenRequest) (*pb.NewSessionTokenResponse, error) {

@@ -17,13 +17,37 @@ func (c *VmAuthClient) VerifyToken(ctx context.Context, token, userID string) (b
 	return res.Valid, nil
 }
 
-func (c *VmAuthClient) RefreshSessionToken(ctx context.Context, refreshToken string) (string, error) {
-	req := &pb.RefreshSessionTokenRequest{
+func (c *VmAuthClient) NewSessionToken(ctx context.Context, refreshToken string) (string, error) {
+	req := &pb.NewSessionTokenRequest{
 		RefreshToken: refreshToken,
 	}
-	res, err := c.Client.RefreshSessionToken(ctx, req)
+	res, err := c.Client.NewSessionToken(ctx, req)
 	if err != nil {
 		return "", err
 	}
 	return res.SessionToken, nil
+}
+
+func (c *VmAuthClient) RevokeToken(ctx context.Context, token, userID string) error {
+	req := &pb.RevokeTokenRequest{
+		Token:  token,
+		UserID: userID,
+	}
+	_, err := c.Client.RevokeToken(ctx, req)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *VmAuthClient) ActivateToken(ctx context.Context, token, userID string) error {
+	req := &pb.ActivateTokenRequest{
+		Token:  token,
+		UserID: userID,
+	}
+	_, err := c.Client.ActivateToken(ctx, req)
+	if err != nil {
+		return err
+	}
+	return nil
 }
