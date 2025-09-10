@@ -6,9 +6,12 @@ use (
 	./pkg/Postgres-Wrapper
 	./pkg/Redis-Wrapper
 	./pkg/VM-API-gRPC-Wrapper
+	./pkg/VM-AUTH-gRPC-Wrapper
+	./pkg/GlobalCommonTypes
 
 	./cmd/VM-API
 	./cmd/VM-AUTH
 	./cmd/VM-CORE
 	./cmd/VM-MD
+
 )

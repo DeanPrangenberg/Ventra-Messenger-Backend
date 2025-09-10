@@ -8,13 +8,13 @@ import (
 	pb "VM-API-gRPC-Wrapper/gen-pb"
 )
 
-func (s *server) IsUserConnected(ctx context.Context, req *pb.UserStatusRequest) (*pb.UserStatusResponse, error) {
+func (s *VMApiServer) IsUserConnected(ctx context.Context, req *pb.UserStatusRequest) (*pb.UserStatusResponse, error) {
 	log.Printf("Checking connection status for user: %s", req.UserId)
 	connected := ConnectionManager.ConnectionExists(req.UserId)
 	return &pb.UserStatusResponse{Connected: connected}, nil
 }
 
-func (s *server) SendPayload(ctx context.Context, req *pb.PayloadRequest) (*pb.PayloadResponse, error) {
+func (s *VMApiServer) SendPayload(ctx context.Context, req *pb.PayloadRequest) (*pb.PayloadResponse, error) {
 	log.Printf("Sending payload to user: %s", req.UserId)
 	conn, ok := ConnectionManager.GetConnection(req.UserId)
 	if ok == false {

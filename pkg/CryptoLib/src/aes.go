@@ -17,7 +17,7 @@ func EncryptGCM(key, iv, plaintext []byte) ([]byte, error) {
 		return nil, err
 	}
 	if len(iv) != gcm.NonceSize() {
-		return nil, errors.New("invalid nonce size")
+		return nil, errors.New("invalid nonce size must be 12 bytes")
 	}
 	ciphertext := gcm.Seal(nil, iv, plaintext, nil)
 	return ciphertext, nil
@@ -34,7 +34,7 @@ func DecryptGCM(key, iv, ciphertext []byte) ([]byte, error) {
 		return nil, err
 	}
 	if len(iv) != gcm.NonceSize() {
-		return nil, errors.New("invalid nonce size")
+		return nil, errors.New("invalid nonce size must be 12 bytes")
 	}
 	plaintext, err := gcm.Open(nil, iv, ciphertext, nil)
 	if err != nil {

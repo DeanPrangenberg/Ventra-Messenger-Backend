@@ -25,6 +25,11 @@ func New(address string, debugPrints bool) (*Client, error) {
 	}, nil
 }
 
+func (c *Client) Connected() error {
+	_, err := c.RedisClient.Ping(c.Ctx).Result()
+	return err
+}
+
 func (c *Client) Close() error {
 	return c.RedisClient.Close()
 }

@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package vmauth;
+option go_package = "VM-AUTH-gRPC-Wrapper/gen-pb";
+
+// Token
+message VerifyTokenRequest {
+  string Token = 1;
+  string UserID = 2;
+}
+
+message VerifyTokenResponse {
+  bool valid = 2;
+}
+
+message RevokeTokenRequest {
+  string Token = 1;
+  string UserID = 2;
+}
+
+message RevokeTokenResponse {
+  
+}
+
+message NewSessionTokenRequest {
+  string RefreshToken = 1;
+}
+
+message NewSessionTokenResponse {
+  string SessionToken = 2;
+}
+
+// Account
+message LoginRequest {
+  string Email = 1;
+  string Password = 2;
+}
+
+message LoginResponse {
+  string RefreshToken = 2;
+  string SessionToken = 3;
+  string UserID = 4;
+}
+
+message RegisterRequest {
+  string Username = 1;
+  string Password = 2;
+  string Email = 3;
+}
+
+message RegisterResponse {
+  string RefreshToken = 2;
+  string SessionToken = 3;
+  string UserID = 4;
+}
+
+message UpdatePasswordRequest {
+  string OldPassword = 1;
+  string RefreshToken = 2;
+  string NewPassword = 3;
+}
+
+message UpdatePasswordResponse {
+  
+}
+
+message UpdateUsernameRequest {
+  string OldPassword = 1;
+  string RefreshToken = 2;
+  string NewUsername = 3;
+}
+
+message UpdateUsernameResponse {
+
+}
+
+message DeleteAccountRequest {
+  string RefreshToken = 1;
+  string Password = 2;
+}
+
+message DeleteAccountResponse {
+  
+}
+
+service UserAuth {
+  // Token
+  rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
+  rpc RevokeToken(RevokeTokenRequest) returns (RevokeTokenResponse);
+  rpc NewSessionToken(NewSessionTokenRequest) returns (NewSessionTokenResponse);
+
+  // Account
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse);
+  rpc UpdateUsername(UpdateUsernameRequest) returns (UpdateUsernameResponse);
+  rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse);
+}

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./promethues.yml:/etc/prometheus/promethues.yml
+    command:
+      - '--config.file=/etc/prometheus/promethues.yml'
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+
+  vm-api:
+    build:
+      context: ../..
+      dockerfile: cmd/VM-API/Dockerfile
+    container_name: vm-api
+    ports:
+      - "8881:8881"
+
+  vm-auth:
+    build:
+      context: ../..
+      dockerfile: cmd/VM-AUTH/Dockerfile
+    container_name: vm-auth
+    ports:
+      - "8882:8882"
+      - "4445:50051"

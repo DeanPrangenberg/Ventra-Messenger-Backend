@@ -4,8 +4,9 @@ import (
 	"VM-API/src/PrometheusEndpoint"
 	"sync"
 
-	"github.com/gorilla/websocket"
 	"log"
+
+	"github.com/gorilla/websocket"
 )
 
 var (

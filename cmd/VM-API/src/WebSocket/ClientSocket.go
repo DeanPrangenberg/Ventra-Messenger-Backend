@@ -1,10 +1,10 @@
 package WebSocket
 
 import (
+	"VM-API/src/ApiCommonTypes"
 	"VM-API/src/ConnectionManager"
 	"VM-API/src/PayloadHandlers"
 	"VM-API/src/PrometheusEndpoint"
-	"VM-API/src/commonTypes"
 	"log"
 	"net/http"
 
@@ -22,6 +22,8 @@ func WsHandler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("[ERROR] WebSocket upgrade failed: %v", err)
 		return
 	}
+	//TODO: Get UUID from client
+	// For now, generate a new UUID for each connection
 	id := uuid.New().String()
 	log.Printf("[INFO] Client connected: %s with UUID: %s", r.RemoteAddr, id)
 
@@ -31,7 +33,7 @@ func WsHandler(w http.ResponseWriter, r *http.Request) {
 func handleClient(conn *websocket.Conn, remoteAddr string, uuid string) {
 	defer conn.Close()
 	defer ConnectionManager.RemoveConnection(uuid)
-	session := &commonTypes.WebSocketSession{Conn: conn, ClientUUID: uuid, HandShakeDone: false}
+	session := &ApiCommonTypes.WebSocketSession{Conn: conn, ClientUUID: uuid, APIHandshakeDone: false}
 
 	ConnectionManager.AddConnection(uuid, conn)
 

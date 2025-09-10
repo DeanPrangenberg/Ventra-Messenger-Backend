@@ -1,15 +1,18 @@
 package gRPCserver
 
 import (
-	pb "VM-API-gRPC-Wrapper/gen-pb"
+	pb "VM-AUTH-gRPC-Wrapper/gen-pb"
+	"VM-AUTH/src/JWT-Tokens"
+	"VM-AUTH/src/Manager"
 	"log"
 	"net"
 
 	"google.golang.org/grpc"
 )
 
-type VMApiServer struct {
-	pb.UnimplementedUserApiServer
+type VMAuthServer struct {
+	pb.UnimplementedUserAuthServer
+	JM *JWT_Tokens.TokenManager
 }
 
 func StartGRPCServer() {
@@ -20,7 +23,12 @@ func StartGRPCServer() {
 
 	s := grpc.NewServer()
 
-	pb.RegisterUserApiServer(s, &VMApiServer{})
+	jm := Manager.GetJwtManager()
+
+	pb.RegisterUserAuthServer(s, &VMAuthServer{
+		JM: jm,
+	})
+
 	log.Println("gRPC server listening on :4445")
 
 	if err := s.Serve(lis); err != nil {

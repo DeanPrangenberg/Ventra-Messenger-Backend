@@ -2,7 +2,7 @@ package PayloadHandlers
 
 import (
 	CryptoLib "CryptoLib/src"
-	"VM-API/src/commonTypes"
+	"VM-API/src/ApiCommonTypes"
 	"crypto/ecdh"
 	"encoding/base64"
 	"encoding/json"
@@ -11,9 +11,9 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMessage) error {
+func handleHandshake(session *ApiCommonTypes.WebSocketSession, internalPayload json.RawMessage) error {
 	var clientPubKeyBase64 string
-	if err := json.Unmarshal(pkgData, &clientPubKeyBase64); err != nil {
+	if err := json.Unmarshal(internalPayload, &clientPubKeyBase64); err != nil {
 		log.Printf("[ERROR] Failed to parse client public key: %v", err)
 		return err
 	}
@@ -51,7 +51,7 @@ func handleHandshake(session *commonTypes.WebSocketSession, pkgData json.RawMess
 	hashedSecret := CryptoLib.Blake2sSum256(sharedSecret)
 
 	session.SharedSecret = hashedSecret
-	session.HandShakeDone = true
+	session.APIHandshakeDone = true
 
 	serverPubKeyBase64 := base64.StdEncoding.EncodeToString(session.PubKey.Bytes())
 
