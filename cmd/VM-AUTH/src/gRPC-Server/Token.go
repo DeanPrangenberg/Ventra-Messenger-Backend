@@ -63,6 +63,35 @@ func (s *VMAuthServer) RevokeToken(ctx context.Context, req *pb.RevokeTokenReque
 	return &pb.RevokeTokenResponse{}, nil
 }
 
+func (s *VMAuthServer) ActivateToken(ctx context.Context, req *pb.RevokeTokenRequest) (*pb.RevokeTokenResponse, error) {
+	log.Printf("[INFO] Activating Token for user: %s", req.UserID)
+	JM := Manager.GetJwtManager()
+	DB := Manager.GetDB()
+	PrometheusCounters.TokenRevokeTotal.Inc()
+
+	// Verify the token first
+	claims, err := JM.VerifyToken(req.Token)
+	if err != nil {
+		PrometheusCounters.TokenRevokeFailures.Inc()
+		return nil, err
+	}
+
+	if claims.UserID != req.UserID {
+		PrometheusCounters.TokenRevokeFailures.Inc()
+		log.Printf("[WARN] Token activation failed for user %s: user ID mismatch", req.UserID)
+		return nil, errors.New("user ID does not match token")
+	}
+
+	err = DB.ActivateToken(claims.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	PrometheusCounters.TokenRevokeSuccess.Inc()
+	log.Printf("[INFO] Token activated successfully for user %s", req.UserID)
+	return &pb.RevokeTokenResponse{}, nil
+}
+
 func (s *VMAuthServer) NewSessionToken(ctx context.Context, req *pb.NewSessionTokenRequest) (*pb.NewSessionTokenResponse, error) {
 	log.Printf("[INFO] Creating new Session token for : %s", req.RefreshToken)
 	JM := Manager.GetJwtManager()

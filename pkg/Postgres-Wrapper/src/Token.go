@@ -124,7 +124,7 @@ func (c *DB) RevokeToken(ID string) error {
 	return nil
 }
 
-func (c *DB) ApproveToken(ID string) error {
+func (c *DB) ActivateToken(ID string) error {
 	// Set revoked to true
 	updateQuery := `UPDATE tokens SET revoked = false WHERE id = $1;`
 	_, err := c.Exec(updateQuery, ID)

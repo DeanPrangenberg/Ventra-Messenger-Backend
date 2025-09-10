@@ -27,6 +27,8 @@ const (
 	UserAuth_UpdatePassword_FullMethodName  = "/vmauth.UserAuth/UpdatePassword"
 	UserAuth_UpdateUsername_FullMethodName  = "/vmauth.UserAuth/UpdateUsername"
 	UserAuth_DeleteAccount_FullMethodName   = "/vmauth.UserAuth/DeleteAccount"
+	UserAuth_RevokeAccount_FullMethodName   = "/vmauth.UserAuth/RevokeAccount"
+	UserAuth_ActivateAccount_FullMethodName = "/vmauth.UserAuth/ActivateAccount"
 )
 
 // UserAuthClient is the client API for UserAuth service.
@@ -43,6 +45,8 @@ type UserAuthClient interface {
 	UpdatePassword(ctx context.Context, in *UpdatePasswordRequest, opts ...grpc.CallOption) (*UpdatePasswordResponse, error)
 	UpdateUsername(ctx context.Context, in *UpdateUsernameRequest, opts ...grpc.CallOption) (*UpdateUsernameResponse, error)
 	DeleteAccount(ctx context.Context, in *DeleteAccountRequest, opts ...grpc.CallOption) (*DeleteAccountResponse, error)
+	RevokeAccount(ctx context.Context, in *RevokeAccountRequest, opts ...grpc.CallOption) (*RevokeAccountResponse, error)
+	ActivateAccount(ctx context.Context, in *ActivateAccountRequest, opts ...grpc.CallOption) (*ActivateAccountResponse, error)
 }
 
 type userAuthClient struct {
@@ -133,6 +137,26 @@ func (c *userAuthClient) DeleteAccount(ctx context.Context, in *DeleteAccountReq
 	return out, nil
 }
 
+func (c *userAuthClient) RevokeAccount(ctx context.Context, in *RevokeAccountRequest, opts ...grpc.CallOption) (*RevokeAccountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RevokeAccountResponse)
+	err := c.cc.Invoke(ctx, UserAuth_RevokeAccount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userAuthClient) ActivateAccount(ctx context.Context, in *ActivateAccountRequest, opts ...grpc.CallOption) (*ActivateAccountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActivateAccountResponse)
+	err := c.cc.Invoke(ctx, UserAuth_ActivateAccount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserAuthServer is the server API for UserAuth service.
 // All implementations must embed UnimplementedUserAuthServer
 // for forward compatibility.
@@ -147,6 +171,8 @@ type UserAuthServer interface {
 	UpdatePassword(context.Context, *UpdatePasswordRequest) (*UpdatePasswordResponse, error)
 	UpdateUsername(context.Context, *UpdateUsernameRequest) (*UpdateUsernameResponse, error)
 	DeleteAccount(context.Context, *DeleteAccountRequest) (*DeleteAccountResponse, error)
+	RevokeAccount(context.Context, *RevokeAccountRequest) (*RevokeAccountResponse, error)
+	ActivateAccount(context.Context, *ActivateAccountRequest) (*ActivateAccountResponse, error)
 	mustEmbedUnimplementedUserAuthServer()
 }
 
@@ -180,6 +206,12 @@ func (UnimplementedUserAuthServer) UpdateUsername(context.Context, *UpdateUserna
 }
 func (UnimplementedUserAuthServer) DeleteAccount(context.Context, *DeleteAccountRequest) (*DeleteAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAccount not implemented")
+}
+func (UnimplementedUserAuthServer) RevokeAccount(context.Context, *RevokeAccountRequest) (*RevokeAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RevokeAccount not implemented")
+}
+func (UnimplementedUserAuthServer) ActivateAccount(context.Context, *ActivateAccountRequest) (*ActivateAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateAccount not implemented")
 }
 func (UnimplementedUserAuthServer) mustEmbedUnimplementedUserAuthServer() {}
 func (UnimplementedUserAuthServer) testEmbeddedByValue()                  {}
@@ -346,6 +378,42 @@ func _UserAuth_DeleteAccount_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserAuth_RevokeAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RevokeAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserAuthServer).RevokeAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserAuth_RevokeAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserAuthServer).RevokeAccount(ctx, req.(*RevokeAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserAuth_ActivateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActivateAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserAuthServer).ActivateAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserAuth_ActivateAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserAuthServer).ActivateAccount(ctx, req.(*ActivateAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserAuth_ServiceDesc is the grpc.ServiceDesc for UserAuth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -384,6 +452,14 @@ var UserAuth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteAccount",
 			Handler:    _UserAuth_DeleteAccount_Handler,
+		},
+		{
+			MethodName: "RevokeAccount",
+			Handler:    _UserAuth_RevokeAccount_Handler,
+		},
+		{
+			MethodName: "ActivateAccount",
+			Handler:    _UserAuth_ActivateAccount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

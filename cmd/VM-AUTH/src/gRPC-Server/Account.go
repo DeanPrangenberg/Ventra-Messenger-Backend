@@ -212,3 +212,43 @@ func (s *VMAuthServer) DeleteAccount(ctx context.Context, req *pb.DeleteAccountR
 
 	return &pb.DeleteAccountResponse{}, nil
 }
+
+func (s *VMAuthServer) RevokeAccount(ctx context.Context, req *pb.RevokeAccountRequest) (*pb.RevokeAccountResponse, error) {
+	log.Printf("[INFO] Revoking Account: %s", req.UserID)
+	DB := Manager.GetDB()
+
+	PrometheusCounters.AccountRevokeTotal.Inc()
+
+	err := DB.RevokeAccount(req.UserID)
+	if err != nil {
+		PrometheusCounters.AccountRevokeFailures.Inc()
+		log.Printf("[WARN] Failed to revoke Account: %s: %v", req.UserID, err)
+		return nil, err
+	}
+
+	// Increment the successful login metric
+	PrometheusCounters.AccountRevokeSuccess.Inc()
+	log.Printf("[INFO] Revoked Account: %s", req.UserID)
+
+	return &pb.RevokeAccountResponse{}, nil
+}
+
+func (s *VMAuthServer) ActivateAccount(ctx context.Context, req *pb.RevokeAccountRequest) (*pb.RevokeAccountResponse, error) {
+	log.Printf("[INFO] Activating Account: %s", req.UserID)
+	DB := Manager.GetDB()
+
+	PrometheusCounters.AccountActivateTotal.Inc()
+
+	err := DB.ActivateAccount(req.UserID)
+	if err != nil {
+		PrometheusCounters.AccountActivateFailures.Inc()
+		log.Printf("[WARN] Failed to activate Account: %s: %v", req.UserID, err)
+		return nil, err
+	}
+
+	// Increment the successful login metric
+	PrometheusCounters.AccountActivateSuccess.Inc()
+	log.Printf("[INFO] Activated Account: %s", req.UserID)
+
+	return &pb.RevokeAccountResponse{}, nil
+}

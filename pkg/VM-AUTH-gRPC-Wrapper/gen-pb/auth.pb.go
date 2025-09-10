@@ -807,6 +807,166 @@ func (*DeleteAccountResponse) Descriptor() ([]byte, []int) {
 	return file_proto_auth_proto_rawDescGZIP(), []int{15}
 }
 
+type RevokeAccountRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserID        string                 `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RevokeAccountRequest) Reset() {
+	*x = RevokeAccountRequest{}
+	mi := &file_proto_auth_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RevokeAccountRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeAccountRequest) ProtoMessage() {}
+
+func (x *RevokeAccountRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeAccountRequest.ProtoReflect.Descriptor instead.
+func (*RevokeAccountRequest) Descriptor() ([]byte, []int) {
+	return file_proto_auth_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *RevokeAccountRequest) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+type RevokeAccountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RevokeAccountResponse) Reset() {
+	*x = RevokeAccountResponse{}
+	mi := &file_proto_auth_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RevokeAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeAccountResponse) ProtoMessage() {}
+
+func (x *RevokeAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeAccountResponse.ProtoReflect.Descriptor instead.
+func (*RevokeAccountResponse) Descriptor() ([]byte, []int) {
+	return file_proto_auth_proto_rawDescGZIP(), []int{17}
+}
+
+type ActivateAccountRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserID        string                 `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ActivateAccountRequest) Reset() {
+	*x = ActivateAccountRequest{}
+	mi := &file_proto_auth_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ActivateAccountRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ActivateAccountRequest) ProtoMessage() {}
+
+func (x *ActivateAccountRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ActivateAccountRequest.ProtoReflect.Descriptor instead.
+func (*ActivateAccountRequest) Descriptor() ([]byte, []int) {
+	return file_proto_auth_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *ActivateAccountRequest) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+type ActivateAccountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ActivateAccountResponse) Reset() {
+	*x = ActivateAccountResponse{}
+	mi := &file_proto_auth_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ActivateAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ActivateAccountResponse) ProtoMessage() {}
+
+func (x *ActivateAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ActivateAccountResponse.ProtoReflect.Descriptor instead.
+func (*ActivateAccountResponse) Descriptor() ([]byte, []int) {
+	return file_proto_auth_proto_rawDescGZIP(), []int{19}
+}
+
 var File_proto_auth_proto protoreflect.FileDescriptor
 
 const file_proto_auth_proto_rawDesc = "" +
@@ -853,7 +1013,13 @@ const file_proto_auth_proto_rawDesc = "" +
 	"\x14DeleteAccountRequest\x12\"\n" +
 	"\fRefreshToken\x18\x01 \x01(\tR\fRefreshToken\x12\x1a\n" +
 	"\bPassword\x18\x02 \x01(\tR\bPassword\"\x17\n" +
-	"\x15DeleteAccountResponse2\xd3\x04\n" +
+	"\x15DeleteAccountResponse\".\n" +
+	"\x14RevokeAccountRequest\x12\x16\n" +
+	"\x06userID\x18\x01 \x01(\tR\x06userID\"\x17\n" +
+	"\x15RevokeAccountResponse\"0\n" +
+	"\x16ActivateAccountRequest\x12\x16\n" +
+	"\x06userID\x18\x01 \x01(\tR\x06userID\"\x19\n" +
+	"\x17ActivateAccountResponse2\xf5\x05\n" +
 	"\bUserAuth\x12F\n" +
 	"\vVerifyToken\x12\x1a.vmauth.VerifyTokenRequest\x1a\x1b.vmauth.VerifyTokenResponse\x12F\n" +
 	"\vRevokeToken\x12\x1a.vmauth.RevokeTokenRequest\x1a\x1b.vmauth.RevokeTokenResponse\x12R\n" +
@@ -862,7 +1028,9 @@ const file_proto_auth_proto_rawDesc = "" +
 	"\bRegister\x12\x17.vmauth.RegisterRequest\x1a\x18.vmauth.RegisterResponse\x12O\n" +
 	"\x0eUpdatePassword\x12\x1d.vmauth.UpdatePasswordRequest\x1a\x1e.vmauth.UpdatePasswordResponse\x12O\n" +
 	"\x0eUpdateUsername\x12\x1d.vmauth.UpdateUsernameRequest\x1a\x1e.vmauth.UpdateUsernameResponse\x12L\n" +
-	"\rDeleteAccount\x12\x1c.vmauth.DeleteAccountRequest\x1a\x1d.vmauth.DeleteAccountResponseB\x1dZ\x1bVM-AUTH-gRPC-Wrapper/gen-pbb\x06proto3"
+	"\rDeleteAccount\x12\x1c.vmauth.DeleteAccountRequest\x1a\x1d.vmauth.DeleteAccountResponse\x12L\n" +
+	"\rRevokeAccount\x12\x1c.vmauth.RevokeAccountRequest\x1a\x1d.vmauth.RevokeAccountResponse\x12R\n" +
+	"\x0fActivateAccount\x12\x1e.vmauth.ActivateAccountRequest\x1a\x1f.vmauth.ActivateAccountResponseB\x1dZ\x1bVM-AUTH-gRPC-Wrapper/gen-pbb\x06proto3"
 
 var (
 	file_proto_auth_proto_rawDescOnce sync.Once
@@ -876,7 +1044,7 @@ func file_proto_auth_proto_rawDescGZIP() []byte {
 	return file_proto_auth_proto_rawDescData
 }
 
-var file_proto_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_proto_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_proto_auth_proto_goTypes = []any{
 	(*VerifyTokenRequest)(nil),      // 0: vmauth.VerifyTokenRequest
 	(*VerifyTokenResponse)(nil),     // 1: vmauth.VerifyTokenResponse
@@ -894,6 +1062,10 @@ var file_proto_auth_proto_goTypes = []any{
 	(*UpdateUsernameResponse)(nil),  // 13: vmauth.UpdateUsernameResponse
 	(*DeleteAccountRequest)(nil),    // 14: vmauth.DeleteAccountRequest
 	(*DeleteAccountResponse)(nil),   // 15: vmauth.DeleteAccountResponse
+	(*RevokeAccountRequest)(nil),    // 16: vmauth.RevokeAccountRequest
+	(*RevokeAccountResponse)(nil),   // 17: vmauth.RevokeAccountResponse
+	(*ActivateAccountRequest)(nil),  // 18: vmauth.ActivateAccountRequest
+	(*ActivateAccountResponse)(nil), // 19: vmauth.ActivateAccountResponse
 }
 var file_proto_auth_proto_depIdxs = []int32{
 	0,  // 0: vmauth.UserAuth.VerifyToken:input_type -> vmauth.VerifyTokenRequest
@@ -904,16 +1076,20 @@ var file_proto_auth_proto_depIdxs = []int32{
 	10, // 5: vmauth.UserAuth.UpdatePassword:input_type -> vmauth.UpdatePasswordRequest
 	12, // 6: vmauth.UserAuth.UpdateUsername:input_type -> vmauth.UpdateUsernameRequest
 	14, // 7: vmauth.UserAuth.DeleteAccount:input_type -> vmauth.DeleteAccountRequest
-	1,  // 8: vmauth.UserAuth.VerifyToken:output_type -> vmauth.VerifyTokenResponse
-	3,  // 9: vmauth.UserAuth.RevokeToken:output_type -> vmauth.RevokeTokenResponse
-	5,  // 10: vmauth.UserAuth.NewSessionToken:output_type -> vmauth.NewSessionTokenResponse
-	7,  // 11: vmauth.UserAuth.Login:output_type -> vmauth.LoginResponse
-	9,  // 12: vmauth.UserAuth.Register:output_type -> vmauth.RegisterResponse
-	11, // 13: vmauth.UserAuth.UpdatePassword:output_type -> vmauth.UpdatePasswordResponse
-	13, // 14: vmauth.UserAuth.UpdateUsername:output_type -> vmauth.UpdateUsernameResponse
-	15, // 15: vmauth.UserAuth.DeleteAccount:output_type -> vmauth.DeleteAccountResponse
-	8,  // [8:16] is the sub-list for method output_type
-	0,  // [0:8] is the sub-list for method input_type
+	16, // 8: vmauth.UserAuth.RevokeAccount:input_type -> vmauth.RevokeAccountRequest
+	18, // 9: vmauth.UserAuth.ActivateAccount:input_type -> vmauth.ActivateAccountRequest
+	1,  // 10: vmauth.UserAuth.VerifyToken:output_type -> vmauth.VerifyTokenResponse
+	3,  // 11: vmauth.UserAuth.RevokeToken:output_type -> vmauth.RevokeTokenResponse
+	5,  // 12: vmauth.UserAuth.NewSessionToken:output_type -> vmauth.NewSessionTokenResponse
+	7,  // 13: vmauth.UserAuth.Login:output_type -> vmauth.LoginResponse
+	9,  // 14: vmauth.UserAuth.Register:output_type -> vmauth.RegisterResponse
+	11, // 15: vmauth.UserAuth.UpdatePassword:output_type -> vmauth.UpdatePasswordResponse
+	13, // 16: vmauth.UserAuth.UpdateUsername:output_type -> vmauth.UpdateUsernameResponse
+	15, // 17: vmauth.UserAuth.DeleteAccount:output_type -> vmauth.DeleteAccountResponse
+	17, // 18: vmauth.UserAuth.RevokeAccount:output_type -> vmauth.RevokeAccountResponse
+	19, // 19: vmauth.UserAuth.ActivateAccount:output_type -> vmauth.ActivateAccountResponse
+	10, // [10:20] is the sub-list for method output_type
+	0,  // [0:10] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -930,7 +1106,7 @@ func file_proto_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_auth_proto_rawDesc), len(file_proto_auth_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   16,
+			NumMessages:   20,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

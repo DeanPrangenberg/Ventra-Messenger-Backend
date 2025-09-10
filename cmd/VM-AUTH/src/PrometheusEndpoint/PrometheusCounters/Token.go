@@ -44,4 +44,18 @@ var (
 		Name: "TokenRevokeFailures",
 		Help: "Failed Token revocation requests the API processed",
 	})
+
+	// ActivateToken
+	TokenActivateTotal = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "TokenActivateTotal",
+		Help: "Total Token activation requests the API received from Clients",
+	})
+	TokenActivateSuccess = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "TokenActivateSuccess",
+		Help: "Successful Token activation requests the API processed",
+	})
+	TokenActivateFailures = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "TokenActivateFailures",
+		Help: "Failed Token activation requests the API processed",
+	})
 )

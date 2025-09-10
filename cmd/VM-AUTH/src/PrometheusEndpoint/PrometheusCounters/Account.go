@@ -72,4 +72,32 @@ var (
 		Name: "DeleteAccountFailures",
 		Help: "Failed Delete Account the API processed",
 	})
+
+	// RevokeAccount
+	AccountRevokeTotal = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "AccountRevokeTotal",
+		Help: "Total Account revocation requests the API received from Clients",
+	})
+	AccountRevokeSuccess = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "AccountRevokeSuccess",
+		Help: "Successful Account revocation requests the API processed",
+	})
+	AccountRevokeFailures = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "AccountRevokeFailures",
+		Help: "Failed Account revocation requests the API processed",
+	})
+
+	// ActivateAccount
+	AccountActivateTotal = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "AccountActivateTotal",
+		Help: "Total Account activation requests the API received from Clients",
+	})
+	AccountActivateSuccess = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "AccountActivateSuccess",
+		Help: "Successful Account activation requests the API processed",
+	})
+	AccountActivateFailures = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "AccountActivateFailures",
+		Help: "Failed Account activation requests the API processed",
+	})
 )

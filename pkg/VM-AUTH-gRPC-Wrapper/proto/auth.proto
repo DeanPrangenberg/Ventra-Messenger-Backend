@@ -83,6 +83,22 @@ message DeleteAccountResponse {
   
 }
 
+message RevokeAccountRequest {
+  string userID = 1;
+}
+
+message RevokeAccountResponse {
+
+}
+
+message ActivateAccountRequest {
+  string userID = 1;
+}
+
+message ActivateAccountResponse {
+
+}
+
 service UserAuth {
   // Token
   rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
@@ -95,4 +111,6 @@ service UserAuth {
   rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse);
   rpc UpdateUsername(UpdateUsernameRequest) returns (UpdateUsernameResponse);
   rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse);
+  rpc RevokeAccount(RevokeAccountRequest) returns (RevokeAccountResponse);
+  rpc ActivateAccount(ActivateAccountRequest) returns (ActivateAccountResponse);
 }

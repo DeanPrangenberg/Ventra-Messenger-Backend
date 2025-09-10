@@ -27,6 +27,12 @@ func initMetrics() {
 		PrometheusCounters.DeleteAccountAttemptsTotal,
 		PrometheusCounters.DeleteAccountSuccess,
 		PrometheusCounters.DeleteAccountFailures,
+		PrometheusCounters.AccountRevokeTotal,
+		PrometheusCounters.AccountRevokeSuccess,
+		PrometheusCounters.AccountRevokeFailures,
+		PrometheusCounters.AccountActivateTotal,
+		PrometheusCounters.AccountActivateSuccess,
+		PrometheusCounters.AccountActivateFailures,
 
 		// Token PrometheusCounters
 		PrometheusCounters.VerifyTokenTotal,
@@ -38,6 +44,9 @@ func initMetrics() {
 		PrometheusCounters.TokenRevokeTotal,
 		PrometheusCounters.TokenRevokeSuccess,
 		PrometheusCounters.TokenRevokeFailures,
+		PrometheusCounters.TokenActivateTotal,
+		PrometheusCounters.TokenActivateSuccess,
+		PrometheusCounters.TokenActivateFailures,
 	}
 
 	allGauges := []prometheus.Gauge{}
