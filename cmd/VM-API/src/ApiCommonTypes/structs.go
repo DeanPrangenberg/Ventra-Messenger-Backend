@@ -8,10 +8,16 @@ import (
 )
 
 type PayloadSkeleton struct {
-	PayloadType     string          `json:"type"`
-	InternalPayload json.RawMessage `json:"internalpayload"`
+	RequestID       string          `json:"requestID"`
+	PayloadType     string          `json:"payloadType"`
+	InternalPayload json.RawMessage `json:"internalPayload"`
 	IV              string          `json:"iv,omitempty"`
-	Token           string          `json:"token"`
+	Token           string          `json:"token,omitempty"`
+	UserID          string          `json:"userID,omitempty"`
+}
+
+type ErrorPayload struct {
+	Error string `json:"error"`
 }
 
 type MessagePayload struct {
@@ -24,11 +30,10 @@ type MessagePayload struct {
 }
 
 type WebSocketSession struct {
-	Conn              *websocket.Conn
-	ClientUUID        string
-	SharedSecret      []byte
-	APIHandshakeDone  bool
-	AUTHHandshakeDone bool
-	PrivKey           *ecdh.PrivateKey
-	PubKey            *ecdh.PublicKey
+	Conn          *websocket.Conn
+	ClientUUID    string
+	SharedSecret  []byte
+	HandshakeDone bool
+	PrivKey       *ecdh.PrivateKey
+	PubKey        *ecdh.PublicKey
 }

@@ -3,12 +3,11 @@ package WebSocket
 import (
 	"VM-API/src/ApiCommonTypes"
 	"VM-API/src/ConnectionManager"
-	"VM-API/src/PayloadHandlers"
+	"VM-API/src/Payloads/Handler"
 	"VM-API/src/PrometheusEndpoint"
 	"log"
 	"net/http"
 
-	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
 )
 
@@ -22,20 +21,18 @@ func WsHandler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("[ERROR] WebSocket upgrade failed: %v", err)
 		return
 	}
-	//TODO: Get UUID from client
-	// For now, generate a new UUID for each connection
-	id := uuid.New().String()
-	log.Printf("[INFO] Client connected: %s with UUID: %s", r.RemoteAddr, id)
 
-	go handleClient(conn, r.RemoteAddr, id)
+	log.Printf("[INFO] Client connected: %s", r.RemoteAddr)
+
+	go handleClient(conn, r.RemoteAddr)
 }
 
-func handleClient(conn *websocket.Conn, remoteAddr string, uuid string) {
+func handleClient(conn *websocket.Conn, remoteAddr string) {
 	defer conn.Close()
-	defer ConnectionManager.RemoveConnection(uuid)
-	session := &ApiCommonTypes.WebSocketSession{Conn: conn, ClientUUID: uuid, APIHandshakeDone: false}
+	session := &ApiCommonTypes.WebSocketSession{Conn: conn, HandshakeDone: false}
+	defer ConnectionManager.RemoveConnection(&session.ClientUUID)
 
-	ConnectionManager.AddConnection(uuid, conn)
+	ConnectionManager.AddConnection(&session.ClientUUID, conn)
 
 	for {
 		mt, msg, err := conn.ReadMessage()
@@ -46,7 +43,7 @@ func handleClient(conn *websocket.Conn, remoteAddr string, uuid string) {
 			PrometheusEndpoint.PayloadsReceived.Inc() // Increment after receiving
 		}
 
-		if err := PayloadHandlers.ProcessPkg(session, msg); err != nil {
+		if err := Handler.DispatchPayload(session, msg); err != nil {
 			log.Printf("[ERROR] Processing package failed for %s: %v", remoteAddr, err)
 			PrometheusEndpoint.PayloadsProcessedFailed.Inc() // Increment on failure
 			break

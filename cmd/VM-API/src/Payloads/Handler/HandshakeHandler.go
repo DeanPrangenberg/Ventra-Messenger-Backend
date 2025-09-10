@@ -1,4 +1,4 @@
-package PayloadHandlers
+package Handler
 
 import (
 	CryptoLib "CryptoLib/src"
@@ -11,9 +11,9 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-func handleHandshake(session *ApiCommonTypes.WebSocketSession, internalPayload json.RawMessage) error {
+func HandshakeHandler(session *ApiCommonTypes.WebSocketSession, payload ApiCommonTypes.PayloadSkeleton) error {
 	var clientPubKeyBase64 string
-	if err := json.Unmarshal(internalPayload, &clientPubKeyBase64); err != nil {
+	if err := json.Unmarshal(payload.InternalPayload, &clientPubKeyBase64); err != nil {
 		log.Printf("[ERROR] Failed to parse client public key: %v", err)
 		return err
 	}
@@ -51,7 +51,7 @@ func handleHandshake(session *ApiCommonTypes.WebSocketSession, internalPayload j
 	hashedSecret := CryptoLib.Blake2sSum256(sharedSecret)
 
 	session.SharedSecret = hashedSecret
-	session.APIHandshakeDone = true
+	session.HandshakeDone = true
 
 	serverPubKeyBase64 := base64.StdEncoding.EncodeToString(session.PubKey.Bytes())
 
@@ -60,7 +60,10 @@ func handleHandshake(session *ApiCommonTypes.WebSocketSession, internalPayload j
 		"msg":          "Handshake successful",
 		"serverPubKey": serverPubKeyBase64,
 	}
-	respBytes, _ := json.Marshal(response)
+	respBytes, err := json.Marshal(response)
+	if err != nil {
+		log.Printf("[ERROR] Failed to marshal handshake response: %v", err)
+	}
 
 	if err := session.Conn.WriteMessage(websocket.TextMessage, respBytes); err != nil {
 		log.Printf("[ERROR] Failed to send handshake response: %v", err)

@@ -19,7 +19,7 @@ message RevokeTokenRequest {
 }
 
 message RevokeTokenResponse {
-  
+  // Empty response
 }
 
 message ActivateTokenRequest {
@@ -58,9 +58,9 @@ message RegisterRequest {
 }
 
 message RegisterResponse {
-  string RefreshToken = 2;
-  string SessionToken = 3;
-  string UserID = 4;
+  string RefreshToken = 1;
+  string SessionToken = 2;
+  string UserID = 3;
 }
 
 message UpdatePasswordRequest {
@@ -70,7 +70,7 @@ message UpdatePasswordRequest {
 }
 
 message UpdatePasswordResponse {
-  
+  // Empty response
 }
 
 message UpdateUsernameRequest {
@@ -80,7 +80,7 @@ message UpdateUsernameRequest {
 }
 
 message UpdateUsernameResponse {
-
+  // Empty response
 }
 
 message DeleteAccountRequest {
@@ -89,7 +89,7 @@ message DeleteAccountRequest {
 }
 
 message DeleteAccountResponse {
-  
+  // Empty response
 }
 
 message RevokeAccountRequest {
@@ -97,7 +97,7 @@ message RevokeAccountRequest {
 }
 
 message RevokeAccountResponse {
-
+  // Empty response
 }
 
 message ActivateAccountRequest {
@@ -105,7 +105,7 @@ message ActivateAccountRequest {
 }
 
 message ActivateAccountResponse {
-
+  // Empty response
 }
 
 service UserAuth {
