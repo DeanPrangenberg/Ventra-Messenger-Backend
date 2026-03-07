@@ -38,7 +38,7 @@ graph TD
 ```
 
 ## 🌟 Key Features
-- **Military-Grade Encryption**: Double Ratchet + OpenSSL for E2E encryption with Forward Secrecy
+- **Encryption**: Double Ratchet for E2E encryption with Forward Secrecy
 - **High-Performance Backend**: Parallelized Go services with Kafka
 - **Native Desktop Client**: Resource-efficient Qt/C++ app with local SQLite database
 - **Enterprise Scalability**: Horizontal scaling with Redis and Kafka
